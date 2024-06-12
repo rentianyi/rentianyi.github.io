@@ -1,86 +1,100 @@
 <!DOCTYPE html>
+<!--
+    Plain-Academic by Vasilios Mavroudis
+    Released under the  Simplified BSD License/FreeBSD (2-clause) License.
+    https://github.com/mavroudisv/plain-academic
+-->
 <html lang="en">
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <title>Tianyi Ren</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        <link href='https://fonts.googleapis.com/css?family=Oswald:700' rel='stylesheet' type='text/css'>
-        <title>My Research Publications</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 20px;
-                padding: 0;
-                background-color: #f4f4f4;
-            }
-            h1 {
-                color: #333;
-            }
-            .publication {
-                margin-bottom: 20px;
-                padding: 10px;
-                background-color: #fff;
-                border: 1px solid #ddd;
-                border-radius: 5px;
-            }
-            .publication h2 {
-                margin-top: 0;
-                font-size: 1.2em;
-            }
-            .publication p {
-                margin: 5px 0;
-            }
-        </style>
-    </head>
+<head>
+  <title>Tianyi Ren</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Oswald:700' rel='stylesheet' type='text/css'>
+</head>
 <body>
 
 <!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                      <span class="sr-only">Toggle navigation</span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                  </button>
-      </div>
+<nav class="navbar navbar-inverse">
+  <div class="container">
+    <ul class="nav navbar-nav">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a>Publications</a></li>
+      <li><a href="fun.html">Fun</a></li>
+      <li><a href="../files/cv_dchen.pdf">CV</a></li>
+    </ul>
+  </div>
+</nav>
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="publication.html">Projects</a></li>
-                <li><a href="publication.html">Publications</a></li> 
-        <li><a href="CV_tianyi.pdf" target="_blank">CV</a></li>
-        </ul>
-      </div>
+<!-- Page Content -->
+<div class="container">
+  <div class="row">
+    <!-- Publications -->
+    <div class="col-md-8" style="height: 180vh; overflow: auto;">
+      <h2 id="publications">Publications</h2>
+      <strong>The full list can be found in <a href="https://scholar.google.com/citations?user=_E3zJtEAAAAJ&hl=en" target="_blank">Google Scholar</a></strong><br/>
+      <ul>
+        <li class="paper" words="MIDL2024">
+          <a id="MIDL2024" href="https://arxiv.org/abs/2402.07354" target="_blank">Re-DiffiNet: Modeling discrepancies in tumor segmentation using diffusion models</a> <br>
+          <u>Tianyi Ren</u>, Kurt M.<br>
+          <i>Medical Imaging with Deep Learning (MIDL 2024)</i>
+        </li>
+        <li class="paper" words="MIDL2024">
+          <a id="MIDL2024" href="https://openreview.net/pdf?id=JyZKi38kv2" target="_blank">Improving Glioma Segmentation in Low-Resolution Domains with Transfer Learning</a> <br>
+          Rivera J., Rebala H., <u>Tianyi Ren</u>, Kurt M., Sharma A.<br>
+          <i>Medical Imaging with Deep Learning (MIDL 2024)</i>
+        </li>
+        <li class="paper" words="MICCAI2023">
+          <a id="MICCAI2023" href="https://arxiv.org/abs/2402.07008" target="_blank">An Optimization Framework for Processing and Transfer Learning for the BraTS 2023 Cluster of Challenges</a> <br>
+          <u>Tianyi Ren</u>, Kurt M.<br>
+          <i>International Conference on Medical Image Computing and Computer Assisted Intervention (MICCAI 2023)</i>
+        </li>
+        <li class="paper" words="MIDL2024">
+          <a id="MIDL2024" href="../papers/symRI.pdf" target="_blank">Re-DiffiNet: Modeling discrepancies in tumor segmentation using diffusion models</a> <br>
+          <u>Tianyi Ren</u>
+        </li>
+        <li class="paper" words="MIDL2024">
+          <a id="MIDL2024" href="#" target="_blank">[MIDL2024] Improving Glioma Segmentation in Low-Resolution Domains with Transfer Learning</a> <br>
+          <u>Dong Chen</u>, Chen Ding, Fangzhou Liu, Benjamin Raber, Wesley Smith, and Pengcheng Li<br>
+          2021 ACM SIGPLAN International Symposium on Memory Management
+        </li>
+
+        <li class="paper" data-words="NeuroimageClinical2024">
+            Abderezaei J., Pionteck A., Chuang Y., Carrasquilla A., Bilgili G., <u>Ren T.</u>, et al., 
+            <i>Increased Hindbrain Motion in Chiari I Malformation Patients Measured Through 3D Amplified MRI (3D aMRI)</i>,
+            <i>Neuroimage Clinical (2024) (Under review).</i>
+          </li>
+          <li class="paper" data-words="JOrthopRes2024">
+            <u>Ren T.</u>, Inglis B., Salim D., Dailey HL., 
+            <a href="https://pubmed.ncbi.nlm.nih.gov/38491964/">Torsion Constants and Virtual Mechanical Tests are Valid Image-Based Surrogate Measures of Ovine Fracture Healing</a>,
+            <i>Journal of Orthopaedic Research (2024).</i>
+          </li>
+          <li class="paper" data-words="BiomechModelMechbio2022">
+            <u>Ren T.</u>, Klein K., Brigitte R., Salim D., Dailey HL.,
+            <a href="https://doi.org/10.1007/s10237-021-01553-2">Image-based radiodensity profilometry measures early remodeling at the bone-callus interface in sheep</a>,
+            <i>Biomechanics and Modeling in Mechanobiology (2022).</i>
+          </li>
+          <li class="paper" data-words="JBiomech2021">
+            <u>Ren T.</u>*, Schwarzenberg P.*, Klein K., Brigitte R., Salim D., Dailey HL.,
+            <a href="https://doi.org/10.1016/j.jbiomech.2021.110300">Domain-independent simulation of physiologically relevant callus shape in mechanoregulated models of fracture healing</a>,
+            <i>Journal of Biomechanics (2021).</i>
+          </li>
+          <li class="paper" data-words="BiomechModelMechbio2020">
+            <u>Ren T.</u>, Dailey HL.,
+            <a href="https://doi.org/10.1007/s10237-020-01340-5">Mechanoregulation modeling of bone healing in realistic fracture geometries</a>,
+            <i>Biomechanics and Modeling in Mechanobiology (2020).</i>
+          </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</div>
 
+<!-- Other people may like it too! -->
+<a style="color:#b5bec9;font-size:0.8em; float:right;" href="https://github.com/mavroudisv/plain-academic">Plain Academic</a>
 
-    <h1>My Research Journal Publications</h1>
-
-    <div class="publication">
-        <h2>Title of the First Publication</h2>
-        <p><strong>Authors:</strong> Your Name, Co-author Name</p>
-        <p><strong>Journal:</strong> Journal Name, Volume(Issue), Pages, Year</p>
-        <p><strong>DOI:</strong> <a href="http://doi-link-to-article" target="_blank">http://doi-link-to-article</a></p>
-    </div>
-
-    <div class="publication">
-        <h2>Title of the Second Publication</h2>
-        <p><strong>Authors:</strong> Your Name, Co-author Name</p>
-        <p><strong>Journal:</strong> Journal Name, Volume(Issue), Pages, Year</p>
-        <p><strong>DOI:</strong> <a href="http://doi-link-to-article" target="_blank">http://doi-link-to-article</a></p>
-    </div>
-
-    <!-- Add more publications as needed -->
-    
 </body>
 </html>
+
