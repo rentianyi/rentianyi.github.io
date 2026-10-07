@@ -1,6 +1,6 @@
 # rentianyi.github.io
 
-Personal academic website of Tianyi Ren, served by GitHub Pages at <https://rentianyi.github.io/>.
+Personal academic website of Tianyi Ren, served by GitHub Pages at <https://rentianyi.github.io/index.html>.
 It is plain HTML and one stylesheet. There is no build step, so any edit you commit goes live a minute or two later.
 
 | File | What it is |
