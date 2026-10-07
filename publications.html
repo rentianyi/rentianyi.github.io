@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Publications — Tianyi Ren</title>
+  <meta name="description" content="Conference and workshop papers, journal articles, working papers and selected presentations by Tianyi Ren on neuroimaging AI, explainable AI, brain-age estimation, and bone fracture-healing biomechanics.">
+  <link rel="canonical" href="https://rentianyi.github.io/publications.html">
+  <meta name="author" content="Tianyi Ren">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1b1917" media="(prefers-color-scheme: dark)">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Tianyi Ren">
+  <meta property="og:title" content="Publications — Tianyi Ren">
+  <meta property="og:description" content="Conference and workshop papers, journal articles, working papers and selected presentations by Tianyi Ren on neuroimaging AI, explainable AI, brain-age estimation, and bone fracture-healing biomechanics.">
+  <meta property="og:url" content="https://rentianyi.github.io/publications.html">
+  <meta property="og:image" content="https://rentianyi.github.io/assets/img/og-image.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Overview of Tianyi Ren’s research program: neuroimaging AI tools, model explainability, and responsible generative AI, applied to ischemic stroke, glioblastoma, and Alzheimer’s disease.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://rentianyi.github.io/assets/img/og-image.jpg">
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&amp;family=Source+Sans+3:wght@400..700&amp;display=swap">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script src="assets/js/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- SITE HEADER: identical on every page; only aria-current="page" moves -->
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="wordmark" href="index.html">
+        <img class="wordmark__mark" src="assets/img/favicon.svg" width="30" height="30" alt="">
+        <span>Tianyi Ren</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <ul role="list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="research.html">Research</a></li>
+          <li><a href="publications.html" aria-current="page">Publications</a></li>
+          <li><a href="teaching.html">Teaching</a></li>
+          <li><a href="CV_tianyi.pdf">CV<span class="nav-tag" aria-hidden="true">PDF</span><span class="visually-hidden"> (PDF)</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="page" tabindex="-1">
+
+    <header class="page-header">
+      <h1 class="page-header__title">Publications</h1>
+      <!-- COUNTS: update these numbers when you add a paper (they also appear in each group heading below, and in the "At a glance" list in index.html) -->
+      <p class="page-header__dek">My papers on neuroimaging AI (lesion segmentation, brain-age estimation and explainable AI) and, from my Ph.D., on the biomechanics of bone fracture healing: 10 peer-reviewed conference and workshop papers (2023–2026), 5 journal articles plus 1 under review, and 2 working papers. My name is underlined in each author list.</p>
+      <ul class="page-header__meta" role="list">
+        <li><a class="chip" href="https://scholar.google.com/citations?user=_E3zJtEAAAAJ&amp;hl=en">Google Scholar</a></li>
+        <li><a class="chip" href="CV_tianyi.pdf">CV<span class="visually-hidden"> (PDF)</span></a></li>
+      </ul>
+    </header>
+
+    <div class="with-toc">
+      <nav class="toc" aria-labelledby="toc-title">
+        <h2 class="toc__title label" id="toc-title">On this page</h2>
+        <ol class="toc__list" role="list">
+          <li><a href="#conference">Conference &amp; workshop papers</a></li>
+          <li><a href="#journal">Journal articles</a></li>
+          <li><a href="#working">Working papers</a></li>
+          <li><a href="#presentations">Selected presentations</a></li>
+        </ol>
+      </nav>
+
+      <div class="with-toc__body">
+
+        <!--
+          TEMPLATE FOR A NEW PAPER: copy this block into the right list below (newest first),
+          then change the id, venue, title, authors, venue line and links.
+          - id: short and unique, e.g. ren2027topic (other pages link to publications.html#ren2027topic)
+          - Your name always stays as <span class="me">Ren, T.</span>
+          - Badges (optional): <span class="badge badge--oral">Oral</span>, <span class="badge badge--review">Under review</span>,
+            <span class="badge badge--wp">Working paper</span>
+          - Delete the whole <ul class="pub__links"> if there is no link and no badge.
+
+          <li class="pub" id="ren2027topic">
+            <p class="pub__venue">MIDL 2027</p>
+            <div class="pub__body">
+              <h3 class="pub__title">Paper Title</h3>
+              <p class="pub__authors"><span class="me">Ren, T.</span>, Kurt, M.</p>
+              <p class="pub__where">Medical Imaging with Deep Learning (MIDL), 2027</p>
+              <ul class="pub__links" role="list">
+                <li><a class="chip" href="https://arxiv.org/abs/XXXX.XXXXX">arXiv<span class="visually-hidden">: Paper Title</span></a></li>
+              </ul>
+            </div>
+          </li>
+        -->
+
+        <section class="pub-group" id="conference" aria-labelledby="conference-title">
+          <div class="pub-group__head">
+            <h2 class="pub-group__title" id="conference-title">Conference &amp; workshop papers</h2>
+            <p class="pub-group__count">10 peer-reviewed papers, 2023–2026</p>
+          </div>
+          <!-- CONFERENCE & WORKSHOP PAPERS: newest first. Copy an <li class="pub"> … </li> block to add one. -->
+          <ol class="pub-list" role="list">
+            <li class="pub" id="ren2026trust">
+              <p class="pub__venue">MIDL 2026</p>
+              <div class="pub__body">
+                <h3 class="pub__title">Can You Trust Your Model? Constructing Uncertainty Approximations Guaranteeing Validity of Glioma Segmentation Explanations</h3>
+                <p class="pub__authors"><span class="me">Ren, T.</span>, Low, D., et al.</p>
+                <p class="pub__where">Medical Imaging with Deep Learning (MIDL), 2026</p>
+                <ul class="pub__links" role="list">
+                  <li><a class="chip" href="https://openreview.net/forum?id=hRI2nP8BuO">OpenReview<span class="visually-hidden">: Can You Trust Your Model?</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="pub" id="heras2026btreport">
+              <p class="pub__venue">MIDL 2026</p>
+              <div class="pub__body">
+                <h3 class="pub__title">BTReport: Radiology Report Generation with Clinically Relevant Features</h3>
+                <p class="pub__authors">Heras Rivera, J., Chen, D., <span class="me">Ren, T.</span>, et al.</p>
+                <p class="pub__where">Medical Imaging with Deep Learning (MIDL), 2026</p>
+                <ul class="pub__links" role="list">
+                  <li><a class="chip" href="https://openreview.net/forum?id=ldnKG4OjD1">OpenReview<span class="visually-hidden">: BTReport</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="pub" id="ren2026adc">
+              <p class="pub__venue">ISBI 2026</p>
+              <div class="pub__body">
+                <h3 class="pub__title">Bias Mitigation for Brain Age Prediction via Age Delta Correlation Loss</h3>
+                <p class="pub__authors"><span class="me">Ren, T.</span>, Kurt, M.</p>
+                <p class="pub__where">IEEE International Symposium on Biomedical Imaging (ISBI), 2026</p>
+              </div>
+            </li>
+            <li class="pub" id="ren2026shapley">
+              <p class="pub__venue">ISBI 2026</p>
+              <div class="pub__body">
+                <h3 class="pub__title">Clinical Interpretability of Deep Learning Segmentation Through Shapley-Derived Agreement and Uncertainty Metrics</h3>
+                <p class="pub__authors"><span class="me">Ren, T.</span>, Kurt, M.</p>
+                <p class="pub__where">IEEE International Symposium on Biomedical Imaging (ISBI), 2026</p>
+                <ul class="pub__links" role="list">
+                  <li><a class="chip" href="https://arxiv.org/abs/2512.07224">arXiv<span class="visually-hidden">: Clinical Interpretability of Deep Learning Segmentation</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="pub" id="ren2025xai">
+              <p class="pub__venue">XAI 2025</p>
+              <div class="pub__body">
+                <h3 class="pub__title">Here Comes the Explanation: A Shapley Perspective on Multi-contrast Image Segmentation</h3>
+                <p class="pub__authors"><span class="me">Ren, T.</span>, Kurt, M.</p>
+                <p class="pub__where">World Conference on eXplainable Artificial Intelligence (XAI), 2025</p>
+                <ul class="pub__links" role="list">
+                  <li><a class="chip" href="https://arxiv.org/abs/2504.04645">arXiv<span class="visually-hidden">: Here Comes the Explanation</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="pub" id="heras2025mirasol">
+              <p class="pub__venue">MICCAI 2025 Workshop</p>
+              <div class="pub__body">
+                <h3 class="pub__title">Clinically-Informed Preprocessing Improves Stroke Segmentation in Low-Resource Settings</h3>
+                <p class="pub__authors">Heras Rivera, J., Oswal, H., <span class="me">Ren, T.</span>, Pan, Y., Henry, W., Neher, C., Kurt, M.</p>
+                <p class="pub__where">MIRASOL Workshop (Medical Image Computing in Resource Constrained Settings), MICCAI 2025</p>
+                <ul class="pub__links" role="list">
+                  <li><a class="chip" href="https://arxiv.org/abs/2508.16004">arXiv<span class="visually-hidden">: Clinically-Informed Preprocessing Improves Stroke Segmentation</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="pub" id="ren2024isles">
+              <p class="pub__venue">MICCAI 2024 Workshop</p>
+              <div class="pub__body">
+                <h3 class="pub__title">How We Won the ISLES’24 Challenge by Preprocessing</h3>
+                <p class="pub__authors"><span class="me">Ren, T.</span>, Kurt, M.</p>
+                <p class="pub__where">Stroke Workshop, MICCAI 2024</p>
+                <ul class="pub__links" role="list">
+                  <li><span class="badge badge--award">ISLES’24 · 1st place</span></li>
+                  <li><a class="chip" href="https://arxiv.org/abs/2505.18424">arXiv<span class="visually-hidden">: How We Won the ISLES’24 Challenge</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="pub" id="ren2024rediffinet">
+              <p class="pub__venue">MIDL 2024</p>
+              <div class="pub__body">
+                <h3 class="pub__title">Re-DiffiNet: Modeling Discrepancies in Tumor Segmentation Using Diffusion Models</h3>
+                <p class="pub__authors"><span class="me">Ren, T.</span>, Sharma, A., Rivera, H., Rebala, H., Honey, E., Chopra, A., Ruzevick, J., Kurt, M.</p>
+                <p class="pub__where">Medical Imaging with Deep Learning (MIDL), 2024</p>
+                <ul class="pub__links" role="list">
+                  <li><span class="badge badge--oral">Oral</span></li>
+                  <li><a class="chip" href="https://arxiv.org/abs/2402.07354">arXiv<span class="visually-hidden">: Re-DiffiNet</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="pub" id="rivera2024glioma">
+              <p class="pub__venue">MIDL 2024</p>
+              <div class="pub__body">
+                <h3 class="pub__title">Improving Glioma Segmentation in Low-Resolution Domains with Transfer Learning</h3>
+                <p class="pub__authors">Rivera, J., Rebala, H., <span class="me">Ren, T.</span>, Kurt, M., Sharma, A.</p>
+                <p class="pub__where">Medical Imaging with Deep Learning (MIDL), 2024</p>
+                <ul class="pub__links" role="list">
+                  <li><a class="chip" href="https://openreview.net/pdf?id=JyZKi38kv2">OpenReview PDF<span class="visually-hidden">: Improving Glioma Segmentation in Low-Resolution Domains</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="pub" id="ren2023brats">
+              <p class="pub__venue">MICCAI 2023 Challenge</p>
+              <div class="pub__body">
+                <h3 class="pub__title">An Optimization Framework for Processing and Transfer Learning for the Brain Tumor Segmentation</h3>
+                <p class="pub__authors"><span class="me">Ren, T.</span>, Kurt, M.</p>
+                <p class="pub__where">BraTS Challenge, MICCAI 2023</p>
+                <ul class="pub__links" role="list">
+                  <li><a class="chip" href="https://arxiv.org/abs/2402.07008">arXiv<span class="visually-hidden">: An Optimization Framework for Brain Tumor Segmentation</span></a></li>
+                </ul>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <section class="pub-group" id="journal" aria-labelledby="journal-title">
+          <div class="pub-group__head">
+            <h2 class="pub-group__title" id="journal-title">Journal articles</h2>
+            <p class="pub-group__count">5 published + 1 under review</p>
+          </div>
+          <!-- JOURNAL ARTICLES: newest first. Copy an <li class="pub"> … </li> block to add one. -->
+          <ol class="pub-list" role="list">
+            <li class="pub" id="isles2024consortium">
+              <p class="pub__venue">Med Image Anal</p>
+              <div class="pub__body">
+                <h3 class="pub__title">Final Infarct Prediction with Multimodal Imaging and Clinical Data: Where Do We Stand?</h3>
+                <p class="pub__authors">ISLES’24 Consortium (including <span class="me">Ren, T.</span>)</p>
+                <p class="pub__where">Under review at Medical Image Analysis</p>
+                <ul class="pub__links" role="list">
+                  <li><span class="badge badge--review">Under review</span></li>
+                  <li><a class="chip" href="https://arxiv.org/abs/2408.10966">arXiv<span class="visually-hidden">: Final Infarct Prediction with Multimodal Imaging and Clinical Data</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="pub" id="abderezaei2024chiari">
+              <p class="pub__venue">Brain Multiphys 2024</p>
+              <div class="pub__body">
+                <h3 class="pub__title">Increased Hindbrain Motion in Chiari I Malformation Patients Measured Through 3D Amplified MRI (3D aMRI)</h3>
+                <p class="pub__authors">Abderezaei, J., Pionteck, A., Chuang, Y., Carrasquilla, A., Bilgili, G., <span class="me">Ren, T.</span>, et al.</p>
+                <p class="pub__where">Brain Multiphysics, 2024</p>
+                <ul class="pub__links" role="list">
+                  <li><a class="chip" href="https://www.sciencedirect.com/science/article/pii/S266652202400011X">ScienceDirect<span class="visually-hidden">: Increased Hindbrain Motion in Chiari I Malformation Patients</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="pub" id="ren2024torsion">
+              <p class="pub__venue">J Orthop Res 2024</p>
+              <div class="pub__body">
+                <h3 class="pub__title">Torsion Constants and Virtual Mechanical Tests are Valid Image-Based Surrogate Measures of Ovine Fracture Healing</h3>
+                <p class="pub__authors"><span class="me">Ren, T.</span>, Inglis, B., Salim, D., Dailey, H. L.</p>
+                <p class="pub__where">Journal of Orthopaedic Research, 2024</p>
+                <ul class="pub__links" role="list">
+                  <li><a class="chip" href="https://pubmed.ncbi.nlm.nih.gov/38491964/">PubMed<span class="visually-hidden">: Torsion Constants and Virtual Mechanical Tests</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="pub" id="ren2022radiodensity">
+              <p class="pub__venue">BMMB 2022</p>
+              <div class="pub__body">
+                <h3 class="pub__title">Image-based Radiodensity Profilometry Measures Early Remodeling at the Bone–Callus Interface in Sheep</h3>
+                <p class="pub__authors"><span class="me">Ren, T.</span>, Klein, K., Brigitte, R., Salim, D., Dailey, H. L.</p>
+                <p class="pub__where">Biomechanics and Modeling in Mechanobiology, 2022</p>
+                <ul class="pub__links" role="list">
+                  <li><a class="chip" href="https://doi.org/10.1007/s10237-021-01553-2">DOI<span class="visually-hidden">: Image-based Radiodensity Profilometry</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="pub" id="ren2021callus">
+              <p class="pub__venue">J Biomech 2021</p>
+              <div class="pub__body">
+                <h3 class="pub__title">Domain-independent Simulation of Physiologically Relevant Callus Shape in Mechanoregulated Models of Fracture Healing</h3>
+                <p class="pub__authors"><span class="me">Ren, T.</span>*, Schwarzenberg, P.*, Klein, K., Brigitte, R., Salim, D., Dailey, H. L.</p>
+                <p class="pub__where">Journal of Biomechanics, 2021</p>
+                <ul class="pub__links" role="list">
+                  <li><a class="chip" href="https://doi.org/10.1016/j.jbiomech.2021.110300">DOI<span class="visually-hidden">: Domain-independent Simulation of Callus Shape</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="pub" id="ren2020mechanoregulation">
+              <p class="pub__venue">BMMB 2020</p>
+              <div class="pub__body">
+                <h3 class="pub__title">Mechanoregulation Modeling of Bone Healing in Realistic Fracture Geometries</h3>
+                <p class="pub__authors"><span class="me">Ren, T.</span>, Dailey, H. L.</p>
+                <p class="pub__where">Biomechanics and Modeling in Mechanobiology, 2020</p>
+                <ul class="pub__links" role="list">
+                  <li><a class="chip" href="https://doi.org/10.1007/s10237-020-01340-5">DOI<span class="visually-hidden">: Mechanoregulation Modeling of Bone Healing</span></a></li>
+                </ul>
+              </div>
+            </li>
+          </ol>
+          <p class="pub-group__note">* Equal contribution.</p>
+        </section>
+
+        <section class="pub-group" id="working" aria-labelledby="working-title">
+          <div class="pub-group__head">
+            <h2 class="pub-group__title" id="working-title">Working papers</h2>
+            <p class="pub-group__count">2 papers</p>
+          </div>
+          <!-- WORKING PAPERS: newest first. When one is published, move its <li class="pub"> to the right list above. -->
+          <ol class="pub-list" role="list">
+            <li class="pub" id="wp2026localbrainage">
+              <p class="pub__venue">2026</p>
+              <div class="pub__body">
+                <h3 class="pub__title">Local Brain Age Attributions Reveal Region-Specific Associations with Cognition Function in the ADNI Cohort</h3>
+                <p class="pub__authors"><span class="me">Ren, T.</span>, Kurt, M., et al.</p>
+                <p class="pub__where">Working paper, 2026</p>
+                <ul class="pub__links" role="list">
+                  <li><span class="badge badge--wp">Working paper</span></li>
+                </ul>
+              </div>
+            </li>
+            <li class="pub" id="wp2026beyondmae">
+              <p class="pub__venue">2026</p>
+              <div class="pub__body">
+                <h3 class="pub__title">Beyond MAE: Rethinking How We Systematically Evaluate Brain Age Models</h3>
+                <p class="pub__authors"><span class="me">Ren, T.</span>, Kurt, M., et al.</p>
+                <p class="pub__where">Working paper, 2026</p>
+                <ul class="pub__links" role="list">
+                  <li><span class="badge badge--wp">Working paper</span></li>
+                </ul>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <section class="pub-group" id="presentations" aria-labelledby="presentations-title">
+          <div class="pub-group__head">
+            <h2 class="pub-group__title" id="presentations-title">Selected presentations</h2>
+            <p class="pub-group__count">2019–2025</p>
+          </div>
+          <!-- PRESENTATIONS: newest first. Copy an <li class="news__item"> to add one.
+               Start the text with <span class="badge badge--oral">Oral</span> or <span class="badge">Poster</span>; put talk titles in <cite>. -->
+          <ol class="news news--gutter" role="list">
+            <li class="news__item"><time class="news__date" datetime="2025-07">Jul 2025</time><p class="news__text"><span class="badge">Poster</span> <cite><a href="#ren2025xai">Here Comes the Explanation</a></cite>, XAI 2025, Istanbul, Türkiye</p></li>
+            <li class="news__item"><time class="news__date" datetime="2024-10">Oct 2024</time><p class="news__text"><span class="badge badge--oral">Oral</span> <cite><a href="#ren2024isles">How We Won the ISLES’24 Challenge by Preprocessing</a></cite> (1st place), Stroke Workshop, MICCAI 2024, Marrakesh, Morocco</p></li>
+            <li class="news__item"><time class="news__date" datetime="2024-10">Oct 2024</time><p class="news__text"><span class="badge">Poster</span> <cite>Machine learning framework for glioblastoma survival prediction using multi-contrast MRI</cite>, BMES 2024, Baltimore, MD</p></li>
+            <li class="news__item"><time class="news__date" datetime="2024-07">Jul 2024</time><p class="news__text"><span class="badge badge--oral">Oral</span> <cite><a href="#ren2024rediffinet">Re-DiffiNet</a></cite>, MIDL 2024, Paris, France</p></li>
+            <li class="news__item"><time class="news__date" datetime="2024-07">Jul 2024</time><p class="news__text"><span class="badge">Poster</span> <cite><a href="#rivera2024glioma">Improving Glioma Segmentation in Low-Resolution Domains</a></cite>, MIDL 2024, Paris, France</p></li>
+            <li class="news__item"><time class="news__date" datetime="2023-10">Oct 2023</time><p class="news__text"><span class="badge">Poster</span> <cite><a href="#ren2023brats">BraTS 2023 optimization framework</a></cite>, MICCAI 2023, Vancouver, Canada</p></li>
+            <li class="news__item"><time class="news__date" datetime="2023-10">Oct 2023</time><p class="news__text"><span class="badge">Poster</span> <cite>Optimized framework for processing and transfer learning for brain tumor segmentation</cite>, BMES 2023, Seattle, WA</p></li>
+            <li class="news__item"><time class="news__date" datetime="2022-06">Jun 2022</time><p class="news__text"><span class="badge badge--oral">Oral</span> SB3C 2022</p></li>
+            <li class="news__item"><span class="news__date">2019–2022</span><p class="news__text"><span class="badge badge--oral">Oral</span> <span class="badge">Posters</span> ORS annual meetings: several presentations on fracture-healing models</p></li>
+            <li class="news__item"><time class="news__date" datetime="2020-07">Jul 2020</time><p class="news__text"><span class="badge">Poster</span> SB3C 2020</p></li>
+          </ol>
+        </section>
+
+        <p class="back-to-top"><a href="#main">Back to top <span aria-hidden="true">↑</span></a></p>
+      </div>
+    </div>
+  </main>
+
+  <!-- SITE FOOTER: identical on every page -->
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="site-footer__id">
+        <p class="site-footer__name">Tianyi Ren</p>
+        <p class="meta">Postdoctoral Scholar, Department of Mechanical Engineering, University of Washington · <a href="https://www.kurtlab.com/">Kurt Lab</a></p>
+      </div>
+      <div class="site-footer__cols">
+        <div class="site-footer__office">
+          <h2 class="label">Office</h2>
+          <address>
+            Benjamin Hall Interdisciplinary Research Building<br>
+            616 NE Northlake Pl, Suite 440<br>
+            Seattle, WA 98105
+          </address>
+        </div>
+        <div>
+          <h2 class="label">Contact</h2>
+          <ul class="footer-links" role="list">
+            <li><a href="mailto:tr1@uw.edu">tr1@uw.edu</a></li>
+            <li><a href="https://scholar.google.com/citations?user=_E3zJtEAAAAJ&amp;hl=en">Google Scholar</a></li>
+            <li><a href="https://www.linkedin.com/in/tianyi-ren-290b2b133/">LinkedIn</a></li>
+            <li><a href="https://github.com/rentianyi">GitHub</a></li>
+          </ul>
+        </div>
+        <nav aria-labelledby="footer-site-title">
+          <h2 class="label" id="footer-site-title">Site</h2>
+          <ul class="footer-links" role="list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="publications.html" aria-current="page">Publications</a></li>
+            <li><a href="teaching.html">Teaching &amp; Mentoring</a></li>
+            <li><a href="CV_tianyi.pdf">CV<span class="visually-hidden"> (PDF)</span></a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="site-footer__base meta">
+        <!-- LAST UPDATED: change the month when you edit the site -->
+        <p>© 2026 Tianyi Ren · Last updated October 2026</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
