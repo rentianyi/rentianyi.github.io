@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Research — Tianyi Ren</title>
+  <meta name="description" content="Tianyi Ren’s research on clinically deployable, trustworthy neuroimaging AI: lesion segmentation for stroke and glioblastoma, brain-age estimation, explainable AI, and responsible generative AI.">
+  <link rel="canonical" href="https://rentianyi.github.io/research.html">
+  <meta name="author" content="Tianyi Ren">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1b1917" media="(prefers-color-scheme: dark)">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Tianyi Ren">
+  <meta property="og:title" content="Research — Tianyi Ren">
+  <meta property="og:description" content="Tianyi Ren’s research on clinically deployable, trustworthy neuroimaging AI: lesion segmentation for stroke and glioblastoma, brain-age estimation, explainable AI, and responsible generative AI.">
+  <meta property="og:url" content="https://rentianyi.github.io/research.html">
+  <meta property="og:image" content="https://rentianyi.github.io/assets/img/og-image.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Overview of Tianyi Ren’s research program: neuroimaging AI tools, model explainability, and responsible generative AI, applied to ischemic stroke, glioblastoma, and Alzheimer’s disease.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://rentianyi.github.io/assets/img/og-image.jpg">
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&amp;family=Source+Sans+3:wght@400..700&amp;display=swap">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script src="assets/js/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- SITE HEADER: identical on every page; only aria-current="page" moves -->
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="wordmark" href="index.html">
+        <img class="wordmark__mark" src="assets/img/favicon.svg" width="30" height="30" alt="">
+        <span>Tianyi Ren</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <ul role="list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="research.html" aria-current="page">Research</a></li>
+          <li><a href="publications.html">Publications</a></li>
+          <li><a href="teaching.html">Teaching</a></li>
+          <li><a href="CV_tianyi.pdf">CV<span class="nav-tag" aria-hidden="true">PDF</span><span class="visually-hidden"> (PDF)</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="page" tabindex="-1">
+
+    <!-- ===== PAGE HEADER ===== -->
+    <header class="page-header">
+      <p class="page-header__kicker label label--accent">Clinically deployable, trustworthy neuroimaging AI</p>
+      <h1 class="page-header__title">Research</h1>
+      <p class="page-header__dek">Bridging algorithms with real-world clinical needs. I build neuroimaging AI that segments lesions and quantifies brain aging, methods that explain what those models see and when to trust them, and, next, generative models that answer clinicians’ “what if” questions.</p>
+      <ul class="page-header__meta" role="list">
+        <li><a class="chip" href="publications.html">All publications</a></li>
+        <li><a class="chip" href="https://scholar.google.com/citations?user=_E3zJtEAAAAJ&amp;hl=en">Google Scholar</a></li>
+        <li><a class="chip" href="CV_tianyi.pdf">CV<span class="visually-hidden"> (PDF)</span></a></li>
+      </ul>
+    </header>
+
+    <div class="with-toc">
+
+      <!-- TABLE OF CONTENTS: if you add a section, add a matching link here -->
+      <nav class="toc" aria-labelledby="toc-title">
+        <h2 class="toc__title label" id="toc-title">On this page</h2>
+        <ol class="toc__list" role="list">
+          <li><a href="#a">A. Next-generation neuroimaging AI tools</a></li>
+          <li class="toc__sub"><a href="#a1">A1 · Segment the lesion</a></li>
+          <li class="toc__sub"><a href="#a2">A2 · Quantify the aging</a></li>
+          <li><a href="#b">B. Trustworthy neuroimaging AI</a></li>
+          <li class="toc__sub"><a href="#b1">B1 · Explaining segmentation</a></li>
+          <li><a href="#c">C. Responsible generative AI for clinical application</a></li>
+          <li class="toc__sub"><a href="#c1">C1 · Forecasting brain-aging trajectories</a></li>
+          <li class="toc__sub"><a href="#c2">C2 · Natural-language explanations</a></li>
+          <li><a href="#earlier">Earlier work</a></li>
+          <li><a href="#funding">Funding</a></li>
+        </ol>
+      </nav>
+
+      <div class="with-toc__body">
+
+        <!-- ===== OVERVIEW: the translational gap ===== -->
+        <section class="section" id="overview" aria-labelledby="overview-title">
+          <h2 class="label label--accent" id="overview-title">The translational gap</h2>
+          <p class="lede">Models that excel on benchmarks often fall short in the clinic. My work closes that gap in three connected thrusts.</p>
+          <dl class="facets">
+            <div class="facet">
+              <dt>Benchmark vs. reality</dt>
+              <dd><p>Models excel on benchmarks but struggle with heterogeneous, real-world clinical data.</p></dd>
+            </div>
+            <div class="facet">
+              <dt>Operational limitations</dt>
+              <dd><p>Poor generalizability, limited interpretability, and a lack of clinical reasoning.</p></dd>
+            </div>
+            <div class="facet">
+              <dt>Overarching goal</dt>
+              <dd><blockquote class="goal__quote"><p>Merge advanced neuroimaging and multi-modal AI tools for the in&nbsp;vivo, subject-specific investigation of brain-related disease.</p></blockquote></dd>
+            </div>
+          </dl>
+          <figure class="plate plate--wide">
+            <div class="plate__card plate__card--marks">
+              <img src="assets/img/research/overview.webp" width="1400" height="835" loading="lazy" decoding="async"
+                   alt="Diagram of the research program in three panels: neuroimaging tools for brain-age estimation and lesion segmentation (A); model explainability, showing a saliency map and bars of MRI-contrast importance behind a segmentation (B); and responsible generative AI, with natural-language explanation and counterfactual question-and-answer examples (C). A side column lists the clinical applications: ischemic stroke, glioblastoma, and Alzheimer’s disease.">
+            </div>
+            <figcaption><span class="plate__no">Fig. 1</span> Overview of my research program: neuroimaging AI tools (A), model explainability (B), and responsible generative AI (C), with clinical applications in ischemic stroke, glioblastoma, and Alzheimer’s disease.</figcaption>
+          </figure>
+        </section>
+
+        <!-- ===== THRUST A ===== -->
+        <section class="section" id="a" aria-labelledby="a-title">
+          <h2 class="thrust-head" id="a-title"><span class="thrust-head__letter">A</span> Next-generation neuroimaging AI tools</h2>
+          <p class="lede">Clinically-aware lesion segmentation, and decoding the biological aging clock from structural MRI.</p>
+
+          <!-- A1 -->
+          <section class="section" id="a1" aria-labelledby="a1-title">
+            <h3 class="sub-head" id="a1-title"><span class="sub-head__code">A1</span> Segment the lesion <span class="sub-head__dek">Clinically-aware lesion segmentation</span></h3>
+            <dl class="facets">
+              <div class="facet">
+                <dt>Motivation</dt>
+                <dd><p>Clinically meaningful delineation requires task-specific clinical reasoning. In glioblastoma, extent of resection is a major determinant of survival, so millimeter accuracy matters. In acute ischemic stroke, rapid, reliable infarct-core estimation drives triage and treatment eligibility.</p></dd>
+              </div>
+              <div class="facet">
+                <dt>Approach</dt>
+                <dd>
+                  <ul>
+                    <li><b>Re-DiffiNet</b> (MIDL 2024, oral): diffusion models that explicitly model the discrepancies between U-Net predictions and the ground truth.</li>
+                    <li><b>ISLES’24 pipeline</b>: clinically-informed preprocessing (learning-based skull stripping and contrast-specific intensity windowing) with nnU-Net. It won 1st place (gold medal) in the ISLES’24 stroke challenge at MICCAI 2024; I was team leader and first author.</li>
+                  </ul>
+                </dd>
+              </div>
+              <div class="facet">
+                <dt>Key findings</dt>
+                <dd>
+                  <ul>
+                    <li>Re-DiffiNet improved Dice by 0.55% and reduced Hausdorff distance by over 16%.</li>
+                    <li>The ISLES’24 pipeline reached a mean Dice of 28.5 on the challenging ISLES’24 dataset.</li>
+                    <li>Clinically-informed mechanisms outperform complex architecture changes.</li>
+                  </ul>
+                </dd>
+              </div>
+              <div class="facet">
+                <dt>Future directions</dt>
+                <dd>
+                  <p>Agentic, clinically-reasoning models that decompose the problem into faithful, human-interpretable steps (Fig.&nbsp;2):</p>
+                  <ul>
+                    <li>a vessel-segmentation agent for vascular topology and occlusions;</li>
+                    <li>a CT-perfusion agent using Fourier Neural Operators;</li>
+                    <li>an anatomical-context agent using atlases and vascular territories;</li>
+                    <li>all coordinated by a reasoning vision-language agent.</li>
+                  </ul>
+                  <figure class="plate plate--narrow">
+                    <div class="plate__card">
+                      <img src="assets/img/research/stroke-agents.webp" width="1325" height="1027" loading="lazy" decoding="async"
+                           alt="Proposed multi-agent framework, drawn as robot icons beside brain scans. A perfusion agent reads CBF, CBV, MTT and Tmax perfusion maps and asks whether to quantify core and penumbra. An anatomical agent reads a non-contrast CT for early signs of ischemic change. A vessel agent reads an angiogram for large-vessel occlusions. All three point to a central vision-language-model agent, which outlines a possible ischemic location in red on a brain image.">
+                    </div>
+                    <figcaption><span class="plate__no">Fig. 2</span> Proposed multi-agent framework for ischemic stroke lesion segmentation (future direction). Perfusion, anatomical and vessel agents each answer one clinical question and report to a central vision-language agent.</figcaption>
+                  </figure>
+                </dd>
+              </div>
+              <div class="facet">
+                <dt>Equity</dt>
+                <dd><p>Low-resource settings: transfer learning for glioma segmentation in low-resolution data from Sub-Saharan Africa, and stroke lesion prediction from CT where MRI is unavailable.</p></dd>
+              </div>
+              <div class="facet">
+                <dt>Related papers</dt>
+                <!-- RELATED PAPERS: each chip links to an entry on publications.html -->
+                <dd><p class="chips">
+                  <a class="chip" href="publications.html#ren2024rediffinet">Re-DiffiNet · MIDL 2024</a>
+                  <a class="chip" href="publications.html#ren2024isles">How we won ISLES’24 · MICCAI 2024</a>
+                  <a class="chip" href="publications.html#heras2025mirasol">Low-resource stroke · MICCAI 2025</a>
+                  <a class="chip" href="publications.html#rivera2024glioma">Low-resolution glioma · MIDL 2024</a>
+                  <a class="chip" href="publications.html#ren2023brats">BraTS framework · MICCAI 2023</a>
+                  <a class="chip" href="publications.html#isles2024consortium">Final infarct prediction · under review</a>
+                </p></dd>
+              </div>
+            </dl>
+            <p class="support"><span class="support__label">Support</span> Population Health Initiative Pilot Grants: glioblastoma segmentation in Sub-Saharan Africa (2023–2024) and an equitable stroke foundation model (2025–2026)</p>
+          </section>
+
+          <!-- A2 -->
+          <section class="section" id="a2" aria-labelledby="a2-title">
+            <h3 class="sub-head" id="a2-title"><span class="sub-head__code">A2</span> Quantify the aging <span class="sub-head__dek">Decoding the biological aging clock from structural MRI</span></h3>
+            <div class="float-wrap">
+              <figure class="plate plate--float plate--tall">
+                <div class="plate__card">
+                  <img src="assets/img/research/brain-age.webp" width="924" height="1409" loading="lazy" decoding="async"
+                       alt="Four-panel overview of the brain-aging research. (a) Multi-level brain age: a scatter plot of bias-corrected predicted age against chronological age, and a regional map colored from delayed to accelerated aging for a subject whose chronological age is 52 but whose brain age is 56. (b) Systematic bias of a regression model: older subjects are predicted younger and younger subjects older. (c) Latent-space ordinality: images of people aged 1 to 70 encoded so that the latent space preserves age order. (d) Clinical validation: cognitive scores compared with a regional brain-age map of Shapley values on a sagittal brain slice.">
+                </div>
+                <figcaption><span class="plate__no">Fig. 3</span> Brain-aging research: multi-level brain age, regression bias, latent-space ordinality, and clinical validation.</figcaption>
+              </figure>
+              <p>I estimate <b>global and regional brain age</b> to characterize how an individual’s aging trajectory deviates from population norms.</p>
+              <p class="runin"><b class="runin__label">Approach</b> An Age-Delta-Correlation (ADC) loss counters the “regression-to-the-mean” bias of brain-age models, finding the Pareto frontier between accuracy and systematic bias (ISBI 2026).</p>
+              <p class="runin"><b class="runin__label">Preliminary findings</b> The brain-age gap in Alzheimer’s disease and mild cognitive impairment associates with cognitive measures (MoCA, ADAS-Cog).</p>
+              <p class="runin"><b class="runin__label">Future directions</b> Spatially resolved, subject-specific brain age from T1-weighted MRI, with Shapley attributions at the voxel and parcel level, to relate regionally accelerated aging to cognition and Alzheimer’s disease biomarkers.</p>
+              <!-- RELATED PAPERS: each chip links to an entry on publications.html -->
+              <p class="chips"><b class="runin__label">Related papers</b>
+                <a class="chip" href="publications.html#ren2026adc">ADC loss · ISBI 2026</a>
+                <a class="chip" href="publications.html#wp2026localbrainage">Local brain age attributions · working paper</a>
+                <a class="chip" href="publications.html#wp2026beyondmae">Beyond MAE · working paper</a>
+              </p>
+            </div>
+            <p class="support"><span class="support__label">Support</span> a2 Pilot Award, co-PI ($310,000, 2025–2026)</p>
+          </section>
+        </section>
+
+        <!-- ===== THRUST B ===== -->
+        <section class="section" id="b" aria-labelledby="b-title">
+          <h2 class="thrust-head" id="b-title"><span class="thrust-head__letter">B</span> Trustworthy neuroimaging AI</h2>
+          <p class="lede">Explanations that align model reasoning with clinical reasoning, and metrics that show when a model’s output can be trusted.</p>
+
+          <!-- B1 -->
+          <section class="section" id="b1" aria-labelledby="b1-title">
+            <h3 class="sub-head" id="b1-title"><span class="sub-head__code">B1</span> Explaining segmentation <span class="sub-head__dek">Clinically grounded explanations for multi-contrast segmentation</span></h3>
+            <ul class="cards" role="list" aria-label="Guiding questions">
+              <li class="card">
+                <p class="card__kicker label label--accent">Question 1</p>
+                <p class="card__title"><em>Why and how does the model arrive at a prediction?</em></p>
+              </li>
+              <li class="card">
+                <p class="card__kicker label label--accent">Question 2</p>
+                <p class="card__title"><em>Under what conditions can clinicians trust its output?</em></p>
+              </li>
+            </ul>
+            <dl class="facets">
+              <div class="facet">
+                <dt>Approach</dt>
+                <dd>
+                  <p>I developed the first clinically grounded, <b>contrast-level Shapley</b> method for explaining multi-contrast medical image segmentation (XAI 2025). With radiologists, I extended it into a clinically interpretable evaluation framework (ISBI 2026) with two metrics:</p>
+                  <ul>
+                    <li><b>Agreement</b>: does the model’s contrast-importance ranking align with clinical imaging protocols?</li>
+                    <li><b>Uncertainty</b>: the variance of Shapley-derived rankings across folds.</li>
+                  </ul>
+                </dd>
+              </div>
+              <div class="facet">
+                <dt>Key findings</dt>
+                <dd>
+                  <ul>
+                    <li>Transformer-based models give more consistent explanations than convolutional ones.</li>
+                    <li>Correlation between model reasoning and clinical heuristics is a strong indicator of segmentation reliability.</li>
+                    <li>Higher Shapley variance tracks performance degradation.</li>
+                  </ul>
+                  <figure class="plate plate--narrow">
+                    <div class="plate__card">
+                      <img src="assets/img/research/xai-shapley.webp" width="871" height="1053" loading="lazy" decoding="async"
+                           alt="Four-panel explainable-AI figure. (a) Multi-contrast brain tumor segmentation overlaid on four MRI contrasts. (b) Violin plots of the contrast-level Shapley value of each MRI contrast, t1c, t1w, t2f and t2w, with t1c and t2f highest. (c) Gradient-based Grad-CAM heat maps on four brain slices. (d) Box plots of the normalized Spearman footrule between model and expert contrast rankings, for annotator consensus and clinical standard, across Dice score categories from below 0.5 to 0.9–1.">
+                    </div>
+                    <figcaption><span class="plate__no">Fig. 4</span> Contrast-level Shapley explanations for multi-contrast tumor segmentation, compared with gradient-based Grad-CAM, and the alignment between model and expert explanations across Dice score categories.</figcaption>
+                  </figure>
+                </dd>
+              </div>
+              <div class="facet">
+                <dt>Future directions</dt>
+                <dd><p>Interactive, human-in-the-loop systems in which radiologists visualize contrast importance, calibrate uncertainty, and guide refinement.</p></dd>
+              </div>
+              <div class="facet">
+                <dt>Related papers</dt>
+                <!-- RELATED PAPERS: each chip links to an entry on publications.html -->
+                <dd><p class="chips">
+                  <a class="chip" href="publications.html#ren2025xai">Here comes the explanation · XAI 2025</a>
+                  <a class="chip" href="publications.html#ren2026shapley">Agreement &amp; uncertainty · ISBI 2026</a>
+                  <a class="chip" href="publications.html#ren2026trust">Can you trust your model? · MIDL 2026</a>
+                </p></dd>
+              </div>
+            </dl>
+          </section>
+        </section>
+
+        <!-- ===== THRUST C (future work) ===== -->
+        <section class="section" id="c" aria-labelledby="c-title">
+          <h2 class="thrust-head" id="c-title"><span class="thrust-head__letter">C</span> Responsible generative AI for clinical application <span class="badge badge--future thrust-head__badge">Future direction</span></h2>
+          <p class="lede">Generative models that let clinicians ask “what if” of an individual brain, and that explain model outputs in plain language.</p>
+
+          <!-- C1 -->
+          <section class="section" id="c1" aria-labelledby="c1-title">
+            <h3 class="sub-head" id="c1-title"><span class="sub-head__code">C1</span> Forecasting brain-aging trajectories <span class="sub-head__dek">Counterfactual generative AI</span></h3>
+            <p>Counterfactual generative models will produce “what if” visualizations of a patient’s brain, for example under accelerated aging or early Alzheimer’s disease.</p>
+            <figure class="plate plate--wide">
+              <div class="plate__card">
+                <img src="assets/img/research/counterfactual-aging.webp" width="1400" height="415" loading="lazy" decoding="async"
+                     alt="Two-panel counterfactual brain-aging figure. Left: a regional brain-age map colored from delayed to accelerated aging, for a subject whose brain age is 56 and chronological age is 52. Right: a sketch of an aging trajectory between age 52 and age 55, beside generated axial MRI slices of the same brain at age 52 and at age 55.">
+              </div>
+              <figcaption><span class="plate__no">Fig. 5</span> Counterfactual generative AI for brain-aging trajectory forecasting: how does the brain look if brain age is 55?</figcaption>
+            </figure>
+          </section>
+
+          <!-- C2 -->
+          <section class="section" id="c2" aria-labelledby="c2-title">
+            <h3 class="sub-head" id="c2-title"><span class="sub-head__code">C2</span> Natural-language explanations <span class="sub-head__dek">Explaining medical image models in words</span></h3>
+            <p>Models that explain their output the way a radiologist would, for example:</p>
+            <figure class="pullquote">
+              <blockquote><p>This segmented area corresponds to a hyperintense rim on T2-weighted MRI consistent with edema.</p></blockquote>
+              <figcaption>Example of a target explanation</figcaption>
+            </figure>
+            <p class="runin"><b class="runin__label">Approach</b> A symbolic autoencoder and an emergent-language sender–receiver framework with a vision-language model, built on multimodal neuroimaging datasets (BTReport).</p>
+            <p class="chips"><b class="runin__label">Related paper</b>
+              <a class="chip" href="publications.html#heras2026btreport">BTReport · MIDL 2026</a>
+            </p>
+          </section>
+        </section>
+
+        <!-- ===== EARLIER WORK ===== -->
+        <section class="section prose" id="earlier" aria-labelledby="earlier-title">
+          <h2 id="earlier-title">Earlier work: computational biomechanics of fracture healing</h2>
+          <p>During my Ph.D. at Lehigh University, advised by <a href="https://engineering.lehigh.edu/faculty/hannah-dailey">Prof.&nbsp;Hannah Dailey</a>, I modeled how bone fractures heal:</p>
+          <ul>
+            <li>mechanoregulation (fuzzy-logic) models of bone fracture healing in realistic fracture geometries;</li>
+            <li>image-based biomarkers of healing (radiodensity profilometry);</li>
+            <li>patient-specific finite-element virtual mechanical testing;</li>
+            <li>ovine fracture-healing studies.</li>
+          </ul>
+          <p class="runin"><b class="runin__label">Dissertation</b> <cite>Mechanoregulation Modeling of Bone Fracture Healing in the Tibia from the Perspective of Computational Models and Image Analysis</cite></p>
+          <!-- RELATED PAPERS: each chip links to an entry on publications.html -->
+          <p class="chips"><b class="runin__label">Related papers</b>
+            <a class="chip" href="publications.html#ren2020mechanoregulation">Mechanoregulation modeling · BMMB 2020</a>
+            <a class="chip" href="publications.html#ren2021callus">Callus shape · J Biomech 2021</a>
+            <a class="chip" href="publications.html#ren2022radiodensity">Radiodensity profilometry · BMMB 2022</a>
+            <a class="chip" href="publications.html#ren2024torsion">Torsion constants · J Orthop Res 2024</a>
+          </p>
+        </section>
+
+        <!-- ===== FUNDING ===== -->
+        <section class="section" id="funding" aria-labelledby="funding-title">
+          <div class="section__head">
+            <h2 class="label" id="funding-title">Funding</h2>
+          </div>
+          <!-- FUNDING: newest first. Copy an <li class="grant"> to add one. -->
+          <ol class="funding" role="list">
+            <li class="grant">
+              <p class="grant__years">2025–2026</p>
+              <div>
+                <h3 class="grant__title">Using explainable AI and deep learning for brain age prediction in older adults in clinical settings</h3>
+                <p class="grant__meta"><span class="grant__sponsor">a2 Pilot Award</span> <span class="grant__amount">$310,000</span> <span class="grant__role">Role: co-PI (PI: Kurt)</span></p>
+              </div>
+            </li>
+            <li class="grant">
+              <p class="grant__years">2025–2026</p>
+              <div>
+                <h3 class="grant__title">Equitable AI for Stroke Diagnosis: A Global Foundation Model for Non-Contrast CT and CTA Imaging</h3>
+                <p class="grant__meta"><span class="grant__sponsor">Population Health Initiative Pilot Grant</span> <span class="grant__amount">$65,000</span> <span class="grant__role">Role: grant writing (PI: Kurt)</span></p>
+              </div>
+            </li>
+            <li class="grant">
+              <p class="grant__years">2023–2024</p>
+              <div>
+                <h3 class="grant__title">Developing Novel and Fair Machine Learning Strategies for Glioblastoma Segmentation in Sub-Saharan Africa Patient Population</h3>
+                <p class="grant__meta"><span class="grant__sponsor">Population Health Initiative Pilot Grant</span> <span class="grant__amount">$65,000</span> <span class="grant__role">Role: grant writing (PI: Kurt)</span></p>
+              </div>
+            </li>
+            <li class="grant">
+              <p class="grant__years">2023–2024</p>
+              <div>
+                <h3 class="grant__title">I-Corps: Translation potential of an artificial intelligence (AI) approach for brain lesion segmentation</h3>
+                <p class="grant__meta"><span class="grant__sponsor">NSF I-Corps</span> <span class="grant__amount">$50,000</span> <span class="grant__role">Role: tech lead (PI: Kurt)</span></p>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <p class="back-to-top"><a href="#main">Back to top <span aria-hidden="true">↑</span></a></p>
+      </div>
+    </div>
+  </main>
+
+  <!-- SITE FOOTER: identical on every page -->
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="site-footer__id">
+        <p class="site-footer__name">Tianyi Ren</p>
+        <p class="meta">Postdoctoral Scholar, Department of Mechanical Engineering, University of Washington · <a href="https://www.kurtlab.com/">Kurt Lab</a></p>
+      </div>
+      <div class="site-footer__cols">
+        <div class="site-footer__office">
+          <h2 class="label">Office</h2>
+          <address>
+            Benjamin Hall Interdisciplinary Research Building<br>
+            616 NE Northlake Pl, Suite 440<br>
+            Seattle, WA 98105
+          </address>
+        </div>
+        <div>
+          <h2 class="label">Contact</h2>
+          <ul class="footer-links" role="list">
+            <li><a href="mailto:tr1@uw.edu">tr1@uw.edu</a></li>
+            <li><a href="https://scholar.google.com/citations?user=_E3zJtEAAAAJ&amp;hl=en">Google Scholar</a></li>
+            <li><a href="https://www.linkedin.com/in/tianyi-ren-290b2b133/">LinkedIn</a></li>
+            <li><a href="https://github.com/rentianyi">GitHub</a></li>
+          </ul>
+        </div>
+        <nav aria-labelledby="footer-site-title">
+          <h2 class="label" id="footer-site-title">Site</h2>
+          <ul class="footer-links" role="list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="research.html" aria-current="page">Research</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="teaching.html">Teaching &amp; Mentoring</a></li>
+            <li><a href="CV_tianyi.pdf">CV<span class="visually-hidden"> (PDF)</span></a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="site-footer__base meta">
+        <!-- LAST UPDATED: change the month when you edit the site -->
+        <p>© 2026 Tianyi Ren · Last updated October 2026</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
