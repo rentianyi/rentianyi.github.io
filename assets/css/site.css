@@ -14,13 +14,13 @@
                           --fs-* --sp-* --label-w --measure --page-max --gutter
    2  Base .............. element defaults, links, focus ring
    3  Utilities ......... .visually-hidden .skip-link .label .label--accent
-                          .meta .lede .text-link(.arrow) .icon .float-wrap
+                          .meta .lede .text-link(.arrow) .icon .nowrap
    4  Site header ....... .site-header .wordmark .site-nav .nav-tag
    5  Page shell ........ .page .section .section__head .split .gutter-row
    6  Home .............. .hero .profile .contact .intro .highlights .highlight
                           .readout .goal .thrusts .thrust (stretched-link rows)
-   7  Figure plates ..... .plate .plate__card .plate__card--marks .plate__no
-                          .plate--wide .plate--narrow .plate--tall .plate--float
+   7  Figure plates ..... .plate .plate__card .plate__card--marks .plate__link
+                          .plate__no .plate--wide .plate--narrow .plate--tall
                           .plate--side
    8  Lists ............. .gutter-list/.gutter-item .news .news--gutter
                           .pub-list/.pub .pub__venue .pub__title .pub__authors
@@ -30,16 +30,17 @@
                           .chip .tags/.tag
    10 Inner pages ....... .page-header (__kicker __title __dek __meta)
                           .with-toc .toc (__title __list __sub)
-                          .prose .thrust-head .sub-head .runin .facets/.facet
+                          .prose .thrust-head .sub-head .facets/.facet
                           .callout .support .funding/.grant .pullquote
                           .pullquotes .courses/.course .mentees/.mentee
                           .cards(--3 --steps)/.card(.card--link) .timeline
                           .back-to-top
    11 Site footer ....... .site-footer .footer-links .site-footer__base
-   12 Motion, print
-   Breakpoints: 40rem (640px) small tablet · 60rem (960px) desktop ·
-   64rem (1024px) 7/5 split. Sticky TOC needs min-width 60rem AND
-   min-height 48rem.
+   12 Motion, forced colours, print
+   Breakpoints: 40rem (640px) small tablet · 46rem (736px) one-line header ·
+   60rem (960px) desktop · 64rem (1024px) 7/5 split. Sticky TOC needs
+   min-width 60rem AND min-height 32rem (it scrolls inside itself if taller
+   than the window). Dark tokens apply on screen only, so print is always light.
    ========================================================================== */
 
 /* ---------- 1. Tokens ---------------------------------------------------- */
@@ -82,7 +83,7 @@
   --gutter: clamp(1rem, 4vw, 3rem);      /* page side padding: 16px on phones */
   --measure: 68ch;                       /* long-form line length */
   --profile-w: 17rem;                    /* home profile column */
-  --label-w: 6rem;                       /* shared hanging gutter (letters, dates, venues) */
+  --label-w: 6rem;                       /* shared hanging gutter (letters, dates, venues, facet labels) */
   --toc-w: 13rem;
   --radius: 3px;
   --radius-lg: 6px;
@@ -112,7 +113,7 @@
   --shadow: 0 1px 0 rgba(28, 26, 23, 0.04), 0 8px 24px -16px rgba(28, 26, 23, 0.28);
 }
 
-@media (prefers-color-scheme: dark) {
+@media screen and (prefers-color-scheme: dark) {
   :root {
     --paper: #1b1917;
     --paper-2: #23211e;
@@ -137,8 +138,11 @@
   }
 }
 
+@media (min-width: 40rem) {
+  :root { --label-w: 7rem; }             /* tablets: room for one-word labels like "Dissertation" */
+}
 @media (min-width: 60rem) {
-  :root { --label-w: 7.25rem; }
+  :root { --label-w: 8.5rem; }
 }
 
 /* ---------- 2. Base ------------------------------------------------------ */
@@ -289,8 +293,8 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   stroke-linejoin: round;
 }
 
-/* Contain floats (use around a .plate--float and the text beside it) */
-.float-wrap { display: flow-root; }
+/* Keep a short phrase on one line, e.g. a year range: <span class="nowrap">(2023–2026)</span> */
+.nowrap { white-space: nowrap; }
 
 /* ---------- 4. Site header / nav ----------------------------------------- */
 .site-header { border-bottom: var(--hair) solid var(--rule); }
@@ -321,9 +325,12 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 .wordmark__mark { width: 1.9rem; height: 1.9rem; flex: none; }
 
 .site-nav { width: 100%; }
+/* Phones: one justified row (the links' own padding keeps them apart). If the row is too
+   wide (320px screens, larger text, text spacing) it wraps instead of pushing "CV" off-screen */
 .site-nav ul {
   list-style: none;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-inline: -0.2rem;
 }
@@ -379,7 +386,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 @media (min-width: 46rem) {
   .site-header__inner { padding-block: var(--sp-4); flex-wrap: nowrap; }
   .site-nav { width: auto; }
-  .site-nav ul { gap: 0 var(--sp-1); margin-inline: 0 calc(-1 * var(--sp-3)); }
+  .site-nav ul { justify-content: flex-end; gap: 0 var(--sp-1); margin-inline: 0 calc(-1 * var(--sp-3)); }
   .site-nav a { padding: 0 var(--sp-3); font-size: var(--fs-md); }
   .site-nav a::after { left: var(--sp-3); right: var(--sp-3); }
 }
@@ -466,8 +473,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   font-size: clamp(2.35rem, 1.75rem + 2.2vw, 3.25rem);
   font-weight: 500;
   line-height: 1;
-  letter-spacing: -0.025em;
-  text-wrap: nowrap;
+  letter-spacing: -0.025em;   /* one line at normal sizes; may wrap with enlarged text instead of overflowing */
 }
 .profile__role {
   margin-top: var(--sp-2);
@@ -695,7 +701,8 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   font-variant-caps: all-small-caps;
   font-variant-numeric: lining-nums;
   letter-spacing: 0.05em;
-  line-height: 1.5;
+  line-height: 1.2;           /* small caps are short: keep a wrapped label's lines together */
+  row-gap: var(--sp-2);       /* …and separate the items instead */
   color: var(--ink-3);
 }
 .thrust__code { color: var(--accent); }
@@ -718,9 +725,6 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
   .thrust__thumb img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
-  /* --crop: for a very wide figure, show only its right-hand end at full frame height */
-  .thrust__thumb--crop { position: relative; padding: 0; }
-  .thrust__thumb--crop img { position: absolute; top: 50%; right: 0; width: auto; max-width: none; height: 110%; transform: translateY(-50%); }
   .thrust:hover .thrust__thumb { transform: translateY(-2px); }
 }
 @media (min-width: 60rem) {
@@ -741,6 +745,9 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 }
 /* multiply blends the figure's white ground into the card colour (off-white in dark mode) */
 .plate__card img { width: 100%; border-radius: 2px; mix-blend-mode: multiply; }
+/* The image links to its own file, so phone readers can open it full size and zoom:
+   <a class="plate__link" href="assets/img/research/x.webp"><img …></a> */
+.plate__link { display: block; cursor: zoom-in; }
 .plate figcaption {
   margin-top: var(--sp-3);
   max-width: 40rem;
@@ -775,11 +782,9 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 .plate--wide { max-width: none; }
 .plate--narrow { max-width: 32rem; }
 .plate--tall { max-width: 22rem; }
-.plate--tall .plate__card, .plate--float .plate__card { padding: var(--sp-3); }
+.plate--tall .plate__card { padding: var(--sp-3); }
 
 @media (min-width: 60rem) {
-  /* Floats right beside text on desktop; stacked on smaller screens. Wrap text + figure in .float-wrap */
-  .plate--float { float: right; width: min(42%, 22rem); margin: var(--sp-2) 0 var(--sp-5) var(--sp-6); }
   /* Caption beside the card */
   .plate--side { display: grid; grid-template-columns: minmax(0, 46rem) minmax(12rem, 15rem); column-gap: var(--sp-6); align-items: end; }
   .plate--side figcaption { margin-top: 0; padding-bottom: var(--sp-2); border-top: var(--hair) solid var(--rule); padding-top: var(--sp-3); }
@@ -805,7 +810,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   font-variant-caps: all-small-caps;
   font-variant-numeric: lining-nums tabular-nums;
   letter-spacing: 0.05em;
-  line-height: 1.3;
+  line-height: 1.15;          /* small caps are short: a label that wraps stays one unit */
   color: var(--ink-3);
 }
 @media (min-width: 40rem) {
@@ -814,7 +819,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
     column-gap: var(--sp-5);
     padding: var(--sp-5) 0;
   }
-  .gutter-item__label, .pub__venue, .grant__years, .course__term, .timeline__when { padding-top: 0.45em; }
+  .gutter-item__label, .pub__venue, .grant__years, .course__term, .timeline__when { padding-top: 0.525em; }
 }
 
 /* News — compact; dates stacked above items (use .news--gutter for a date gutter) */
@@ -1011,6 +1016,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   font-weight: 600;
   color: var(--ink-2);
   text-decoration: none;
+  text-wrap: balance;
 }
 .toc__list a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 0.25em; }
 .toc__list a[aria-current] { color: var(--accent); }
@@ -1032,10 +1038,12 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   }
   .toc__list a:hover { text-decoration: none; border-left-color: var(--rule-strong); }
   .toc__list a[aria-current] { border-left-color: var(--accent); font-weight: 600; }
+  /* the sticky TOC scrolls, so it clips anything outside it: draw the focus ring inside the link */
+  .toc__list a:focus-visible { outline-offset: -2px; }
   .toc__sub { display: block; }
-  .toc__sub a { padding-left: var(--sp-5); font-size: 0.85rem; color: var(--ink-3); }
+  .toc__sub a { padding-left: var(--sp-5); font-size: 0.85rem; color: var(--ink-3); text-wrap: pretty; }  /* balance would split "brain-aging" at its hyphen */
 }
-@media (min-width: 60rem) and (min-height: 48rem) {
+@media (min-width: 60rem) and (min-height: 32rem) {
   .toc { position: sticky; top: var(--sp-6); max-height: calc(100vh - 4rem); overflow-y: auto; }
 }
 
@@ -1043,7 +1051,6 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
    while rules, figures, cards and lists of papers keep the full column */
 .with-toc__body .section > p:not(.support),
 .with-toc__body .section > .pullquote,
-.with-toc__body .float-wrap > p,
 .with-toc__body .facet > dd { max-width: var(--measure); }
 
 /* Long-form prose */
@@ -1089,18 +1096,9 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 }
 .sub-head__dek { display: block; margin-top: 0.3em; font-size: 0.78em; font-style: italic; font-weight: 400; color: var(--ink-3); }
 
-/* Run-in label paragraph: <p class="runin"><b class="runin__label">Motivation</b> …</p> */
-.runin__label {
-  margin-right: 0.45em;
-  font-family: var(--font-sans);
-  font-size: 1.02em;
-  font-weight: 700;
-  font-variant-caps: all-small-caps;
-  letter-spacing: 0.06em;
-  color: var(--accent);
-}
-
-/* Labeled sub-sections: <dl class="facets"><div class="facet"><dt>Motivation</dt><dd>…</dd></div></dl> */
+/* Labeled sub-sections: <dl class="facets"><div class="facet"><dt>Motivation</dt><dd>…</dd></div></dl>
+   The labels share the --label-w gutter with dates, venues and grant years, so every
+   hanging gutter on the site lines up. */
 .facets { margin-top: var(--sp-5); }
 .facet { padding: var(--sp-4) 0; border-top: var(--hair) solid var(--rule); }
 .facet:first-child { border-top: 0; padding-top: 0; }
@@ -1110,7 +1108,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   font-weight: 700;
   font-variant-caps: all-small-caps;
   letter-spacing: 0.06em;
-  line-height: 1.3;
+  line-height: 1.15;          /* same as the other gutter labels */
   color: var(--accent);
 }
 .facet > dd { margin-top: var(--sp-1); }
@@ -1119,14 +1117,14 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 .facet > dd li + li { margin-top: 0.4em; }
 .facet > dd li::marker { color: var(--ink-3); }
 @media (min-width: 40rem) {
-  .facet { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); column-gap: var(--sp-5); }
-  .facet > dt { padding-top: 0.45em; }
+  .facet { display: grid; grid-template-columns: var(--label-w) minmax(0, 1fr); column-gap: var(--sp-5); }
+  .facet > dt { padding-top: 0.525em; }
   .facet > dd { margin-top: 0; }
 }
 
-/* Callout box: <aside class="callout"><p class="callout__label label">Note</p><p>…</p></aside> */
+/* Callout box (spans its column, so it lines up with a card grid above it; the text keeps
+   a readable measure): <div class="callout" role="note" aria-labelledby="x"><p class="callout__label label" id="x">Note</p><p>…</p></div> */
 .callout {
-  max-width: 48rem;
   padding: var(--sp-4) var(--sp-5);
   background: var(--paper-2);
   border-left: 2px solid var(--accent);
@@ -1135,6 +1133,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   line-height: 1.55;
   color: var(--ink-2);
 }
+.callout > * { max-width: var(--measure); }
 .callout__label { margin-bottom: var(--sp-1); color: var(--accent); }
 
 /* Funding line under a research section: <p class="support"><span class="support__label">Support</span> …</p>
@@ -1352,15 +1351,30 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   .footer-links a { min-height: 2.1rem; }
 }
 
-/* ---------- 12. Motion, print -------------------------------------------- */
+/* ---------- 12. Motion, forced colours, print ---------------------------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }
 
+/* Windows High Contrast drops backgrounds: draw the nav underline as a border so the
+   current page stays marked */
+@media (forced-colors: active) {
+  .site-nav a::after { height: 0; background: none; border-bottom: 1px solid currentColor; }
+  .site-nav a[aria-current="page"]::after { border-bottom-width: 2px; }
+}
+
+/* Print is always light: the dark tokens apply to screens only (see section 1) */
 @media print {
+  :root { color-scheme: light; }
   .site-header, .skip-link, .toc, .back-to-top, .thrust__thumb { display: none !important; }
   body { background: #fff; color: #000; font-size: 11pt; }
   .site-footer { background: none; }
   a { color: inherit; }
   .plate__card, .thrust__thumb { box-shadow: none; }
+  /* keep entries, figures and the footer whole; keep headings with what follows */
+  .pub, .news__item, .grant, .course, .timeline__item, .card, .highlight, .mentee,
+  .plate, .pullquote, .callout, .sub-head, .site-footer__inner { break-inside: avoid; }
+  .section__head, .pub-group__head, .thrust-head, .sub-head, .facet > dt { break-after: avoid; }
+  /* a printout cannot be clicked: print the address after each external paper link */
+  .chip[href^="http"]::after { content: " " attr(href); font-weight: 400; overflow-wrap: anywhere; }
 }

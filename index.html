@@ -141,7 +141,7 @@
 
         <!-- BIO: edit the two paragraphs below -->
         <div class="intro__bio">
-          <p>I am a postdoctoral scholar in Mechanical Engineering at the University of Washington, working with Prof.&nbsp;Mehmet Kurt. I build trustworthy, clinically deployable AI for neuroimaging: lesion segmentation for glioblastoma and ischemic stroke, regional brain-age estimation, and explainable AI that aligns model reasoning with clinical reasoning.</p>
+          <p>I am a postdoctoral scholar in Mechanical Engineering at the University of Washington, working with Prof.&nbsp;Mehmet Kurt. I build AI for neuroimaging that clinicians can use and trust: lesion segmentation for glioblastoma and ischemic stroke, regional brain-age estimation, and explainable AI that aligns model reasoning with clinical reasoning.</p>
           <p>I received my Ph.D. and M.S. in Mechanical Engineering &amp; Mechanics from Lehigh University, advised by <a href="https://engineering.lehigh.edu/faculty/hannah-dailey">Prof.&nbsp;Hannah Dailey</a>, where I built mechanoregulation and image-based models of bone fracture healing, and my B.S. in Mechanical Engineering and Manufacturing from Southwest Jiaotong University.</p>
         </div>
 
@@ -161,10 +161,12 @@
           </li>
         </ul>
 
+        <!-- COUNTS: when you add a paper, update these numbers here AND in publications.html (search COUNTS:) -->
         <ul class="readout" role="list" aria-label="At a glance">
-          <li><b>10</b> peer-reviewed conference &amp; workshop papers (2023–2026)</li>
+          <li><b>10</b> peer-reviewed conference &amp; workshop papers <span class="nowrap">(2023–2026)</span></li>
           <li><b>5</b> journal articles + 1 under review</li>
-          <li><b>4.6/5.0</b> teaching rating (BIS 285)</li>
+          <li><b>4.6/5.0</b> <a href="teaching.html#courses">teaching rating (BIS 285)</a></li>
+          <li><a href="teaching.html#mentoring">Mentoring</a> undergraduate, master’s, medical and Ph.D. students</li>
         </ul>
       </div>
     </section>
@@ -180,15 +182,15 @@
         <p class="gutter-row__label label label--accent">Overarching goal</p>
         <div class="gutter-row__body">
           <blockquote class="goal__quote"><p>Merge advanced neuroimaging and multi-modal AI tools for the in&nbsp;vivo, subject-specific investigation of brain-related disease.</p></blockquote>
-          <p class="goal__note">Models that excel on benchmarks often struggle with heterogeneous, real-world clinical data, and they offer limited interpretability and little clinical reasoning. My work closes that translational gap in three connected thrusts.</p>
+          <p class="goal__note">Models that excel on benchmarks often struggle with heterogeneous, real-world clinical data, and they offer limited interpretability and little clinical reasoning. My work addresses that translational gap in three connected thrusts.</p>
         </div>
       </div>
 
       <div class="gutter-row">
         <figure class="gutter-row__body plate plate--side">
           <div class="plate__card plate__card--marks">
-            <img src="assets/img/research/overview.webp" width="1400" height="835" loading="lazy" decoding="async"
-                 alt="Diagram of the research program in three panels: neuroimaging tools for brain-age estimation and lesion segmentation (A); model explainability, showing a saliency map and bars of MRI-contrast importance behind a segmentation (B); and responsible generative AI, with natural-language explanation and counterfactual question-and-answer examples (C). A side column lists the clinical applications: ischemic stroke, glioblastoma, and Alzheimer’s disease.">
+            <a class="plate__link" href="assets/img/research/overview.webp"><img src="assets/img/research/overview.webp" width="1400" height="835" loading="lazy" decoding="async"
+                 alt="Diagram of the research program in three panels: neuroimaging tools for brain-age estimation and lesion segmentation (A); model explainability, showing a saliency map and bars of MRI-contrast importance behind a segmentation (B); and responsible generative AI, with natural-language explanation and counterfactual question-and-answer examples (C). A side column lists the clinical applications: ischemic stroke, glioblastoma, and Alzheimer’s disease. Opens the full-size image."></a>
           </div>
           <figcaption><span class="plate__no">Fig. 1</span> Overview of my research program: neuroimaging AI tools (A), model explainability (B), and responsible generative AI (C), with clinical applications in ischemic stroke, glioblastoma, and Alzheimer’s disease.</figcaption>
         </figure>
@@ -208,8 +210,8 @@
             </div>
           </div>
           <div class="thrust__thumb">
-            <img src="assets/img/research/stroke-agents.webp" width="1325" height="1027" loading="lazy" decoding="async"
-                 alt="Planned multi-agent framework for ischemic stroke: perfusion, anatomical, and vessel agents, each reading its own scans, report to a central vision-language agent that outlines a possible ischemic region.">
+            <img src="assets/img/research/thumb-lesion-segmentation.webp" width="422" height="347" loading="lazy" decoding="async"
+                 alt="Detail of the research overview figure, labeled Lesion Segmentation: a brain tumor segmentation overlaid in color on an MRI slice, and a stroke lesion outlined in red on another.">
           </div>
         </li>
         <li class="thrust">
@@ -241,15 +243,15 @@
               </ul>
             </div>
           </div>
-          <div class="thrust__thumb thrust__thumb--crop">
-            <img src="assets/img/research/counterfactual-aging.webp" width="1400" height="415" loading="lazy" decoding="async"
+          <div class="thrust__thumb">
+            <img src="assets/img/research/thumb-counterfactual-aging.webp" width="468" height="354" loading="lazy" decoding="async"
                  alt="Detail of the counterfactual brain-aging figure: generated MRI slices showing how the same brain would look at age 52 and at age 55.">
           </div>
         </li>
       </ol>
     </section>
 
-    <!-- ===== PUBLICATIONS (7) + NEWS (5) ===== -->
+    <!-- ===== SELECTED PUBLICATIONS + NEWS ===== -->
     <div class="split">
 
       <section class="section" aria-labelledby="pubs-title">
@@ -270,17 +272,6 @@
             </div>
           </li>
           <li class="pub">
-            <p class="pub__venue">ISBI 2026</p>
-            <div class="pub__body">
-              <h3 class="pub__title">Clinical Interpretability of Deep Learning Segmentation Through Shapley-Derived Agreement and Uncertainty Metrics</h3>
-              <p class="pub__authors"><span class="me">Ren, T.</span>, Kurt, M.</p>
-              <p class="pub__where">IEEE International Symposium on Biomedical Imaging (ISBI), 2026</p>
-              <ul class="pub__links" role="list">
-                <li><a class="chip" href="https://arxiv.org/abs/2512.07224">arXiv<span class="visually-hidden">: Clinical Interpretability of Deep Learning Segmentation</span></a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="pub">
             <p class="pub__venue">XAI 2025</p>
             <div class="pub__body">
               <h3 class="pub__title">Here Comes the Explanation: A Shapley Perspective on Multi-contrast Image Segmentation</h3>
@@ -292,7 +283,7 @@
             </div>
           </li>
           <li class="pub">
-            <p class="pub__venue">MICCAI 2024</p>
+            <p class="pub__venue">MICCAI 2024 Workshop</p>
             <div class="pub__body">
               <h3 class="pub__title">How We Won the ISLES’24 Challenge by Preprocessing</h3>
               <p class="pub__authors"><span class="me">Ren, T.</span>, Kurt, M.</p>
@@ -315,6 +306,17 @@
               </ul>
             </div>
           </li>
+          <li class="pub">
+            <p class="pub__venue">J Orthop Res 2024</p>
+            <div class="pub__body">
+              <h3 class="pub__title">Torsion Constants and Virtual Mechanical Tests are Valid Image-Based Surrogate Measures of Ovine Fracture Healing</h3>
+              <p class="pub__authors"><span class="me">Ren, T.</span>, Inglis, B., Salim, D., Dailey, H. L.</p>
+              <p class="pub__where">Journal of Orthopaedic Research, 2024</p>
+              <ul class="pub__links" role="list">
+                <li><a class="chip" href="https://pubmed.ncbi.nlm.nih.gov/38491964/">PubMed<span class="visually-hidden">: Torsion Constants and Virtual Mechanical Tests</span></a></li>
+              </ul>
+            </div>
+          </li>
         </ol>
         <p><a class="text-link" href="publications.html">All publications<span class="arrow" aria-hidden="true">→</span></a></p>
       </section>
@@ -323,15 +325,15 @@
         <div class="section__head">
           <h2 class="label" id="news-title">News</h2>
         </div>
-        <!-- NEWS: newest first. Copy an <li class="news__item"> … </li> to add an item. -->
+        <!-- NEWS: newest first (within a year, items with only a year go before dated ones). Copy an <li class="news__item"> … </li> to add an item. -->
         <ol class="news" role="list">
           <li class="news__item"><time class="news__date" datetime="2026">2026</time><p class="news__text">Two papers at <strong>MIDL 2026</strong>: uncertainty-guaranteed explanations for glioma segmentation, and BTReport for radiology report generation.</p></li>
           <li class="news__item"><time class="news__date" datetime="2026">2026</time><p class="news__text">Two papers at <strong>ISBI 2026</strong>: an Age-Delta-Correlation loss for brain-age bias, and Shapley-derived agreement and uncertainty metrics.</p></li>
           <li class="news__item"><time class="news__date" datetime="2025">2025</time><p class="news__text">Awarded an <strong>a2 Pilot Award</strong> ($310K, co-PI) for explainable brain-age prediction in older adults.</p></li>
           <li class="news__item"><time class="news__date" datetime="2025">2025</time><p class="news__text">Population Health Initiative pilot grant for equitable AI for stroke diagnosis (Kurt Lab).</p></li>
+          <li class="news__item"><time class="news__date" datetime="2025">2025</time><p class="news__text">Paper on clinically-informed stroke preprocessing for low-resource settings at the MIRASOL workshop, MICCAI 2025.</p></li>
           <li class="news__item"><time class="news__date" datetime="2025-07">Jul 2025</time><p class="news__text">Presented <cite>Here Comes the Explanation</cite> at XAI 2025 in Istanbul.</p></li>
           <li class="news__item"><time class="news__date" datetime="2025">Spring 2025</time><p class="news__text">Taught BIS 285, <cite>Seminar in Biology: Dealing with Data</cite> (rating 4.6/5.0).</p></li>
-          <li class="news__item"><time class="news__date" datetime="2025">2025</time><p class="news__text">Paper on clinically-informed stroke preprocessing for low-resource settings at the MIRASOL workshop, MICCAI 2025.</p></li>
           <li class="news__item"><time class="news__date" datetime="2024-10">Oct 2024</time><p class="news__text">Won <strong>1st place (gold medal)</strong> in the ISLES’24 stroke lesion segmentation challenge at MICCAI 2024, Marrakesh.</p></li>
           <li class="news__item"><time class="news__date" datetime="2024-07">Jul 2024</time><p class="news__text">Two papers at MIDL 2024 in Paris, including an oral presentation of Re-DiffiNet.</p></li>
         </ol>
