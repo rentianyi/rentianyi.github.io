@@ -8,7 +8,12 @@
 
    Colour idea: "imaging bands". The palette is sampled from Tianyi's two
    brain-imaging artworks (assets/img/bg/): DTI magenta/crimson is the primary
-   accent, fiber green the secondary, olive the award colour. Body text sits
+   accent and is kept for links and other interactive things only; fiber green
+   is the secondary, for everything that only decorates or labels (figures,
+   kickers and labels, codes, letters, quote marks, rules on cards and
+   callouts), so a magenta word can always be clicked (the one exception is the
+   filled "Oral" badge, a pale magenta box that is never link-shaped). Olive is
+   the award colour. Body text sits
    on a cool blue-grey paper (light) or a deep blue-black (dark). The site
    header, the first block of every page (.band) and the footer are pure-black
    bands that look the same in both schemes; the artworks live only there,
@@ -16,12 +21,18 @@
 
    COMPONENT INDEX
    ---------------------------------------------------------------------------
-   1  Tokens ............ --paper --paper-2 --surface --paper-card --ink --ink-2
-                          --ink-3 --rule --rule-strong --accent --accent-hover
-                          --accent-wash --accent-ink --accent-2 --chip-line
-                          --gold-wash --gold-ink --gold-line --focus
-                          --band-* (the black bands) --spectrum
-                          --fs-* --sp-* --label-w --measure --page-max --gutter
+   1  Tokens ............ --paper --paper-2 --surface --paper-card
+                          --paper-card-line --ink --ink-2 --ink-3 --rule
+                          --rule-strong --accent --accent-hover --accent-wash
+                          --accent-ink --accent-2 --chip-line --gold-wash
+                          --gold-ink --gold-line --focus --plate-focus
+                          --selection --shadow
+                          --night-* (dark scheme + black bands) --band --band-2
+                          --spectrum --art-tract --art-tract-384 --art-dti
+                          --art-tract-ink-* --art-dti-ratio (artwork geometry)
+                          --font-* --fs-* --lh-* --sp-* --label-w --measure
+                          --page-max --gutter --profile-w --hero-gap --toc-w
+                          --radius(-lg) --hair --tap
    2  Base .............. element defaults, links, focus ring
    3  Utilities ......... .visually-hidden .skip-link .label .label--accent
                           .meta .lede .text-link(.arrow) .icon .nowrap
@@ -50,10 +61,11 @@
    12 Motion, forced colours, print
    Breakpoints: 40rem (640px) small tablet · 46rem (736px) one-line header ·
    60rem (960px) desktop · 64rem (1024px) 7/5 split · 80rem (1280px) the home
-   band gets a third (artwork) zone. Sticky TOC needs min-width 60rem AND
+   artwork moves beside the headline + bio. Sticky TOC needs min-width 60rem AND
    min-height 32rem (it scrolls inside itself if taller than the window).
    Dark tokens and the black bands apply on screen only, so print is always
-   light, ink-friendly and image-free.
+   light, ink-friendly and image-free. Forced colours and prefers-contrast: more
+   hide the artworks.
    ========================================================================== */
 
 /* ---------- 1. Tokens ---------------------------------------------------- */
@@ -65,7 +77,6 @@
   --font-sans: "Source Sans 3", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 
   /* Type scale */
-  --fs-xs: 0.8125rem;    /* tiny UI (nav tag) */
   --fs-sm: 0.9rem;       /* meta, chips */
   --fs-md: 1rem;         /* compact text (news, lists) */
   --fs-caps: 1.125rem;   /* small-caps labels: all-small-caps renders at ~70% of this */
@@ -89,13 +100,13 @@
   --sp-6: 2rem;
   --sp-7: 3rem;
   --sp-8: 4.5rem;
-  --sp-9: 6rem;
 
   /* Layout */
   --page-max: 75rem;                     /* content width (gutters added outside) */
   --gutter: clamp(1rem, 4vw, 3rem);      /* page side padding: 16px on phones */
   --measure: 68ch;                       /* long-form line length */
   --profile-w: 17rem;                    /* home profile column */
+  --hero-gap: clamp(3rem, 5.5vw, 5.5rem); /* profile column → text (home band, footer) */
   --label-w: 6rem;                       /* shared hanging gutter (letters, dates, venues, facet labels) */
   --toc-w: 13rem;
   --radius: 3px;
@@ -113,11 +124,11 @@
   --ink-3: #525c70;          /* 5.9:1 (5.4:1 on paper-2) */
   --rule: #c9d0db;
   --rule-strong: #0e1526;
-  --accent: #a3264f;         /* DTI crimson (from #a73a56), 6.3:1 (5.7:1 on paper-2) */
+  --accent: #a3264f;         /* DTI crimson (from #a73a56), 6.3:1 (5.7:1 on paper-2): links, interactive things */
   --accent-hover: #7c1b3c;   /* 8.9:1 */
   --accent-wash: #f4e2e9;
   --accent-ink: #8a1f43;     /* 7.2:1 on wash */
-  --accent-2: #1f6a3b;       /* fiber green (from #2f7948), 5.8:1 (5.3:1 on paper-2) */
+  --accent-2: #1f6a3b;       /* fiber green (from #2f7948), 5.8:1 (5.3:1 on paper-2): non-interactive accents */
   --chip-line: #b5637f;      /* chip outline: a softer crimson, 3.7:1 */
   --gold-wash: #ece6c6;      /* ISLES'24 award badge only: olive (from #87783e) */
   --gold-ink: #4f4210;       /* 7.9:1 on gold wash */
@@ -125,82 +136,105 @@
   --paper-card: #ffffff;     /* figure plates: figures are drawn on white */
   --paper-card-line: #d6dce5;
   --focus: #a3264f;
+  --plate-focus: #a3264f;    /* focus ring drawn ON a light figure plate (both schemes): 7.1:1 on white, 5.8:1 on the dark-scheme plate */
   --selection: #f0cfdc;
   --shadow: 0 1px 0 rgba(14, 21, 38, 0.04), 0 8px 24px -16px rgba(14, 21, 38, 0.3);
 
-  /* Black imaging bands (header, first block of each page, footer): identical in
-     both schemes. The artworks sit on pure #000, so the band is pure #000 too. */
+  /* Night palette: defined once, read by BOTH the dark scheme (below) and the black
+     bands (header, first block of each page, footer), which look the same in both
+     schemes. Ratios: on --night-paper / on the band's pure black. */
+  --night-paper: #0b0f17;
+  --night-paper-2: #141a25;
+  --night-surface: #161c28;
+  --night-ink: #e7ebf2;          /* 16.0:1 / 17.6:1 */
+  --night-ink-2: #b9c1cf;        /* 10.6:1 / 11.6:1 */
+  --night-ink-3: #8f99ac;        /* 6.7:1 / 7.3:1 (6.4:1 on --band-2) */
+  --night-rule: #262e3c;
+  --night-rule-strong: #6d788d;  /* 4.3:1 / 4.7:1 */
+  --night-accent: #f08aac;       /* 8.2:1 / 8.9:1 */
+  --night-accent-hover: #ffb3cc;
+  --night-accent-wash: #33141f;
+  --night-accent-ink: #ffa8c5;   /* 9.3:1 on wash; also the focus ring */
+  --night-accent-2: #74d38a;     /* 10.4:1 / 11.4:1 */
+  --night-chip-line: #9a5370;    /* 3.5:1 / 3.9:1 */
+  --night-gold-wash: #29260f;
+  --night-gold-ink: #e0cf7e;     /* 9.7:1 on gold wash */
+  --night-gold-line: #645a26;
+  --night-selection: #4f1c31;
+
+  /* Black imaging bands: the artworks sit on pure #000, so the band is pure #000 too */
   --band: #000000;
-  --band-2: #11141b;         /* hover / photo placeholder inside a band */
-  --band-ink: #f2f4f8;       /* 19.1:1 on #000 */
-  --band-ink-2: #c4cad6;     /* 12.8:1 */
-  --band-ink-3: #959eb0;     /* 7.8:1 (6.8:1 on band-2) */
-  --band-rule: #2a303c;
-  --band-rule-strong: #5c6578; /* 3.6:1 */
-  --band-accent: #f17aa3;    /* bright DTI magenta, 8.1:1 */
-  --band-accent-hover: #ffb0cb;
-  --band-accent-wash: #33121f;
-  --band-accent-ink: #ffa3c2; /* 9.0:1 on accent wash */
-  --band-accent-2: #6fd486;  /* fiber green (from #4eb941), 11.4:1 */
-  --band-chip-line: #9a5370; /* 3.9:1 */
-  --band-gold-wash: #2b2710;
-  --band-gold-ink: #e3d27f;  /* 9.9:1 on gold wash */
-  --band-gold-line: #6b6128;
-  --band-selection: #5b1f37;
+  --band-2: #11141b;             /* hover / photo placeholder inside a band */
   /* Hairline that closes each band: magenta → violet → fiber green, as in the tractography */
   --spectrum: linear-gradient(90deg, #c2386f 0%, #8a4fc4 38%, #3f8fd0 62%, #4eb941 100%);
+
+  /* Background artworks (decorative, black ground). See sections 5-6 for where they are
+     drawn. To swap one, change its url() and keep the file on pure black. The layout also
+     depends on each file's geometry, given in the lines after the url()s: a replacement with
+     the same proportions and the brain framed the same way needs no other change; otherwise
+     re-measure those numbers (README, "Change a background image"). */
+  --art-tract: url("../img/bg/brain-tractography.webp");          /* 768 x 927 native */
+  --art-tract-384: url("../img/bg/brain-tractography-384.webp");  /* 384 x 464, half size: 1x screens under 40rem */
+  --art-dti: url("../img/bg/brain-dti-structural.webp");          /* 446 x 488 native */
+  /* Tractography: the brain's bounding box (pixels brighter than black), each as a fraction
+     of the file's WIDTH: left edge 56/768, top edge 128/768, width 659/768 */
+  --art-tract-ink-x: 0.073;
+  --art-tract-ink-y: 0.1667;
+  --art-tract-ink-w: 0.858;
+  --art-dti-ratio: 446 / 488;    /* DTI file: width / height (the specimen is centred in it, inside a thin black margin) */
 }
 
 @media screen and (prefers-color-scheme: dark) {
   :root {
-    /* Colour — dark: deep blue-black base, brighter magenta + green */
-    --paper: #0b0f17;
-    --paper-2: #141a25;
-    --surface: #161c28;
-    --ink: #e7ebf2;          /* 16.0:1 */
-    --ink-2: #b9c1cf;        /* 10.6:1 */
-    --ink-3: #8f99ac;        /* 6.7:1 (6.1:1 on paper-2) */
-    --rule: #262e3c;
-    --rule-strong: #6d788d;    /* 4.3:1 */
-    --accent: #f08aac;       /* 8.2:1 */
-    --accent-hover: #ffb3cc;
-    --accent-wash: #33141f;
-    --accent-ink: #ffa8c5;   /* 9.3:1 on wash */
-    --accent-2: #74d38a;     /* 10.4:1 */
-    --chip-line: #9a5370;     /* 3.5:1 */
-    --gold-wash: #29260f;
-    --gold-ink: #e0cf7e;     /* 9.7:1 on gold wash */
-    --gold-line: #645a26;
+    /* Colour — dark: the night palette on a deep blue-black base */
+    --paper: var(--night-paper);
+    --paper-2: var(--night-paper-2);
+    --surface: var(--night-surface);
+    --ink: var(--night-ink);
+    --ink-2: var(--night-ink-2);
+    --ink-3: var(--night-ink-3);
+    --rule: var(--night-rule);
+    --rule-strong: var(--night-rule-strong);
+    --accent: var(--night-accent);
+    --accent-hover: var(--night-accent-hover);
+    --accent-wash: var(--night-accent-wash);
+    --accent-ink: var(--night-accent-ink);
+    --accent-2: var(--night-accent-2);
+    --chip-line: var(--night-chip-line);
+    --gold-wash: var(--night-gold-wash);
+    --gold-ink: var(--night-gold-ink);
+    --gold-line: var(--night-gold-line);
     --paper-card: #e4e8ee;   /* cool off-white plate: no glare, figure stays legible */
     --paper-card-line: #e4e8ee;
-    --focus: #ffa8c5;
-    --selection: #4f1c31;
+    --focus: var(--night-accent-ink);
+    --selection: var(--night-selection);
     --shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 10px 30px -18px rgba(0, 0, 0, 0.8);
   }
 }
 
-/* Inside a black band every component reads the band tokens (screen only: print stays light) */
+/* Inside a black band every component reads the night palette on pure black
+   (screen only: print stays light) */
 @media screen {
   .band, .site-header, .site-footer {
     --paper: var(--band);
     --paper-2: var(--band-2);
     --surface: var(--band-2);
-    --ink: var(--band-ink);
-    --ink-2: var(--band-ink-2);
-    --ink-3: var(--band-ink-3);
-    --rule: var(--band-rule);
-    --rule-strong: var(--band-rule-strong);
-    --accent: var(--band-accent);
-    --accent-hover: var(--band-accent-hover);
-    --accent-wash: var(--band-accent-wash);
-    --accent-ink: var(--band-accent-ink);
-    --accent-2: var(--band-accent-2);
-    --chip-line: var(--band-chip-line);
-    --gold-wash: var(--band-gold-wash);
-    --gold-ink: var(--band-gold-ink);
-    --gold-line: var(--band-gold-line);
-    --focus: var(--band-accent-ink);
-    --selection: var(--band-selection);
+    --ink: var(--night-ink);
+    --ink-2: var(--night-ink-2);
+    --ink-3: var(--night-ink-3);
+    --rule: var(--night-rule);
+    --rule-strong: var(--night-rule-strong);
+    --accent: var(--night-accent);
+    --accent-hover: var(--night-accent-hover);
+    --accent-wash: var(--night-accent-wash);
+    --accent-ink: var(--night-accent-ink);
+    --accent-2: var(--night-accent-2);
+    --chip-line: var(--night-chip-line);
+    --gold-wash: var(--night-gold-wash);
+    --gold-ink: var(--night-gold-ink);
+    --gold-line: var(--night-gold-line);
+    --focus: var(--night-accent-ink);
+    --selection: var(--night-selection);
     color-scheme: dark;
     background-color: var(--paper);
     color: var(--ink);
@@ -293,12 +327,13 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 }
 
 .skip-link {
+  --focus: var(--night-ink);        /* its ring also lands on the black header: near-white, 17.6:1 */
   position: absolute;
   left: var(--sp-4);
   top: var(--sp-3);
   z-index: 100;
   padding: 0.7rem var(--sp-4);
-  background: var(--band-accent);   /* lands on the black header: magenta stands out in both schemes */
+  background: var(--night-accent);  /* lands on the black header: magenta stands out in both schemes */
   color: var(--band);
   font-family: var(--font-sans);
   font-size: var(--fs-sm);
@@ -322,7 +357,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   line-height: 1.3;
   color: var(--ink-3);
 }
-.label--accent { color: var(--accent); }
+.label--accent { color: var(--accent-2); }   /* a label, not a link: fiber green */
 
 .meta {
   font-family: var(--font-sans);
@@ -474,12 +509,21 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 }
 
 /* Black imaging band: the first block of every page (home hero, inner page header).
-   <section class="hero band band--tract">…</section> · <header class="page-header band band--dti">…</header>
-   It looks the same in light and dark (it reads the --band-* tokens, see section 1). The artwork
-   is the band's ::before, a CSS background (decorative, never content); its black ground
-   melts into the band, and a mask fades whatever edge the band or window crops. */
+   It looks the same in light and dark (it reads the night palette, see section 1). The
+   artwork is a CSS background on a pseudo-element (decorative, never content); its black
+   ground melts into the band, and a mask fades whatever edge the band or window crops.
+   The art files are tokens (--art-tract, --art-dti in section 1): swap them there.
+
+   A NEW INNER PAGE: copy this as the first thing inside <main class="page" …> (kicker optional):
+     <header class="page-header band band--dti">
+       <p class="page-header__kicker label label--accent">Short kicker</p>
+       <h1 class="page-header__title">Page title</h1>
+       <p class="page-header__dek">One or two sentences about the page.</p>
+     </header>
+   The home page uses <section class="hero band band--tract" …> (section 6). */
 .page > .band {
-  --band-pad: max(var(--gutter), (100% - var(--page-max)) / 2);
+  --band-pad: max(var(--gutter), (100% - var(--page-max)) / 2);    /* padding: % of the page width */
+  --bleed: max(var(--gutter), (100vw - var(--page-max)) / 2);      /* the same distance, usable inside the band */
   position: relative;
   isolation: isolate;
   overflow-x: clip;             /* an artwork may bleed off the window edge; never scrolls sideways */
@@ -493,8 +537,8 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   background: no-repeat center / contain;
   pointer-events: none;
 }
-.band--tract::before { background-image: url("../img/bg/brain-tractography.webp"); }
-.band--dti::before { background-image: url("../img/bg/brain-dti-structural.webp"); }
+.band--tract::before { background-image: var(--art-tract); }
+.band--dti::before { background-image: var(--art-dti); }
 /* Spectral hairline closing the band (decorative) */
 .band::after {
   content: "";
@@ -634,7 +678,8 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 .contact .icon { width: 1.05rem; height: 1.05rem; color: var(--ink-3); transition: color 0.15s ease; }
 .contact a:hover .icon { color: var(--accent); }
 
-/* Intro (right column) */
+/* Intro (right column). A size container, so the highlights can follow its width. */
+.intro { container: intro / inline-size; }
 .intro__kicker { margin-bottom: var(--sp-3); }
 .intro__title {
   font-size: clamp(1.6rem, 1.25rem + 1.4vw, 2.3rem);
@@ -669,7 +714,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   font-weight: 400;
   line-height: 1;
   letter-spacing: -0.025em;
-  color: var(--accent);
+  color: var(--accent-2);      /* fiber green: a figure, not a link (bright on the band, darker on paper) */
   font-variant-numeric: lining-nums proportional-nums;
   white-space: nowrap;
 }
@@ -693,8 +738,17 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   color: var(--ink-2);
 }
 .highlight .text-link { margin-top: auto; align-self: flex-start; }
+/* Two cells only when each is wide enough for "ISLES’24 Challenge · MICCAI 2024" and its badge
+   on one line (about 20rem of text); a narrower intro (small tablets, 60-69rem laptops) stacks
+   them, instead of wrapping the badge and leaving a tall gap in the other cell */
+@container intro (min-width: 44rem) {
+  .highlights { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .highlight { padding-right: var(--sp-5); }
+  .highlight + .highlight { border-top: 0; border-left: var(--hair) solid var(--rule); padding-left: var(--sp-5); padding-right: 0; }
+}
 
-/* Quiet one-line readout under the highlights */
+/* Quiet one-line readout under the highlights. It stays inside the black band on phones too:
+   moving it below the band's hairline would need the markup reordered (or fragile paint tricks). */
 .readout {
   list-style: none;
   margin-top: var(--sp-3);
@@ -715,12 +769,22 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   .profile { grid-template-columns: 8rem minmax(0, 1fr); column-gap: var(--sp-5); }
   .contact { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .contact li:first-child { grid-column: auto; }
-  .highlights { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .highlight { padding-right: var(--sp-5); }
-  .highlight + .highlight { border-top: 0; border-left: var(--hair) solid var(--rule); padding-left: var(--sp-5); padding-right: 0; }
-  /* Every item starts with a "·"; the list is shifted left by one separator width and
-     that strip is clipped, so no line ever starts with a stray dot when the row wraps */
-  .readout { flex-direction: row; flex-wrap: wrap; column-gap: 0; margin-left: -1.2em; clip-path: inset(0 0 0 1.2em); }
+  /* Every item starts with a "·" in a 1.2em box; the list is shifted left by that width and
+     the strip holding the line-start dots is clipped, so no line ever starts with a stray dot
+     when the row wraps. The clip stops at 0.75em (the dot is drawn at 0.6em) and reaches
+     0.5rem beyond the other three sides, so a link's focus ring (5px outside it) is never cut,
+     even on a link that starts a wrapped line. The top rule is drawn from 1.2em by ::before
+     (a border, so it also shows in forced colours and print), lining up with the highlights. */
+  .readout {
+    position: relative;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 0;
+    margin-left: -1.2em;
+    border-top: 0;
+    clip-path: inset(-0.5rem -0.5rem -0.5rem 0.75em);
+  }
+  .readout::before { content: ""; position: absolute; top: 0; left: 1.2em; right: 0; border-top: var(--hair) solid var(--rule); }
   .readout li { white-space: nowrap; }
   .readout li::before { content: "·"; display: inline-block; width: 1.2em; text-align: center; color: var(--ink-3); }
 }
@@ -728,7 +792,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 @media (min-width: 60rem) {
   .hero {
     grid-template-columns: var(--profile-w) minmax(0, 1fr);
-    column-gap: clamp(3rem, 5.5vw, 5.5rem);
+    column-gap: var(--hero-gap);
     align-items: start;
   }
   .hero::before { grid-column: 1 / -1; }
@@ -740,47 +804,85 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   .intro { padding-top: var(--sp-1); }
 }
 
-/* Home band artwork (tractography). Phones to small laptops: a full-bleed window across the
-   top of the band, the fibers fading down into the black behind the name. From 80rem: a third
-   zone on the right; the image bleeds off the window edge and fades in from the left, so
-   no text ever sits on it. Never shown above 0.8x its native 768x927 px. */
+/* Home band artwork (tractography, native 768x927; where the brain sits in the file is given by
+   the --art-tract-ink-* tokens in section 1). Never shown above 0.75x native.
+   Phones and tablets: a full-bleed strip across the top of the band showing the frontal lobes,
+   fading out before the name. It is capped by the window height too (9.5rem on phones and
+   landscape phones), so the name, role and photo stay in the first screen.
+   60-80rem (two-column hero): a shorter strip, centred over the intro column.
+   From 80rem: it sits to the RIGHT of the headline + bio only (.intro::before, in the intro's
+   own grid), a clear gutter away from the text, top-aligned with the kicker and always its
+   full height. Where the window is wide enough the whole brain shows; on narrower laptops it
+   runs off the window edge and fades out over the last 4rem instead of being sliced. */
 .band--tract::before {
   --art-w: clamp(23rem, 62vw, 36rem);              /* 368-576 px: 0.48x-0.75x native */
-  height: clamp(11rem, 33vw, 17rem);
-  margin: calc(-1 * var(--sp-6)) calc(-1 * var(--band-pad)) calc(-1 * var(--sp-4));
+  height: clamp(9.5rem, min(26vw, 30vh), 15rem);
+  margin: calc(-1 * var(--sp-6)) calc(-1 * var(--bleed)) calc(-1 * var(--sp-3));
   background-size: var(--art-w) auto;
-  /* frontal lobes just below the header (the image's own black top margin is 16.7% of its width) */
-  background-position: center calc(var(--art-w) * -0.13);
-  -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent 97%);
-  mask-image: linear-gradient(to bottom, #000 40%, transparent 97%);
+  /* frontal lobes 1rem below the header */
+  background-position: center calc(var(--sp-4) - var(--art-w) * var(--art-tract-ink-y));
+  -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 30%, transparent 100%);
+}
+/* Under 40rem the strip is at most 24rem (384 px) wide: 1x screens take the half-size file,
+   2x/3x phones keep the full one (384 CSS px = 768 device px), so it is never upscaled */
+@media (max-width: 39.99rem) {
+  .band--tract::before { --art-w: clamp(23rem, 62vw, 24rem); }
+}
+@supports (background-image: image-set(url("x.webp") 1x)) {
+  @media (max-width: 39.99rem) {
+    .band--tract::before { background-image: image-set(var(--art-tract-384) 1x, var(--art-tract) 2x); }
+  }
 }
 @media (min-width: 60rem) {
-  .band--tract::before { margin-top: calc(-1 * var(--sp-7)); }
+  /* Two-column hero: a shorter strip (the content starts sooner), the brain centred over the
+     intro column instead of the window: 50% centres it in the strip, which spans the band, and
+     half the profile column + gap moves it to the intro column's centre */
+  .band--tract::before {
+    --art-w: 26rem;                                /* 416 px: 0.54x native */
+    height: 11rem;
+    margin-top: calc(-1 * var(--sp-7));
+    background-position: calc(50% + (var(--profile-w) + var(--hero-gap)) / 2) calc(var(--sp-4) - var(--art-w) * var(--art-tract-ink-y));
+    -webkit-mask-image: linear-gradient(to bottom, #000 45%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 45%, transparent 100%);
+  }
 }
 @media (min-width: 80rem) {
-  .hero.band {
-    --intro-w: 31rem;
-    grid-template-columns: var(--profile-w) minmax(0, var(--intro-w)) minmax(0, 1fr);
+  .band--tract::before { display: none; }          /* the strip gives way to the side artwork */
+  .band--tract .intro {
+    --intro-text: clamp(37rem, 100vw - 43rem, 40rem);   /* headline + bio measure: 40rem from 1328px, 37rem at 1280px */
+    display: grid;
+    grid-template-columns: minmax(0, var(--intro-text)) minmax(0, 1fr);
+    align-content: start;
   }
-  .band--tract::before {
-    /* The brain (86% of the image width, starting 7.3% in) begins one gap after the intro
-       column and ends 2rem short of the window edge; capped at 0.72x native (552 px). */
-    --brain-x: calc(var(--band-pad) + var(--profile-w) + clamp(3rem, 5.5vw, 5.5rem) + var(--intro-w) + var(--sp-6));
-    --art-w: min(34.5rem, (100% - var(--brain-x) - 2rem) / 0.86);
-    grid-area: auto;
-    position: absolute;
-    z-index: -1;
-    top: 44%;
-    left: calc(var(--brain-x) - var(--art-w) * 0.073);
-    width: var(--art-w);
-    height: auto;
-    aspect-ratio: 768 / 927;
-    margin: 0;
-    transform: translateY(-50%);
-    background-size: 100% auto;
-    background-position: center top;
-    -webkit-mask-image: none;
-    mask-image: none;
+  .band--tract .intro > * { grid-column: 1; }
+  .band--tract .intro > .highlights,
+  .band--tract .intro > .readout { grid-column: 1 / -1; }
+  .band--tract .intro::before {
+    /* The box runs from the end of the bio measure to the window edge (--art-v wide), from the
+       kicker to the end of the bio, and on into the black gap above the highlights. The brain
+       starts --art-gx after the text and sits level with the kicker. --art-w is the size that
+       leaves --art-fade clear at the window edge, held between 24rem (0.5x) and 32rem
+       (0.67x, whose brain, 454px tall, still ends above the bio's last line). */
+    --art-gx: 3.5rem;
+    --art-fade: 4rem;
+    --art-v: calc(100vw - var(--bleed) - var(--profile-w) - var(--hero-gap) - var(--intro-text));
+    --art-w: clamp(24rem, (var(--art-v) - var(--art-gx) - var(--art-fade)) / var(--art-tract-ink-w), 32rem);
+    content: "";
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    margin-right: calc(-1 * var(--bleed));
+    margin-bottom: calc(-1 * var(--sp-6));
+    background: var(--art-tract) no-repeat;
+    background-size: var(--art-w) auto;
+    background-position: calc(var(--art-gx) - var(--art-w) * var(--art-tract-ink-x)) calc(var(--sp-1) - var(--art-w) * var(--art-tract-ink-y));
+    pointer-events: none;
+    /* fade out at the window edge (only reaches the brain when it does not fit) and, as a
+       safety net, in the gap above the highlights */
+    -webkit-mask-image: linear-gradient(to left, transparent, #000 var(--art-fade)), linear-gradient(to bottom, #000 calc(100% - var(--sp-6)), transparent);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to left, transparent, #000 var(--art-fade)), linear-gradient(to bottom, #000 calc(100% - var(--sp-6)), transparent);
+    mask-composite: intersect;
   }
 }
 
@@ -796,8 +898,8 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   max-width: 34ch;
   text-wrap: balance;
 }
-.goal__quote p::before { content: "\201C"; position: absolute; margin-left: -0.5em; color: var(--accent); }
-.goal__quote p::after { content: "\201D"; color: var(--accent); }
+.goal__quote p::before { content: "\201C"; position: absolute; margin-left: -0.5em; color: var(--accent-2); }
+.goal__quote p::after { content: "\201D"; color: var(--accent-2); }
 .goal__note { margin-top: var(--sp-4); max-width: 40rem; color: var(--ink-2); font-size: var(--fs-md); line-height: 1.55; }
 
 /* Research thrust rows: whole row is one link (stretched link), letter hangs in the gutter */
@@ -826,7 +928,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   font-style: italic;
   font-weight: 400;
   line-height: 1;
-  color: var(--accent);
+  color: var(--accent-2);
 }
 .thrust__title { font-size: var(--fs-xl); font-weight: 500; line-height: 1.2; }
 .thrust__link { color: var(--ink); text-decoration: none; }
@@ -902,6 +1004,9 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 /* The image links to its own file, so phone readers can open it full size and zoom:
    <a class="plate__link" href="assets/img/research/x.webp"><img …></a> */
 .plate__link { display: block; cursor: zoom-in; }
+/* The plate stays light in the dark scheme, so its focus ring uses the plate's own dark
+   crimson (>= 5.8:1 on the plate in both schemes) instead of the scheme's light pink */
+.plate__card { --focus: var(--plate-focus); }
 .plate figcaption {
   margin-top: var(--sp-3);
   max-width: 40rem;
@@ -1013,7 +1118,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   color: var(--ink);
   font-weight: 600;
   text-decoration: underline;
-  text-decoration-color: var(--accent);
+  text-decoration-color: var(--accent-2);   /* not a link: a green underline, never a magenta one */
   text-decoration-thickness: 1.5px;
   text-underline-offset: 0.2em;
 }
@@ -1121,28 +1226,45 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 @media (min-width: 60rem) { .page-header { margin-bottom: var(--sp-8); } }
 
 /* Inner-page band artwork (DTI | structural slice, native 446x488 px).
-   Phones: a small plate floated top-right; the kicker and title wrap beside it.
+   Phones: a two-column grid; the specimen sits beside the kicker + title only, and the
+   dek and links run full width below it (so the dek never starts with a short line).
+   Any height the specimen has beyond the kicker + title goes below the title, so the
+   kicker always stays one --sp-3 above it.
    From 40rem: its own zone at the right of the content column (the text column
-   gives way), centred in the band, never larger than 0.8x native. */
-.band--dti { display: flow-root; }
-.band--dti::before {
-  float: right;
-  width: clamp(7.5rem, 34vw, 10.5rem);
-  aspect-ratio: 446 / 488;
-  margin: calc(-1 * var(--sp-4)) calc(-1 * var(--sp-2)) var(--sp-2) var(--sp-3);
+   gives way), centred in the band, never larger than 0.8x native. The text is top-aligned
+   and a page without a kicker keeps the kicker's line empty, so the title sits at the same
+   height on every inner page. */
+.band--dti::before { aspect-ratio: var(--art-dti-ratio); }
+@media (max-width: 39.99rem) {
+  .band--dti {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--sp-4);
+    align-items: start;
+  }
+  .band--dti > * { grid-column: 1 / -1; }
+  .band--dti > .page-header__kicker,
+  .band--dti > .page-header__title { grid-column: 1; }
+  .band--dti::before {
+    grid-column: 2;
+    grid-row: 1 / span 2;                          /* beside the kicker + title */
+    width: clamp(6.5rem, 28vw, 9rem);              /* 104-144 px: 0.23x-0.32x native */
+    margin: calc(-1 * var(--sp-2)) calc(-1 * var(--sp-2)) 0 0;
+  }
+  .band--dti:has(> .page-header__kicker) { grid-template-rows: auto 1fr; }   /* spare height goes below the (top-aligned) title */
+  /* no kicker (Publications, Teaching): the specimen sits beside the title, centred on it */
+  .band--dti:not(:has(> .page-header__kicker))::before { grid-row: 1; }
+  .band--dti:not(:has(> .page-header__kicker)) > .page-header__title { align-self: center; }
 }
 @media (min-width: 40rem) {
   .page > .band--dti {
-    --art-w: clamp(13rem, 25vw, 22.3rem);
+    --art-w: clamp(9.5rem, 24vw, 22.3rem);    /* 154-357 px: never above native; leaves the 399px Research kicker one line from 640px */
     padding-right: calc(var(--band-pad) + var(--art-w) + var(--sp-6));
-    min-height: calc(var(--art-w) * 1.1 + var(--sp-6));
-    /* a short header (e.g. Teaching) centres on the artwork instead of leaving a black void below */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    min-height: calc(var(--art-w) / (var(--art-dti-ratio)) + var(--sp-6));
   }
+  /* no kicker (Publications, Teaching): keep its line (label line-height 1.3 + its margin) */
+  .band--dti > .page-header__title:first-child { margin-top: calc(var(--fs-caps) * 1.3 + var(--sp-3)); }
   .band--dti::before {
-    float: none;
     position: absolute;
     z-index: -1;
     top: 50%;
@@ -1153,8 +1275,6 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   }
 }
 .page-header__kicker { margin-bottom: var(--sp-3); }
-/* Kickers inside a band take the fiber green of the artworks */
-.band .label--accent { color: var(--accent-2); }
 /* A ruled section head straight after the page header would draw a second rule: drop it */
 .page-header + .section { margin-top: 0; }
 .page-header + .section > .section__head:first-child { border-top: 0; padding-top: 0; }
@@ -1168,9 +1288,13 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 .page-header__dek {
   margin-top: var(--sp-4);
   max-width: 42rem;
+  text-wrap: balance;           /* phones: even lines, no one-word last line (beyond 6 lines Chromium falls back to normal wrapping) */
   font-size: var(--fs-lg);
   line-height: 1.5;
   color: var(--ink-2);
+}
+@media (min-width: 40rem) {
+  .page-header__dek { text-wrap: pretty; }   /* wider screens: balance would break hyphenated words such as "brain-age" */
 }
 .page-header__meta {
   list-style: none;
@@ -1253,7 +1377,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 .prose li::marker { color: var(--ink-3); }
 .prose blockquote {
   padding-left: var(--sp-5);
-  border-left: 2px solid var(--accent);
+  border-left: 2px solid var(--accent-2);
   font-style: italic;
   color: var(--ink-2);
 }
@@ -1265,7 +1389,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   letter-spacing: -0.02em;
   line-height: 1.12;
 }
-.thrust-head__letter { margin-right: 0.12em; font-style: italic; color: var(--accent); font-size: 1.35em; line-height: 0.9; }
+.thrust-head__letter { margin-right: 0.12em; font-style: italic; color: var(--accent-2); font-size: 1.35em; line-height: 0.9; }
 .thrust-head__badge { margin-left: var(--sp-2); vertical-align: 0.3em; letter-spacing: 0.05em; }
 
 /* Sub-thrust heading: "A1 · Segment the lesion" + optional italic dek */
@@ -1295,7 +1419,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   font-variant-caps: all-small-caps;
   letter-spacing: 0.06em;
   line-height: 1.15;          /* same as the other gutter labels */
-  color: var(--accent);
+  color: var(--accent-2);
 }
 .facet > dd { margin-top: var(--sp-1); }
 .facet > dd > * + * { margin-top: 0.8em; }
@@ -1313,14 +1437,14 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 .callout {
   padding: var(--sp-4) var(--sp-5);
   background: var(--paper-2);
-  border-left: 2px solid var(--accent);
+  border-left: 2px solid var(--accent-2);
   border-radius: 0 var(--radius) var(--radius) 0;
   font-size: var(--fs-md);
   line-height: 1.55;
   color: var(--ink-2);
 }
 .callout > * { max-width: var(--measure); }
-.callout__label { margin-bottom: var(--sp-1); color: var(--accent); }
+.callout__label { margin-bottom: var(--sp-1); color: var(--accent-2); }
 
 /* Funding line under a research section: <p class="support"><span class="support__label">Support</span> …</p>
    The label runs in, so short and long lines read the same way. */
@@ -1339,7 +1463,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   font-variant-caps: all-small-caps;
   letter-spacing: 0.06em;
   font-size: 1.08em;
-  color: var(--accent);
+  color: var(--accent-2);
 }
 
 /* Funding list (.grant shares the gutter grid; the gutter holds the years) */
@@ -1355,7 +1479,8 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   color: var(--ink-2);
   font-variant-numeric: lining-nums;
 }
-.grant__amount { font-family: var(--font-serif); font-size: 1.3rem; color: var(--accent); font-variant-numeric: lining-nums; letter-spacing: -0.01em; }
+/* an amount is a figure, not a link: fiber green, like the home highlights */
+.grant__amount { font-family: var(--font-serif); font-size: 1.3rem; color: var(--accent-2); font-variant-numeric: lining-nums; letter-spacing: -0.01em; }
 .grant__sponsor { font-weight: 600; color: var(--ink); }
 .grant__role { color: var(--ink-3); }
 
@@ -1370,7 +1495,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   left: 0; top: -0.15em;
   font-size: 3.4rem;
   line-height: 1;
-  color: var(--accent);
+  color: var(--accent-2);
 }
 .pullquote blockquote p { font-size: var(--fs-xl); font-style: italic; line-height: 1.32; letter-spacing: -0.01em; color: var(--ink); }
 .pullquote figcaption { margin-top: var(--sp-3); font-family: var(--font-sans); font-size: var(--fs-sm); color: var(--ink-3); }
@@ -1410,7 +1535,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   padding: var(--sp-5);
   background: var(--surface);
   border: var(--hair) solid var(--rule);
-  border-top: 2px solid var(--accent);
+  border-top: 2px solid var(--accent-2);     /* a plain card is not a link: green rule */
   border-radius: 0 0 var(--radius) var(--radius);
 }
 .card__kicker { margin-bottom: var(--sp-2); }
@@ -1418,7 +1543,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 .card__text { margin-top: var(--sp-2); font-size: var(--fs-md); line-height: 1.55; color: var(--ink-2); }
 .card__foot { margin-top: auto; padding-top: var(--sp-3); }
 /* .card--link: the whole card is the link target (put the <a> in .card__title) */
-.card--link { position: relative; transition: border-color 0.15s ease, background-color 0.15s ease; }
+.card--link { position: relative; border-top-color: var(--accent); transition: border-color 0.15s ease, background-color 0.15s ease; }   /* a link card keeps the link colour */
 .card--link .card__title a { color: var(--ink); text-decoration: none; }
 .card--link .card__title a::after { content: ""; position: absolute; inset: 0; }
 .card--link .card__title a:focus-visible { outline: none; }
@@ -1432,7 +1557,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   .cards--3 > .card:nth-child(3):last-child { grid-column: 1 / -1; }
 }
 
-/* Ordered steps: <ol class="cards cards--3 cards--steps" role="list"> — an accent arrow
+/* Ordered steps: <ol class="cards cards--3 cards--steps" role="list"> — a green arrow
    between consecutive cards shows the order (down on phones/tablets, right on desktop).
    The arrows are decorative ("" alt text), so screen readers only hear the ordered list. */
 .cards--steps { margin-top: var(--sp-5); gap: var(--sp-6); }
@@ -1450,7 +1575,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   font-family: var(--font-sans);
   font-size: var(--fs-lg);
   line-height: 1;
-  color: var(--accent);
+  color: var(--accent-2);
 }
 @media (min-width: 40rem) and (max-width: 59.99rem) {
   .cards--steps { grid-template-columns: minmax(0, 1fr); }
@@ -1540,7 +1665,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   .site-footer__office { grid-column: auto; }
 }
 @media (min-width: 60rem) {
-  .site-footer__inner { grid-template-columns: var(--profile-w) minmax(0, 1fr); column-gap: clamp(3rem, 5.5vw, 5.5rem); }
+  .site-footer__inner { grid-template-columns: var(--profile-w) minmax(0, 1fr); column-gap: var(--hero-gap); }
   .footer-links a { min-height: 2.1rem; }
 }
 
@@ -1552,9 +1677,14 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 /* Windows High Contrast drops backgrounds: draw the nav underline as a border so the
    current page stays marked */
 @media (forced-colors: active) {
-  .band::before { display: none; }
+  .band::before, .band--tract .intro::before { display: none; }
   .site-nav a::after { height: 0; background: none; border-bottom: 1px solid currentColor; }
   .site-nav a[aria-current="page"]::after { border-bottom-width: 2px; }
+}
+
+/* More contrast requested: drop the artworks, keep the plain black bands */
+@media (prefers-contrast: more) {
+  .band::before, .band--tract .intro::before { display: none; }
 }
 
 /* Print is always light: the dark tokens apply to screens only (see section 1) */
@@ -1564,7 +1694,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   .site-header, .skip-link, .toc, .back-to-top, .thrust__thumb { display: none !important; }
   body { background: #fff; color: #000; font-size: 11pt; }
   .site-footer { background: none; border-top: 1px solid #000; }
-  .band::before, .band::after, .site-footer::before { display: none !important; }
+  .band::before, .band::after, .band--tract .intro::before, .site-footer::before { display: none !important; }
   .page > .band { padding: 0 var(--gutter) var(--sp-5); min-height: 0; border-bottom: 1px solid #000; }
   a { color: inherit; }
   .plate__card, .thrust__thumb { box-shadow: none; }

@@ -20,7 +20,7 @@
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Overview of Tianyi Ren’s research program: neuroimaging AI tools, model explainability, and responsible generative AI, applied to ischemic stroke, glioblastoma, and Alzheimer’s disease.">
+  <meta property="og:image:alt" content="Tianyi Ren, Postdoctoral Scholar, University of Washington: clinically deployable, trustworthy neuroimaging AI. Beside the text, a colorful diffusion-MRI tractography image of the brain’s white-matter fibers.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://rentianyi.github.io/assets/img/og-image.jpg">
 
@@ -60,7 +60,7 @@
     <header class="page-header band band--dti">
       <p class="page-header__kicker label label--accent">Clinically deployable, trustworthy neuroimaging AI</p>
       <h1 class="page-header__title">Research</h1>
-      <p class="page-header__dek">Bridging algorithms with real-world clinical needs. I build neuroimaging AI that segments lesions and quantifies brain aging, methods that explain what those models see and when to trust them, and, next, generative models that answer clinicians’ “what if” questions.</p>
+      <p class="page-header__dek">Bridging algorithms with <span class="nowrap">real-world</span> clinical needs. I build neuroimaging AI that segments lesions and quantifies brain aging, methods that explain what those models see and when to trust them, and, next, generative models that answer clinicians’ “what if” questions.</p>
       <ul class="page-header__meta" role="list">
         <li><a class="chip" href="publications.html">All publications</a></li>
         <li><a class="chip" href="https://scholar.google.com/citations?user=_E3zJtEAAAAJ&amp;hl=en">Google Scholar</a></li>
@@ -108,13 +108,6 @@
               <dd><blockquote class="goal__quote"><p>Merge advanced neuroimaging and multi-modal AI tools for the in&nbsp;vivo, subject-specific investigation of brain-related disease.</p></blockquote></dd>
             </div>
           </dl>
-          <figure class="plate plate--wide">
-            <div class="plate__card plate__card--marks">
-              <a class="plate__link" href="assets/img/research/overview.webp"><img src="assets/img/research/overview.webp" width="1400" height="835" loading="lazy" decoding="async"
-                   alt="Diagram of the research program in three panels: neuroimaging tools for brain-age estimation and lesion segmentation (A); model explainability, showing a saliency map and bars of MRI-contrast importance behind a segmentation (B); and responsible generative AI, with natural-language explanation and counterfactual question-and-answer examples (C). A side column lists the clinical applications: ischemic stroke, glioblastoma, and Alzheimer’s disease. Opens the full-size image."></a>
-            </div>
-            <figcaption><span class="plate__no">Fig. 1</span> Overview of my research program: neuroimaging AI tools (A), model explainability (B), and responsible generative AI (C), with clinical applications in ischemic stroke, glioblastoma, and Alzheimer’s disease.</figcaption>
-          </figure>
         </section>
 
         <!-- ===== THRUST A ===== -->
@@ -152,7 +145,7 @@
               <div class="facet">
                 <dt>Future directions</dt>
                 <dd>
-                  <p>Agentic, clinically-reasoning models that decompose the problem into faithful, human-interpretable steps (Fig.&nbsp;2):</p>
+                  <p>Agentic, clinically-reasoning models that decompose the problem into faithful, human-interpretable steps (Fig.&nbsp;1):</p>
                   <ul>
                     <li>a vessel-segmentation agent for vascular topology and occlusions;</li>
                     <li>a CT-perfusion agent using Fourier Neural Operators;</li>
@@ -164,7 +157,7 @@
                       <a class="plate__link" href="assets/img/research/stroke-agents.webp"><img src="assets/img/research/stroke-agents.webp" width="1325" height="1027" loading="lazy" decoding="async"
                            alt="Proposed multi-agent framework, drawn as robot icons beside brain scans. A perfusion agent reads CBF, CBV, MTT and Tmax perfusion maps and asks whether to quantify core and penumbra. An anatomical agent reads a non-contrast CT for early signs of ischemic change. A vessel agent reads an angiogram for large-vessel occlusions. All three point to a central vision-language-model agent, which outlines a possible ischemic location in red on a brain image. Opens the full-size image."></a>
                     </div>
-                    <figcaption><span class="plate__no">Fig. 2</span> Proposed multi-agent framework for ischemic stroke lesion segmentation (future direction). Perfusion, anatomical and vessel agents each answer one clinical question and report to a central vision-language agent.</figcaption>
+                    <figcaption><span class="plate__no">Fig. 1</span> Proposed multi-agent framework for ischemic stroke lesion segmentation (future direction). Perfusion, anatomical and vessel agents each answer one clinical question and report to a central vision-language agent.</figcaption>
                   </figure>
                 </dd>
               </div>
@@ -206,7 +199,7 @@
                       <a class="plate__link" href="assets/img/research/brain-age.webp"><img src="assets/img/research/brain-age.webp" width="924" height="1409" loading="lazy" decoding="async"
                            alt="Four-panel overview of the brain-aging research. (a) Multi-level brain age: a scatter plot of bias-corrected predicted age against chronological age, and a regional map colored from delayed to accelerated aging for a subject whose chronological age is 52 but whose brain age is 56. (b) Systematic bias of a regression model: older subjects are predicted younger and younger subjects older. (c) Latent-space ordinality: images of people aged 1 to 70 encoded so that the latent space preserves age order. (d) Clinical validation: cognitive scores compared with a regional brain-age map of Shapley values on a sagittal brain slice. Opens the full-size image."></a>
                     </div>
-                    <figcaption><span class="plate__no">Fig. 3</span> Brain-aging research: multi-level brain age, regression bias, latent-space ordinality, and clinical validation.</figcaption>
+                    <figcaption><span class="plate__no">Fig. 2</span> Brain-aging research: multi-level brain age, regression bias, latent-space ordinality, and clinical validation.</figcaption>
                   </figure>
                 </dd>
               </div>
@@ -270,7 +263,7 @@
                       <a class="plate__link" href="assets/img/research/xai-shapley.webp"><img src="assets/img/research/xai-shapley.webp" width="871" height="1053" loading="lazy" decoding="async"
                            alt="Four-panel explainable-AI figure. (a) Multi-contrast brain tumor segmentation overlaid on four MRI contrasts. (b) Violin plots of the contrast-level Shapley value of each MRI contrast, t1c, t1w, t2f and t2w, with t1c and t2f highest. (c) Gradient-based Grad-CAM heat maps on four brain slices. (d) Box plots of the normalized Spearman footrule between model and expert contrast rankings, for annotator consensus and clinical standard, across Dice score categories from below 0.5 to 0.9–1. Opens the full-size image."></a>
                     </div>
-                    <figcaption><span class="plate__no">Fig. 4</span> Contrast-level Shapley explanations for multi-contrast tumor segmentation, compared with gradient-based Grad-CAM, and the alignment between model and expert explanations across Dice score categories.</figcaption>
+                    <figcaption><span class="plate__no">Fig. 3</span> Contrast-level Shapley explanations for multi-contrast tumor segmentation, compared with gradient-based Grad-CAM, and the alignment between model and expert explanations across Dice score categories.</figcaption>
                   </figure>
                 </dd>
               </div>
@@ -300,13 +293,6 @@
           <section class="section" id="c1" aria-labelledby="c1-title">
             <h3 class="sub-head" id="c1-title"><span class="sub-head__code">C1</span> Forecasting brain-aging trajectories <span class="sub-head__dek">Counterfactual generative AI</span></h3>
             <p>Counterfactual generative models will produce “what if” visualizations of a patient’s brain, for example under accelerated aging or early Alzheimer’s disease.</p>
-            <figure class="plate plate--wide">
-              <div class="plate__card">
-                <a class="plate__link" href="assets/img/research/counterfactual-aging.webp"><img src="assets/img/research/counterfactual-aging.webp" width="1400" height="415" loading="lazy" decoding="async"
-                     alt="Two-panel counterfactual brain-aging figure. Left: a regional brain-age map colored from delayed to accelerated aging, for a subject whose brain age is 56 and chronological age is 52. Right: a sketch of an aging trajectory between age 52 and age 55, beside generated axial MRI slices of the same brain at age 52 and at age 55. Opens the full-size image."></a>
-              </div>
-              <figcaption><span class="plate__no">Fig. 5</span> Proposed counterfactual generative AI for brain-aging trajectory forecasting: how would this brain look if its brain age were 55?</figcaption>
-            </figure>
           </section>
 
           <!-- C2 -->
@@ -329,6 +315,13 @@
                 </p></dd>
               </div>
             </dl>
+            <figure class="plate plate--wide">
+              <div class="plate__card">
+                <a class="plate__link" href="assets/img/research/btreport-overview.webp"><img src="assets/img/research/btreport-overview.webp" width="1400" height="990" loading="lazy" decoding="async"
+                     alt="BTReport pipeline in four panels on a black background: a glioma segmentation with patient metadata, a midline-shift measurement comparing the ideal and shifted midlines, VASARI features on an atlas parcellation, and an LLM that combines prompting with these clinical features. Below each panel are the extracted values, and a final box shows the generated findings, describing a solitary, markedly enhancing lesion with a 10 mm right-to-left midline shift. Opens the full-size image."></a>
+              </div>
+              <figcaption><span class="plate__no">Fig. 4</span> BTReport overview: interpretable, clinically meaningful variables (demographics, VASARI features and 3D midline shift) are extracted deterministically for each case and used by context-guided LLMs for clinically grounded radiology report generation. Figure 1 of Heras Rivera, Chen, Ren et al., <a href="publications.html#heras2026btreport">BTReport</a> (MIDL 2026).</figcaption>
+            </figure>
           </section>
         </section>
 
