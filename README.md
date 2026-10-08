@@ -9,7 +9,7 @@ It is plain HTML and one stylesheet. There is no build step, so any edit you com
 | `research.html`, `publications.html`, `teaching.html` | The other pages |
 | `CV_tianyi.pdf` | The CV that the "CV" links open |
 | `assets/css/site.css` | All styling (you should not need to touch it) |
-| `assets/img/` | Headshot, favicon, social-preview image, research figures. `headshot-original.webp` is the uncropped photo the headshots were made from (no page uses it) |
+| `assets/img/` | Headshot, favicon, social-preview image, research figures; `bg/` holds the two brain-imaging artworks used as decorative backgrounds of the black bands (set in `site.css`, section 5). `headshot-original.webp` is the uncropped photo the headshots were made from (no page uses it) |
 | `404.html` | "Page not found" page |
 | `publication.html`, `Projects.html` | Old addresses that forward to the new pages. Keep them |
 
