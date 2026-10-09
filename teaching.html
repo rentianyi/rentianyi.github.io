@@ -28,9 +28,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&amp;family=Source+Sans+3:wght@400..700&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
   <link rel="stylesheet" href="assets/css/site.css">
-  <script src="assets/js/site.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -38,17 +37,14 @@
   <!-- SITE HEADER: identical on every page; only aria-current="page" moves -->
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="wordmark" href="index.html">
-        <img class="wordmark__mark" src="assets/img/favicon.svg" width="30" height="30" alt="">
-        <span>Tianyi Ren</span>
-      </a>
+      <a class="site-name" href="index.html">Tianyi Ren</a>
       <nav class="site-nav" aria-label="Primary">
         <ul role="list">
           <li><a href="index.html">Home</a></li>
           <li><a href="research.html">Research</a></li>
           <li><a href="publications.html">Publications</a></li>
           <li><a href="teaching.html" aria-current="page">Teaching</a></li>
-          <li><a href="CV_tianyi.pdf">CV<span class="nav-tag" aria-hidden="true">PDF</span><span class="visually-hidden"> (PDF)</span></a></li>
+          <li><a href="CV_tianyi.pdf">CV<span class="visually-hidden"> (PDF)</span></a></li>
         </ul>
       </nav>
     </div>
@@ -59,259 +55,81 @@
     <!-- ===== PAGE HEADER ===== -->
     <header class="page-header band band--dti">
       <h1 class="page-header__title">Teaching &amp; Mentoring</h1>
-      <p class="page-header__dek"><em>Guiding the next generation of engineers and scientists, in the classroom and far beyond it, is the most enduring source of fulfillment in my academic career.</em></p>
-      <!-- ON THIS PAGE: if you add a section, add a matching link here -->
-      <nav aria-label="On this page">
-        <ul class="page-header__meta" role="list">
-          <li><a class="chip" href="#philosophy">Philosophy</a></li>
-          <li><a class="chip" href="#courses">Courses taught</a></li>
-          <li><a class="chip" href="#online-course">Online course</a></li>
-          <li><a class="chip" href="#future-teaching">Prepared to teach</a></li>
-          <li><a class="chip" href="#mentoring">Mentoring</a></li>
-        </ul>
-      </nav>
+      <p class="page-header__dek">Courses, teaching philosophy and mentoring.</p>
     </header>
 
-    <!-- ===== TEACHING PHILOSOPHY ===== -->
-    <section class="section" id="philosophy" aria-labelledby="philosophy-title">
-      <div class="section__head">
-        <h2 class="label" id="philosophy-title">Teaching philosophy</h2>
-      </div>
-      <p class="lede">My teaching rests on three pillars.</p>
-      <!-- PILLARS: edit the text inside each <li class="card"> -->
-      <ul class="cards cards--3" role="list">
-        <li class="card">
-          <p class="card__kicker label label--accent">Pillar 1</p>
-          <h3 class="card__title">Inquiry-driven</h3>
-          <p class="card__text">I put curiosity and critical thinking first, and questions and mistakes are welcome. In BIS&nbsp;285, students worked through published studies to see how data become claims.</p>
-        </li>
-        <li class="card">
-          <p class="card__kicker label label--accent">Pillar 2</p>
-          <h3 class="card__title">Collaborative learning</h3>
-          <p class="card__text">Students learn through discussion, teamwork, and interdisciplinary hands-on projects.</p>
-        </li>
-        <li class="card">
-          <p class="card__kicker label label--accent">Pillar 3</p>
-          <h3 class="card__title">Mentoring</h3>
-          <p class="card__text">Teaching at its most individualized: I match each student’s project to their background and goals, and expand their independence as their skills grow.</p>
-          <p class="card__foot"><a class="text-link" href="#mentoring">Mentees<span class="arrow" aria-hidden="true">→</span></a></p>
-        </li>
-      </ul>
-
-      <section class="section prose" id="ai-in-the-classroom" aria-labelledby="ai-title">
-        <h3 id="ai-title">AI in the classroom</h3>
-        <p>I treat modern AI as an always-available tutor. That frees our time together in person for what most needs a teacher: formulating problems, reasoning about trade-offs, evaluating evidence, and communicating results. I also teach students to use AI responsibly: to check its output for accuracy and bias, to cite their sources, and to know the limits of these tools.</p>
-      </section>
-    </section>
-
-    <!-- ===== COURSES TAUGHT ===== -->
+    <!-- ===== COURSES: newest first, one line each ===== -->
     <section class="section" id="courses" aria-labelledby="courses-title">
-      <div class="section__head">
-        <h2 class="label" id="courses-title">Courses taught</h2>
-        <a class="text-link" href="CV_tianyi.pdf">Full CV<span class="visually-hidden"> (PDF)</span><span class="arrow" aria-hidden="true">→</span></a>
-      </div>
-      <!-- COURSES: newest first. Copy an <li class="course"> … </li> block to add one
-           (the simple Lehigh items below are the easiest to copy). -->
-      <ol class="courses" role="list">
-        <li class="course">
-          <p class="course__term">Spring 2025</p>
-          <div>
-            <h3 class="course__name">Seminar in Biology: Dealing with Data</h3>
-            <p class="course__meta"><span class="course__code">BIS 285</span> · School of Interdisciplinary Arts &amp; Sciences, University of Washington</p>
-            <p class="course__role"><span class="badge">Instructor</span></p>
-            <p class="course__note">Teaching rating <strong>4.6/5.0</strong>.</p>
-            <!-- STUDENT COMMENTS: verbatim from course evaluations -->
-            <div class="pullquotes">
-              <figure class="pullquote">
-                <blockquote><p>Dr. Ren is really kind and helpful.</p></blockquote>
-                <figcaption>Student comment, BIS 285, Spring 2025</figcaption>
-              </figure>
-              <figure class="pullquote">
-                <blockquote><p>I enjoyed this class because I learned the importance of what goes through a research paper and all the important aspects of it.</p></blockquote>
-                <figcaption>Student comment, BIS 285, Spring 2025</figcaption>
-              </figure>
-            </div>
-          </div>
-        </li>
-        <li class="course">
-          <p class="course__term">Spring 2022</p>
-          <div>
-            <h3 class="course__name">Heat and Mass Transfer</h3>
-            <p class="course__meta">Lehigh University</p>
-            <p class="course__role"><span class="badge">Teaching assistant</span></p>
-          </div>
-        </li>
-        <li class="course">
-          <p class="course__term">Fall 2020 &amp; Fall 2021</p>
-          <div>
-            <h3 class="course__name">Numerical Methods in Mechanical Engineering</h3>
-            <p class="course__meta"><span class="course__code">ME 413</span> · Lehigh University</p>
-            <p class="course__role"><span class="badge">Teaching assistant</span></p>
-          </div>
-        </li>
-        <li class="course">
-          <p class="course__term">Spring 2021</p>
-          <div>
-            <h3 class="course__name">Mechanics of Materials</h3>
-            <p class="course__meta">Lehigh University</p>
-            <p class="course__role"><span class="badge">Teaching assistant</span></p>
-          </div>
-        </li>
-      </ol>
-    </section>
-
-    <!-- ===== OPEN ONLINE COURSE ===== -->
-    <section class="section" id="online-course" aria-labelledby="online-course-title">
-      <div class="section__head">
-        <h2 class="label" id="online-course-title">Open online course</h2>
-      </div>
-      <ol class="courses" role="list">
-        <li class="course">
-          <p class="course__term">Forthcoming</p>
-          <div>
-            <h3 class="course__name">Deep Learning for Medical Image Analysis</h3>
-            <p class="course__meta">AI for Engineering Education &amp; Research Initiative, University of Washington</p>
-            <p class="course__role"><span class="badge">Course designer &amp; instructor</span> <span class="badge">Free &amp; open access</span></p>
-            <p class="course__note">The course moves in three steps: from the fundamentals of medical imaging data, through modern deep-learning architectures, to current research topics. Each module pairs a concise lecture with a hands-on coding notebook on public benchmark datasets.</p>
-            <!-- COURSE ARC: three steps, in order -->
-            <ol class="cards cards--3 cards--steps" role="list">
-              <li class="card">
-                <p class="card__kicker label label--accent">Step 1</p>
-                <h4 class="card__title">Fundamentals</h4>
-                <p class="card__text">Imaging modalities, data formats, and MRI and CT preprocessing.</p>
-              </li>
-              <li class="card">
-                <p class="card__kicker label label--accent">Step 2</p>
-                <h4 class="card__title">Architectures</h4>
-                <p class="card__text">Convolutional and transformer architectures for classification and segmentation.</p>
-              </li>
-              <li class="card">
-                <p class="card__kicker label label--accent">Step 3</p>
-                <h4 class="card__title">Research topics</h4>
-                <p class="card__text">Transfer learning for low-resource settings, uncertainty quantification, and explainable AI for clinical decision support.</p>
-              </li>
-            </ol>
-          </div>
-        </li>
-      </ol>
-    </section>
-
-    <!-- ===== COURSES I AM PREPARED TO TEACH ===== -->
-    <section class="section" id="future-teaching" aria-labelledby="future-teaching-title">
-      <div class="section__head">
-        <h2 class="label" id="future-teaching-title">Courses I am prepared to teach</h2>
-      </div>
-      <!-- PREPARED TO TEACH: copy an <li class="tag"> to add a course to a group -->
-      <ul class="cards cards--3" role="list">
-        <li class="card">
-          <h3 class="card__title">Artificial intelligence</h3>
-          <ul class="tags card__text" role="list">
-            <li class="tag">Machine Learning</li>
-            <li class="tag">Deep Learning</li>
-            <li class="tag">Computer Vision</li>
-            <li class="tag">Natural Language Processing</li>
-          </ul>
-        </li>
-        <li class="card">
-          <h3 class="card__title">Core mechanical engineering</h3>
-          <ul class="tags card__text" role="list">
-            <li class="tag">Dynamics</li>
-            <li class="tag">Finite Element Analysis</li>
-            <li class="tag">Numerical Methods</li>
-          </ul>
-        </li>
-        <li class="card">
-          <h3 class="card__title">Clinically oriented</h3>
-          <ul class="tags card__text" role="list">
-            <li class="tag">MRI Physics</li>
-          </ul>
-        </li>
+      <h2 class="section__title" id="courses-title">Courses</h2>
+      <ul class="list">
+        <li><strong>BIS 285: Seminar in Biology: Dealing with Data</strong> — Instructor, UW, Spring 2025 <span aria-hidden="true">·</span> rating 4.6/5.0</li>
+        <li><strong>Heat and Mass Transfer</strong> — TA, Lehigh, Spring 2022</li>
+        <li><strong>Mechanics of Materials</strong> — TA, Lehigh, Spring 2021</li>
+        <li><strong>ME 413: Numerical Methods in Mechanical Engineering</strong> — TA, Lehigh, Fall 2020 &amp; Fall 2021</li>
       </ul>
-      <div class="callout" role="note" aria-labelledby="planned-course-title">
-        <p class="callout__label label" id="planned-course-title">Planned new course</p>
-        <p><strong>Medical Image Analysis</strong> brings together classical signal and image processing, imaging modalities, and deep learning, optionally with image-based biomechanical modeling. Students work on projects with clinicians.</p>
-      </div>
     </section>
 
-    <!-- ===== MENTORING ===== -->
+    <!-- ===== ONLINE COURSE ===== -->
+    <section class="section" id="online-course" aria-labelledby="online-course-title">
+      <h2 class="section__title" id="online-course-title">Online course</h2>
+      <ul class="list">
+        <li><strong>Deep Learning for Medical Image Analysis</strong> — course designer &amp; instructor, AI for Engineering Education &amp; Research Initiative, UW <span aria-hidden="true">·</span> free and open-access <span aria-hidden="true">·</span> forthcoming</li>
+      </ul>
+    </section>
+
+    <!-- ===== TEACHING INTERESTS ===== -->
+    <section class="section" id="future-teaching" aria-labelledby="interests-title">
+      <h2 class="section__title" id="interests-title">Teaching interests</h2>
+      <ul class="list">
+        <li>Prepared to teach: machine learning, deep learning, computer vision, NLP, dynamics, finite element analysis, numerical methods, MRI physics</li>
+        <li>Planned new course: <strong>Medical Image Analysis</strong>, with clinician-partnered projects</li>
+      </ul>
+    </section>
+
+    <!-- ===== PHILOSOPHY ===== -->
+    <section class="section" id="philosophy" aria-labelledby="philosophy-title">
+      <h2 class="section__title" id="philosophy-title">Philosophy</h2>
+      <ul class="list">
+        <li><strong>Inquiry-driven:</strong> curiosity and critical thinking; questions welcome.</li>
+        <li><strong>Collaborative:</strong> discussion, teamwork, interdisciplinary hands-on projects.</li>
+        <li><strong>Mentoring:</strong> projects matched to each student’s goals.</li>
+        <li id="ai-in-the-classroom"><strong>AI in the classroom:</strong> an always-available tutor, used responsibly.</li>
+      </ul>
+    </section>
+
+    <!-- ===== STUDENT COMMENTS: verbatim from BIS 285 evaluations ===== -->
+    <section class="section" id="comments" aria-labelledby="comments-title">
+      <h2 class="section__title" id="comments-title">Student comments</h2>
+      <ul class="list">
+        <li>“Dr. Ren is really kind and helpful.”</li>
+        <li>“I enjoyed this class because I learned the importance of what goes through a research paper and all the important aspects of it.”</li>
+      </ul>
+      <p class="meta">BIS 285 course evaluations, Spring 2025.</p>
+    </section>
+
+    <!-- ===== MENTEES: name and program only ===== -->
     <section class="section" id="mentoring" aria-labelledby="mentoring-title">
       <div class="section__head">
-        <h2 class="label" id="mentoring-title">Mentoring</h2>
-        <a class="text-link" href="https://www.kurtlab.com/people">Kurt Lab, University of Washington<span class="arrow" aria-hidden="true">→</span></a>
+        <h2 class="section__title" id="mentoring-title">Mentees</h2>
+        <a href="https://www.kurtlab.com/people">Kurt Lab, UW</a>
       </div>
-      <p class="lede">I mentor undergraduate, master’s, medical and Ph.D. students in the Kurt Lab, and several of my mentees are co-authors on peer-reviewed papers.</p>
-      <div class="mentees">
-        <section class="mentees__group" aria-labelledby="mentees-doctoral">
-          <h3 class="mentees__title label" id="mentees-doctoral">Doctoral &amp; medical</h3>
-          <!-- MENTEES: name and program only. Copy an <li class="mentee"> to add one. -->
-          <ul class="mentees__list" role="list">
-            <li class="mentee"><span class="mentee__name">Juampablo E. Heras Rivera</span> <span class="mentee__program">Ph.D., Mechanical Engineering</span></li>
-            <li class="mentee"><span class="mentee__name">Dickson Chen</span> <span class="mentee__program">Ph.D., Neuroscience</span></li>
-            <li class="mentee"><span class="mentee__name">Daniel Low</span> <span class="mentee__program">Medical student, Radiology</span></li>
-          </ul>
-        </section>
-        <section class="mentees__group" aria-labelledby="mentees-ms">
-          <h3 class="mentees__title label" id="mentees-ms">Master’s</h3>
-          <ul class="mentees__list" role="list">
-            <li class="mentee"><span class="mentee__name">Arnav Dixit</span> <span class="mentee__program">Data Science</span></li>
-            <li class="mentee"><span class="mentee__name">Akshay Jaikanth</span> <span class="mentee__program">Mechanical Engineering</span></li>
-          </ul>
-        </section>
-        <section class="mentees__group" aria-labelledby="mentees-ug">
-          <h3 class="mentees__title label" id="mentees-ug">Undergraduate</h3>
-          <ul class="mentees__list" role="list">
-            <li class="mentee"><span class="mentee__name">Hitender Oswal</span> <span class="mentee__program">Computer Science</span></li>
-            <li class="mentee"><span class="mentee__name">Harshitha Rebala</span> <span class="mentee__program">Computer Science</span></li>
-            <li class="mentee"><span class="mentee__name">Cynthia Pan</span> <span class="mentee__program">Computer Science</span></li>
-            <li class="mentee"><span class="mentee__name">Sophie Walters</span> <span class="mentee__program">Bioengineering</span></li>
-          </ul>
-        </section>
-      </div>
+      <ul class="list">
+        <li id="mentees-doctoral"><strong>Doctoral &amp; medical:</strong> Juampablo E. Heras Rivera (Ph.D., Mechanical Engineering), Dickson Chen (Ph.D., Neuroscience), Daniel Low (medical student, Radiology)</li>
+        <li id="mentees-ms"><strong>Master’s:</strong> Arnav Dixit (Data Science), Akshay Jaikanth (Mechanical Engineering)</li>
+        <li id="mentees-ug"><strong>Undergraduate:</strong> Hitender Oswal, Harshitha Rebala, Cynthia Pan (Computer Science); Sophie Walters (Bioengineering)</li>
+      </ul>
     </section>
-
-    <p class="back-to-top"><a href="#main">Back to top <span aria-hidden="true">↑</span></a></p>
   </main>
 
   <!-- SITE FOOTER: identical on every page -->
   <footer class="site-footer">
     <div class="site-footer__inner">
-      <div class="site-footer__id">
-        <p class="site-footer__name">Tianyi Ren</p>
-        <p class="meta">Postdoctoral Scholar, Department of Mechanical Engineering, University of Washington · <a href="https://www.kurtlab.com/">Kurt Lab</a></p>
-      </div>
-      <div class="site-footer__cols">
-        <div class="site-footer__office">
-          <h2 class="label">Office</h2>
-          <address>
-            Benjamin Hall Interdisciplinary Research Building<br>
-            616 NE Northlake Pl, Suite 440<br>
-            Seattle, WA 98105
-          </address>
-        </div>
-        <div>
-          <h2 class="label">Contact</h2>
-          <ul class="footer-links" role="list">
-            <li><a href="mailto:tr1@uw.edu">tr1@uw.edu</a></li>
-            <li><a href="https://scholar.google.com/citations?user=_E3zJtEAAAAJ&amp;hl=en">Google Scholar</a></li>
-            <li><a href="https://www.linkedin.com/in/tianyi-ren-290b2b133/">LinkedIn</a></li>
-            <li><a href="https://github.com/rentianyi">GitHub</a></li>
-          </ul>
-        </div>
-        <nav aria-labelledby="footer-site-title">
-          <h2 class="label" id="footer-site-title">Site</h2>
-          <ul class="footer-links" role="list">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="research.html">Research</a></li>
-            <li><a href="publications.html">Publications</a></li>
-            <li><a href="teaching.html" aria-current="page">Teaching &amp; Mentoring</a></li>
-            <li><a href="CV_tianyi.pdf">CV<span class="visually-hidden"> (PDF)</span></a></li>
-          </ul>
-        </nav>
-      </div>
-      <div class="site-footer__base meta">
-        <!-- LAST UPDATED: change the month when you edit the site -->
-        <p>© 2026 Tianyi Ren · Last updated October 2026</p>
-      </div>
+      <!-- LAST UPDATED: change the month when you edit the site -->
+      <p>© 2026 Tianyi Ren <span aria-hidden="true">·</span> Last updated October 2026</p>
+      <ul class="links" role="list" aria-label="Contact">
+        <li><a href="mailto:tr1@uw.edu">tr1@uw.edu</a></li>
+        <li><a href="https://scholar.google.com/citations?user=_E3zJtEAAAAJ&amp;hl=en">Google Scholar</a></li>
+      </ul>
     </div>
   </footer>
 </body>

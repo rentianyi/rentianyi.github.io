@@ -5,11 +5,11 @@ It is plain HTML and one stylesheet. There is no build step, so any edit you com
 
 | File | What it is |
 |---|---|
-| `index.html` | Home page (profile, research summary, selected publications, news) |
+| `index.html` | Home page (photo, short bio, links, news, research thumbnails) |
 | `research.html`, `publications.html`, `teaching.html` | The other pages |
 | `CV_tianyi.pdf` | The CV that the "CV" links open |
 | `assets/css/site.css` | All styling (you should not need to touch it) |
-| `assets/img/` | Headshot, favicon, social-preview image, research figures; `bg/` holds the brain-imaging artworks used as decorative backgrounds of the black bands (see *Change a background image* below). `headshot-original.webp` is the uncropped photo the headshots were made from (no page uses it) |
+| `assets/img/` | Photo (`headshot-portrait.webp`), favicon, social-preview image, research figures; `bg/` holds the brain-imaging artworks used as decorative backgrounds of the black bands (see *Change a background image* below). `headshot-original.webp` is the uncropped photo the portrait was made from (no page uses it; keep it for re-cropping) |
 | `404.html` | "Page not found" page |
 | `publication.html`, `Projects.html` | Old addresses that forward to the new pages. Keep them |
 
@@ -23,41 +23,37 @@ Look for the short HTML comments in capital letters, like `<!-- NEWS: … -->`. 
 
 ## Add a news item
 
-In `index.html`, find `<!-- NEWS:`. Copy one whole line that starts with `<li class="news__item">` and paste it
-**at the top** of the list (newest first). Then change the date and the text:
+In `index.html`, find `<!-- NEWS:`. Copy one whole line that starts with `<li><time` and paste it **at the top** of the list
+(newest first). Keep each item to one short line, and keep at most five: delete the last line when you add one.
 
 ```html
-<li class="news__item"><time class="news__date" datetime="2026-11">Nov 2026</time><p class="news__text">Your news here, with <strong>bold</strong> for the key phrase.</p></li>
+<li><time datetime="2026-11">Nov 2026</time><span>Your news, with <strong>bold</strong> for the key phrase.</span></li>
 ```
 
 `datetime` is the machine-readable date: `2026`, `2026-11` or `2026-11-15`.
 
 ## Add a publication
 
-In `publications.html`, find the comment for the right group (for example `CONFERENCE & WORKSHOP PAPERS:` or `JOURNAL ARTICLES:`).
-Copy a whole block from `<li class="pub"` to its closing `</li>` and paste it in date order (newest first). Then edit:
+In `publications.html`, copy a whole paper block from `<li class="paper"` to its closing `</li>` and paste it in date order
+(newest first). Then edit:
 
-- `id="…"`: give the new paper its own id, e.g. `ren2027topic`. Never keep the copied one: `research.html` links to
-  papers by these ids, and two papers with the same id send those links to the wrong paper
-- `pub__venue`: short venue and year, e.g. `MIDL 2027` (for a workshop or challenge, say so: `MICCAI 2027 Workshop`)
-- `pub__title`: the paper title
-- `pub__authors`: keep your name wrapped as `<span class="me">Ren, T.</span>` so it is highlighted
-- `pub__where`: the full venue name
-- the link chip: change `href="…"`, the visible word (`arXiv`, `OpenReview`, `DOI`…), and the hidden words after it
-  (`<span class="visually-hidden">: Short title</span>`, read aloud by screen readers)
-- remove the whole `<ul class="pub__links" …>…</ul>` if there is no link and no badge
+```html
+<li class="paper" id="ren2027topic">
+  <h3 class="paper__title">Paper title</h3>
+  <p class="paper__authors"><span class="me">Ren, T.</span>, Coauthor, A., Kurt, M.</p>
+  <p class="paper__venue">MIDL 2027 <span aria-hidden="true">·</span> <strong>Oral</strong></p>
+  <ul class="links links--sm" role="list"><li><a href="https://arxiv.org/abs/…">arXiv</a></li><li><a href="…">Code</a></li></ul>
+</li>
+```
 
-Badges you can use in the links row: `badge--award` (the ISLES'24 award only), `badge--oral` (Oral), `badge--review` (Under review),
-`badge--wp` (Working paper).
-
-Then update the paper counts. They appear in three places, and all three must agree:
-
-1. the group's heading in `publications.html` (`pub-group__count`, just above the list);
-2. the introduction at the top of `publications.html` (search `COUNTS:`);
-3. the "At a glance" list on the home page, `index.html` (search `COUNTS:`).
-
-To feature a paper on the home page, copy the same block into the list after `<!-- SELECTED PUBLICATIONS:` in `index.html`
-(keep about five there).
+- `id="…"`: give the new paper its own id. Never keep the copied one: other pages link to papers by these ids
+  (for example `publications.html#ren2024isles`), and two papers with the same id send those links to the wrong paper.
+- keep your name wrapped as `<span class="me">Ren, T.</span>` so it is in bold.
+- the links row: one `<li><a href="…">Word</a></li>` per link; the " · " between them is added automatically.
+- a " · " typed in text is written `<span aria-hidden="true">·</span>` so screen readers skip it.
+  Remove the whole `<ul class="links …">…</ul>` if there is no link.
+- to show a small figure beside the paper, add `has-thumb` to the class (`class="paper has-thumb"`), put
+  `<img class="thumb" src="assets/img/research/….webp" width="…" height="…" alt="…">` first, and wrap the rest in a `<div>`.
 
 ## Replace the CV
 
@@ -66,15 +62,15 @@ GitHub replaces the old one, and every CV link keeps working. Then change "Last 
 It is in every page (`index.html`, `research.html`, `publications.html`, `teaching.html`, `404.html`): search each one for
 `LAST UPDATED` and change all five the same way.
 
-## Change the headshot
+## Change the photo
 
-Make a square photo and save two WebP copies: `headshot.webp` (396 × 396 pixels) and `headshot-256.webp` (256 × 256).
-Upload both to `assets/img/` with those exact names to replace the old ones. If you describe the new photo differently,
-update the `alt="…"` text after `<!-- HEADSHOT:` in `index.html`.
+Save a portrait photo as WebP, **460 × 680 pixels** (width × height), with the face in the upper third, and upload it to
+`assets/img/` with the name `headshot-portrait.webp` to replace the old one. The rounded corners are added by the stylesheet.
+If the new photo looks different, update its `alt="…"` text after `<!-- PHOTO:` in `index.html`.
 
 ## Change a background image
 
-The black bands show two artworks from `assets/img/bg/` (tractography on the home page, DTI slice on the other pages). Each file is named
+The black bands show two artworks from `assets/img/bg/`: the tractography beside the home-page intro (a strip above it on phones and tablets, below 1152 pixels wide), and the DTI | structural slice at the right of the other pages' title band. Each file is named
 once, at the top of `assets/css/site.css`: search for `--art-tract` or `--art-dti` and change the file name inside `url("…")`. Use a WebP on
 pure black at least as large as the old one (768 × 927 or 446 × 488 pixels), and for the tractography also point `--art-tract-384` at a
 384-pixel-wide copy.
@@ -87,7 +83,8 @@ values (the left edge, top edge and width of the brain in the tractography file,
 ## Good to know
 
 - Keep the header and footer identical on every page. The only difference is which menu item has `aria-current="page"`.
-- Figures live in `assets/img/research/`. Every image needs an `alt="…"` description. Each figure on a page is wrapped in
-  `<a class="plate__link" href="…">` pointing at its own file, so phone readers can open it full size; keep that when you swap a figure.
+- Keep the text short: one-line list items and short phrases rather than paragraphs.
+- Figures live in `assets/img/research/`. Every image needs an `alt="…"` description. A figure with a caption is
+  `<figure class="figure"><img …><figcaption>Short caption.</figcaption></figure>`.
   The small home-page thumbnails (`thumb-*.webp`) are crops of figures from the papers; each alt text names its source.
-- `site.css` begins with a list of every style ("component") and its class names.
+- `site.css` begins with a list of every style ("component") and its class names, with a short HTML example above each one.

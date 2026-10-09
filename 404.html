@@ -13,7 +13,7 @@
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&amp;family=Source+Sans+3:wght@400..700&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
   <link rel="stylesheet" href="/assets/css/site.css">
 </head>
 <body>
@@ -22,87 +22,45 @@
   <!-- SITE HEADER: same as every page, except links start with "/" (this page can be served at any URL depth) -->
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="wordmark" href="/index.html">
-        <img class="wordmark__mark" src="/assets/img/favicon.svg" width="30" height="30" alt="">
-        <span>Tianyi Ren</span>
-      </a>
+      <a class="site-name" href="/index.html">Tianyi Ren</a>
       <nav class="site-nav" aria-label="Primary">
         <ul role="list">
           <li><a href="/index.html">Home</a></li>
           <li><a href="/research.html">Research</a></li>
           <li><a href="/publications.html">Publications</a></li>
           <li><a href="/teaching.html">Teaching</a></li>
-          <li><a href="/CV_tianyi.pdf">CV<span class="nav-tag" aria-hidden="true">PDF</span><span class="visually-hidden"> (PDF)</span></a></li>
+          <li><a href="/CV_tianyi.pdf">CV<span class="visually-hidden"> (PDF)</span></a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main id="main" class="page" tabindex="-1">
-    <header class="page-header notfound band band--dti">
-      <p class="page-header__kicker label label--accent">Error 404</p>
-      <h1 class="page-header__title">This page could not be found</h1>
-      <p class="page-header__dek">The address may be mistyped, or the page may have moved when this site was reorganized. These pages should get you where you meant to go.</p>
+    <header class="page-header band band--dti">
+      <h1 class="page-header__title">Page not found</h1>
+      <p class="page-header__dek">Error 404: this address does not exist.</p>
     </header>
 
-    <ul class="cards cards--3" role="list">
-      <li class="card card--link">
-        <h2 class="card__title"><a href="/research.html">Research</a></h2>
-        <p class="card__text">Next-generation neuroimaging AI tools, trustworthy neuroimaging AI, and responsible generative AI for clinical application.</p>
-      </li>
-      <li class="card card--link">
-        <h2 class="card__title"><a href="/publications.html">Publications</a></h2>
-        <p class="card__text">Conference and journal papers, preprints, theses and selected presentations.</p>
-      </li>
-      <li class="card card--link">
-        <h2 class="card__title"><a href="/teaching.html">Teaching &amp; Mentoring</a></h2>
-        <p class="card__text">Courses, teaching philosophy, and mentees in the Kurt Lab.</p>
-      </li>
-    </ul>
-
-    <p class="section"><a class="text-link" href="/index.html"><span aria-hidden="true">← </span>Back to the home page</a></p>
+    <section class="section" aria-labelledby="try-title">
+      <h2 class="section__title" id="try-title">Try one of these</h2>
+      <ul class="list">
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/research.html">Research</a></li>
+        <li><a href="/publications.html">Publications</a></li>
+        <li><a href="/teaching.html">Teaching &amp; mentoring</a></li>
+      </ul>
+    </section>
   </main>
 
   <!-- SITE FOOTER: same as every page, except links start with "/" -->
   <footer class="site-footer">
     <div class="site-footer__inner">
-      <div class="site-footer__id">
-        <p class="site-footer__name">Tianyi Ren</p>
-        <p class="meta">Postdoctoral Scholar, Department of Mechanical Engineering, University of Washington · <a href="https://www.kurtlab.com/">Kurt Lab</a></p>
-      </div>
-      <div class="site-footer__cols">
-        <div class="site-footer__office">
-          <h2 class="label">Office</h2>
-          <address>
-            Benjamin Hall Interdisciplinary Research Building<br>
-            616 NE Northlake Pl, Suite 440<br>
-            Seattle, WA 98105
-          </address>
-        </div>
-        <div>
-          <h2 class="label">Contact</h2>
-          <ul class="footer-links" role="list">
-            <li><a href="mailto:tr1@uw.edu">tr1@uw.edu</a></li>
-            <li><a href="https://scholar.google.com/citations?user=_E3zJtEAAAAJ&amp;hl=en">Google Scholar</a></li>
-            <li><a href="https://www.linkedin.com/in/tianyi-ren-290b2b133/">LinkedIn</a></li>
-            <li><a href="https://github.com/rentianyi">GitHub</a></li>
-          </ul>
-        </div>
-        <nav aria-labelledby="footer-site-title">
-          <h2 class="label" id="footer-site-title">Site</h2>
-          <ul class="footer-links" role="list">
-            <li><a href="/index.html">Home</a></li>
-            <li><a href="/research.html">Research</a></li>
-            <li><a href="/publications.html">Publications</a></li>
-            <li><a href="/teaching.html">Teaching &amp; Mentoring</a></li>
-            <li><a href="/CV_tianyi.pdf">CV<span class="visually-hidden"> (PDF)</span></a></li>
-          </ul>
-        </nav>
-      </div>
-      <div class="site-footer__base meta">
-        <!-- LAST UPDATED: change the month when you edit the site -->
-        <p>© 2026 Tianyi Ren · Last updated October 2026</p>
-      </div>
+      <!-- LAST UPDATED: change the month when you edit the site -->
+      <p>© 2026 Tianyi Ren <span aria-hidden="true">·</span> Last updated October 2026</p>
+      <ul class="links" role="list" aria-label="Contact">
+        <li><a href="mailto:tr1@uw.edu">tr1@uw.edu</a></li>
+        <li><a href="https://scholar.google.com/citations?user=_E3zJtEAAAAJ&amp;hl=en">Google Scholar</a></li>
+      </ul>
     </div>
   </footer>
 </body>

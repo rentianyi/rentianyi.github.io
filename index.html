@@ -32,7 +32,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&amp;family=Source+Sans+3:wght@400..700&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
   <link rel="stylesheet" href="assets/css/site.css">
 
   <script type="application/ld+json">
@@ -42,7 +42,7 @@
     "name": "Tianyi Ren",
     "honorificSuffix": "Ph.D.",
     "url": "https://rentianyi.github.io/index.html",
-    "image": "https://rentianyi.github.io/assets/img/headshot.webp",
+    "image": "https://rentianyi.github.io/assets/img/headshot-portrait.webp",
     "email": "mailto:tr1@uw.edu",
     "jobTitle": "Postdoctoral Scholar",
     "affiliation": {
@@ -79,29 +79,17 @@
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
 
-  <!-- Icons used by the contact list (24×24 line icons) -->
-  <svg class="visually-hidden" width="0" height="0" aria-hidden="true" focusable="false">
-    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3.5 6.5 12 13l8.5-6.5"/></symbol>
-    <symbol id="i-scholar" viewBox="0 0 24 24"><path d="M2.5 9.5 12 5l9.5 4.5L12 14z"/><path d="M6.5 11.6v4.2c0 1.4 2.5 3.2 5.5 3.2s5.5-1.8 5.5-3.2v-4.2"/><path d="M21.5 9.5v5"/></symbol>
-    <symbol id="i-linkedin" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="2"/><path d="M8 10.5v6"/><path d="M8 7.6v.1"/><path d="M11.5 16.5v-6m0 2.6c0-1.6 1.1-2.7 2.5-2.7s2.5 1 2.5 2.7v3.4"/></symbol>
-    <symbol id="i-code" viewBox="0 0 24 24"><circle cx="6.5" cy="5.5" r="2"/><circle cx="6.5" cy="18.5" r="2"/><circle cx="17.5" cy="7.5" r="2"/><path d="M6.5 7.5v9"/><path d="M17.5 9.5c0 4.5-11 2.5-11 7"/></symbol>
-    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 15.5h6M9 9h2.5"/></symbol>
-  </svg>
-
   <!-- SITE HEADER: identical on every page; only aria-current="page" moves -->
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="wordmark" href="index.html">
-        <img class="wordmark__mark" src="assets/img/favicon.svg" width="30" height="30" alt="">
-        <span>Tianyi Ren</span>
-      </a>
+      <a class="site-name" href="index.html">Tianyi Ren</a>
       <nav class="site-nav" aria-label="Primary">
         <ul role="list">
           <li><a href="index.html" aria-current="page">Home</a></li>
           <li><a href="research.html">Research</a></li>
           <li><a href="publications.html">Publications</a></li>
           <li><a href="teaching.html">Teaching</a></li>
-          <li><a href="CV_tianyi.pdf">CV<span class="nav-tag" aria-hidden="true">PDF</span><span class="visually-hidden"> (PDF)</span></a></li>
+          <li><a href="CV_tianyi.pdf">CV<span class="visually-hidden"> (PDF)</span></a></li>
         </ul>
       </nav>
     </div>
@@ -109,270 +97,61 @@
 
   <main id="main" class="page" tabindex="-1">
 
-    <!-- ===== HERO: profile (left) + research focus (right) ===== -->
+    <!-- ===== INTRO (black band; the brain artwork is drawn by site.css) ===== -->
     <section class="hero band band--tract" aria-labelledby="name">
-
-      <div class="profile">
-        <!-- HEADSHOT: replace assets/img/headshot.webp (396×396) and headshot-256.webp (256×256) -->
-        <img class="profile__photo"
-             src="assets/img/headshot.webp"
-             srcset="assets/img/headshot-256.webp 256w, assets/img/headshot.webp 396w"
-             sizes="(min-width: 60rem) 240px, (min-width: 40rem) 128px, 92px"
-             width="396" height="396"
-             alt="Portrait of Tianyi Ren, smiling, wearing glasses and a dark grey zip-up jacket, with cherry blossoms and a brick campus building in the background">
-        <div class="profile__id">
-          <h1 class="profile__name" id="name">Tianyi Ren</h1>
-          <p class="profile__role">Postdoctoral Scholar</p>
-          <p class="profile__affil">Department of Mechanical Engineering<br>University of Washington</p>
+      <div class="hero__inner">
+        <!-- PHOTO: replace assets/img/headshot-portrait.webp (460 x 680 pixels) -->
+        <img class="hero__photo" src="assets/img/headshot-portrait.webp" width="460" height="680"
+             alt="Portrait of Tianyi Ren, smiling, wearing glasses and a dark grey zip-up jacket, arms crossed, with cherry blossoms and a brick campus building behind him">
+        <div class="hero__text">
+          <h1 class="hero__name" id="name">Tianyi Ren</h1>
+          <!-- BIO: edit the two paragraphs below -->
+          <p>I am a postdoctoral scholar in Mechanical Engineering at the University of Washington, building trustworthy, clinically deployable AI for neuroimaging.</p>
+          <p>I work with Prof.&nbsp;Mehmet Kurt in the <a href="https://www.kurtlab.com/">Kurt Lab</a>. I received my Ph.D. and M.S. from Lehigh University and my B.S. from Southwest Jiaotong University.</p>
+          <p class="hero__email">Email: <a href="mailto:tr1@uw.edu">tr1@uw.edu</a></p>
+          <ul class="links" role="list" aria-label="Profiles">
+            <li><a href="https://scholar.google.com/citations?user=_E3zJtEAAAAJ&amp;hl=en">Google Scholar</a></li>
+            <li><a href="https://www.linkedin.com/in/tianyi-ren-290b2b133/">LinkedIn</a></li>
+            <li><a href="https://github.com/rentianyi">GitHub</a></li>
+            <li><a href="CV_tianyi.pdf">CV (PDF)</a></li>
+          </ul>
         </div>
-        <p class="profile__lab">Member of the <a href="https://www.kurtlab.com/">Kurt Lab</a> with Prof.&nbsp;Mehmet Kurt</p>
-        <ul class="contact" role="list" aria-label="Contact and profiles">
-          <li><a href="mailto:tr1@uw.edu"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>tr1@uw.edu</a></li>
-          <li><a href="https://scholar.google.com/citations?user=_E3zJtEAAAAJ&amp;hl=en"><svg class="icon" aria-hidden="true"><use href="#i-scholar"/></svg>Google Scholar</a></li>
-          <li><a href="https://www.linkedin.com/in/tianyi-ren-290b2b133/"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg>LinkedIn</a></li>
-          <li><a href="https://github.com/rentianyi"><svg class="icon" aria-hidden="true"><use href="#i-code"/></svg>GitHub</a></li>
-          <li><a href="CV_tianyi.pdf"><svg class="icon" aria-hidden="true"><use href="#i-doc"/></svg>Curriculum vitae<span class="visually-hidden"> (PDF)</span></a></li>
-        </ul>
       </div>
+    </section>
 
-      <div class="intro">
-        <p class="label label--accent intro__kicker">Research focus</p>
-        <h2 class="intro__title">Clinically deployable, trustworthy neuroimaging&nbsp;AI <em>bridging algorithms with real-world needs</em></h2>
-
-        <!-- BIO: edit the two paragraphs below -->
-        <div class="intro__bio">
-          <p>I am a postdoctoral scholar in Mechanical Engineering at the University of Washington, working with Prof.&nbsp;Mehmet Kurt. I build AI for neuroimaging that clinicians can use and trust: lesion segmentation for glioblastoma and ischemic stroke, regional brain-age estimation, and explainable AI that aligns model reasoning with clinical reasoning.</p>
-          <p>I received my Ph.D. and M.S. in Mechanical Engineering &amp; Mechanics from Lehigh University, advised by <a href="https://engineering.lehigh.edu/faculty/hannah-dailey">Prof.&nbsp;Hannah Dailey</a>, where I built mechanoregulation and image-based models of bone fracture healing, and my B.S. in Mechanical Engineering and Manufacturing from Southwest Jiaotong University.</p>
-        </div>
-
-        <h2 class="visually-hidden">Highlights</h2>
-        <ul class="highlights" role="list">
-          <li class="highlight">
-            <p class="highlight__figure">1st place</p>
-            <p class="highlight__title">ISLES’24 Challenge · MICCAI 2024 <span class="badge badge--award">Gold medal</span></p>
-            <p class="highlight__text">Ischemic Stroke Lesion Segmentation Challenge, as team leader and first author. Clinically informed CT preprocessing on a standard nnU-Net gave the top test Dice among nine finalist teams.</p>
-            <a class="text-link" href="https://arxiv.org/abs/2505.18424">How we won<span class="visually-hidden"> the ISLES’24 Challenge</span> (arXiv)<span class="arrow" aria-hidden="true">→</span></a>
-          </li>
-          <li class="highlight">
-            <p class="highlight__figure">$310K</p>
-            <p class="highlight__title">a2 Pilot Award · 2025–2026 · co-PI</p>
-            <p class="highlight__text">Using explainable AI and deep learning for brain age prediction in older adults in clinical settings (PI: Kurt).</p>
-            <a class="text-link" href="research.html#a2">Brain-age research<span class="arrow" aria-hidden="true">→</span></a>
-          </li>
-        </ul>
-
-        <!-- COUNTS: when you add a paper, update these numbers here AND in publications.html (search COUNTS:) -->
-        <ul class="readout" role="list" aria-label="At a glance">
-          <li><b>10</b> peer-reviewed conference &amp; workshop papers <span class="nowrap">(2023–2026)</span></li>
-          <li><b>5</b> journal articles + 1 under review</li>
-          <li><b>4.6/5.0</b> <a href="teaching.html#courses">teaching rating (BIS 285)</a></li>
-          <li><a href="teaching.html#mentoring">Mentoring</a> undergraduate, master’s, medical and Ph.D. students</li>
-        </ul>
-      </div>
+    <!-- ===== NEWS ===== -->
+    <section class="section" aria-labelledby="news-title">
+      <h2 class="section__title" id="news-title">News</h2>
+      <!-- NEWS: newest first, one line each, at most five. Copy one <li> … </li> line to add an item; delete the last one. -->
+      <ul class="news" role="list">
+        <li><time datetime="2026">2026</time><span>Two papers at <a href="publications.html#ren2026trust">MIDL 2026</a> and two at <a href="publications.html#ren2026adc">ISBI 2026</a>.</span></li>
+        <li><time datetime="2025">2025</time><span><strong>a2 Pilot Award</strong> ($310K, co-PI) for explainable brain-age prediction.</span></li>
+        <li><time datetime="2025">Spring 2025</time><span>Taught BIS 285 at UW (rating 4.6/5.0).</span></li>
+        <li><time datetime="2024-10">Oct 2024</time><span><strong>1st place</strong>, <a href="publications.html#ren2024isles">ISLES’24</a> stroke lesion segmentation challenge, MICCAI 2024.</span></li>
+        <li><time datetime="2024-07">Jul 2024</time><span>Oral presentation of <a href="publications.html#ren2024rediffinet">Re-DiffiNet</a> at MIDL 2024.</span></li>
+      </ul>
     </section>
 
     <!-- ===== RESEARCH ===== -->
     <section class="section" aria-labelledby="research-title">
-      <div class="section__head">
-        <h2 class="label" id="research-title">Research</h2>
-        <a class="text-link" href="research.html">Research overview<span class="arrow" aria-hidden="true">→</span></a>
-      </div>
-
-      <div class="gutter-row goal">
-        <p class="gutter-row__label label label--accent">Overarching goal</p>
-        <div class="gutter-row__body">
-          <blockquote class="goal__quote"><p>Merge advanced neuroimaging and multi-modal AI tools for the in&nbsp;vivo, subject-specific investigation of brain-related disease.</p></blockquote>
-          <p class="goal__note">Models that excel on benchmarks often struggle with heterogeneous, real-world clinical data, and they offer limited interpretability and little clinical reasoning. My work addresses that translational gap in three connected thrusts.</p>
-        </div>
-      </div>
-
-      <ol class="thrusts" role="list">
-        <li class="thrust">
-          <span class="thrust__letter" aria-hidden="true">A</span>
-          <div class="thrust__body">
-            <h3 class="thrust__title"><a class="thrust__link" href="research.html#a"><span class="visually-hidden">A. </span>Next-generation neuroimaging AI tools<span class="thrust__arrow" aria-hidden="true">→</span></a></h3>
-            <p class="thrust__text">Clinically-aware lesion segmentation for glioblastoma and ischemic stroke, and global and regional brain-age estimation from structural MRI that shows how an individual’s aging deviates from population norms.</p>
-            <div class="thrust__foot">
-              <ul class="thrust__subs" role="list">
-                <li><span class="thrust__code">A1</span> · Segment the lesion</li>
-                <li><span class="thrust__code">A2</span> · Quantify the aging</li>
-              </ul>
-            </div>
-          </div>
-          <div class="thrust__thumb">
-            <img src="assets/img/research/thumb-a-isles24-kurtlab.webp" width="600" height="519" loading="lazy" decoding="async"
-                 alt="Non-contrast CT, ground-truth infarct and our team Kurtlab’s winning prediction, in red on diffusion MRI, for two ISLES’24 test scans; detail of Figure 8 of the ISLES’24 challenge summary paper.">
-          </div>
-        </li>
-        <li class="thrust">
-          <span class="thrust__letter" aria-hidden="true">B</span>
-          <div class="thrust__body">
-            <h3 class="thrust__title"><a class="thrust__link" href="research.html#b"><span class="visually-hidden">B. </span>Trustworthy neuroimaging AI<span class="thrust__arrow" aria-hidden="true">→</span></a></h3>
-            <p class="thrust__text">Contrast-level Shapley explanations for multi-contrast segmentation, and agreement and uncertainty metrics, developed with clinical collaborators, that indicate when clinicians can trust a model’s output.</p>
-            <div class="thrust__foot">
-              <ul class="thrust__subs" role="list">
-                <li><span class="thrust__code">B1</span> · Explaining segmentation</li>
-              </ul>
-            </div>
-          </div>
-          <div class="thrust__thumb">
-            <img src="assets/img/research/thumb-b-xai2025-gradcam.webp" width="600" height="451" loading="lazy" decoding="async"
-                 alt="Two MRI contrasts of one glioma, t1c and t2f, each above the U-Net Grad-CAM heat map for that contrast; detail of Figure 4 of Here Comes the Explanation (XAI 2025).">
-          </div>
-        </li>
-        <li class="thrust">
-          <span class="thrust__letter" aria-hidden="true">C</span>
-          <div class="thrust__body">
-            <h3 class="thrust__title"><a class="thrust__link" href="research.html#c"><span class="visually-hidden">C. </span>Responsible generative AI for clinical application<span class="thrust__arrow" aria-hidden="true">→</span></a></h3>
-            <p class="thrust__text">Counterfactual generative models that forecast brain-aging trajectories, and natural-language explanations of what medical image models see.</p>
-            <div class="thrust__foot">
-              <span class="badge badge--future">Future direction</span>
-              <ul class="thrust__subs" role="list">
-                <li><span class="thrust__code">C1</span> · Forecasting brain-aging trajectories</li>
-                <li><span class="thrust__code">C2</span> · Natural-language explanations</li>
-              </ul>
-            </div>
-          </div>
-          <div class="thrust__thumb">
-            <img src="assets/img/research/thumb-c-sflnet-tau-pet.webp" width="600" height="496" loading="lazy" decoding="async"
-                 alt="Tau-PET maps synthesized from MRI by two SFL-Net variants beside the ground-truth tau-PET for one subject, in three views with an SUVR color scale; detail of Figure 2 of SFL-Net (arXiv 2026).">
-          </div>
-        </li>
-      </ol>
+      <h2 class="section__title" id="research-title">Research</h2>
+      <ul class="thumbs" role="list">
+        <li><a href="research.html#a"><img src="assets/img/research/thumb-a-isles24-kurtlab.webp" width="600" height="519" loading="lazy" decoding="async" alt=""><span>Lesion segmentation &amp; brain age</span></a></li>
+        <li><a href="research.html#b"><img src="assets/img/research/thumb-b-xai2025-gradcam.webp" width="600" height="451" loading="lazy" decoding="async" alt=""><span>Trustworthy, explainable AI</span></a></li>
+        <li><a href="research.html#c"><img src="assets/img/research/thumb-c-sflnet-tau-pet.webp" width="600" height="496" loading="lazy" decoding="async" alt=""><span>Responsible generative AI</span></a></li>
+      </ul>
     </section>
-
-    <!-- ===== SELECTED PUBLICATIONS + NEWS ===== -->
-    <div class="split">
-
-      <section class="section" aria-labelledby="pubs-title">
-        <div class="section__head">
-          <h2 class="label" id="pubs-title">Selected publications</h2>
-        </div>
-        <!-- SELECTED PUBLICATIONS: newest first. Copy a whole <li class="pub"> … </li> block to add one. -->
-        <ol class="pub-list" role="list">
-          <li class="pub">
-            <p class="pub__venue">MIDL 2026</p>
-            <div class="pub__body">
-              <h3 class="pub__title">Can You Trust Your Model? Constructing Uncertainty Approximations Guaranteeing Validity of Glioma Segmentation Explanations</h3>
-              <p class="pub__authors"><span class="me">Ren, T.</span>*, Low, D.*, Xiang, R.†, Jaengprajak, P.†, Heras&nbsp;Rivera, J., Olson, R., Ruzevick, J., Kurt, M.</p>
-              <p class="pub__where">Medical Imaging with Deep Learning (MIDL), 2026</p>
-              <ul class="pub__links" role="list">
-                <li><a class="chip" href="https://openreview.net/forum?id=hRI2nP8BuO">OpenReview<span class="visually-hidden">: Can You Trust Your Model?</span></a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="pub">
-            <p class="pub__venue">XAI 2025</p>
-            <div class="pub__body">
-              <h3 class="pub__title">Here Comes the Explanation: A Shapley Perspective on Multi-contrast Medical Image Segmentation</h3>
-              <p class="pub__authors"><span class="me">Ren, T.</span>, Heras&nbsp;Rivera, J., Oswal, H., Pan, Y., Chopra, A., Ruzevick, J., Kurt, M.</p>
-              <p class="pub__where">World Conference on eXplainable Artificial Intelligence (XAI), 2025</p>
-              <ul class="pub__links" role="list">
-                <li><a class="chip" href="https://arxiv.org/abs/2504.04645">arXiv<span class="visually-hidden">: Here Comes the Explanation</span></a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="pub">
-            <p class="pub__venue">MICCAI 2024 Workshop</p>
-            <div class="pub__body">
-              <h3 class="pub__title">How We Won the ISLES’24 Challenge by Preprocessing</h3>
-              <p class="pub__authors"><span class="me">Ren, T.</span>*, Heras&nbsp;Rivera, J.*, Oswal, H.*, Pan, Y., Henry, W., Walters, S., Kurt, M.</p>
-              <p class="pub__where">Stroke Workshop, MICCAI 2024</p>
-              <ul class="pub__links" role="list">
-                <li><span class="badge badge--award">ISLES’24 · 1st place</span></li>
-                <li><a class="chip" href="https://arxiv.org/abs/2505.18424">arXiv<span class="visually-hidden">: How We Won the ISLES’24 Challenge</span></a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="pub">
-            <p class="pub__venue">MIDL 2024</p>
-            <div class="pub__body">
-              <h3 class="pub__title">Re-DiffiNet: Modeling discrepancies loss in tumor segmentation using diffusion models</h3>
-              <p class="pub__authors"><span class="me">Ren, T.</span>*, Sharma, A.*, Heras&nbsp;Rivera, J., Rebala, H., Honey, E., Chopra, A., Ruzevick, J., Kurt, M.</p>
-              <p class="pub__where">Medical Imaging with Deep Learning (MIDL), 2024</p>
-              <ul class="pub__links" role="list">
-                <li><span class="badge badge--oral">Oral</span></li>
-                <li><a class="chip" href="https://arxiv.org/abs/2402.07354">arXiv<span class="visually-hidden">: Re-DiffiNet</span></a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="pub">
-            <p class="pub__venue">J Orthop Res 2024</p>
-            <div class="pub__body">
-              <h3 class="pub__title">Torsion Constants and Virtual Mechanical Tests are Valid Image-Based Surrogate Measures of Ovine Fracture Healing</h3>
-              <p class="pub__authors"><span class="me">Ren, T.</span>, Inglis, B., Darwiche, S., Dailey, H. L.</p>
-              <p class="pub__where">Journal of Orthopaedic Research, 2024</p>
-              <ul class="pub__links" role="list">
-                <li><a class="chip" href="https://pubmed.ncbi.nlm.nih.gov/38491964/">PubMed<span class="visually-hidden">: Torsion Constants and Virtual Mechanical Tests</span></a></li>
-              </ul>
-            </div>
-          </li>
-        </ol>
-        <p class="meta">* and † mark equal contribution.</p>
-        <p><a class="text-link" href="publications.html">All publications<span class="arrow" aria-hidden="true">→</span></a></p>
-      </section>
-
-      <section class="section" aria-labelledby="news-title">
-        <div class="section__head">
-          <h2 class="label" id="news-title">News</h2>
-        </div>
-        <!-- NEWS: newest first (within a year, items with only a year go before dated ones). Copy an <li class="news__item"> … </li> to add an item. -->
-        <ol class="news" role="list">
-          <li class="news__item"><time class="news__date" datetime="2026">2026</time><p class="news__text">Two papers at <strong>MIDL 2026</strong>: uncertainty-guaranteed explanations for glioma segmentation, and BTReport for radiology report generation.</p></li>
-          <li class="news__item"><time class="news__date" datetime="2026">2026</time><p class="news__text">Two papers at <strong>ISBI 2026</strong>: an Age-Delta-Correlation loss for brain-age bias, and Shapley-derived agreement and uncertainty metrics.</p></li>
-          <li class="news__item"><time class="news__date" datetime="2025">2025</time><p class="news__text">Awarded an <strong>a2 Pilot Award</strong> ($310K, co-PI) for explainable brain-age prediction in older adults.</p></li>
-          <li class="news__item"><time class="news__date" datetime="2025">2025</time><p class="news__text">Population Health Initiative pilot grant for equitable AI for stroke diagnosis (Kurt Lab).</p></li>
-          <li class="news__item"><time class="news__date" datetime="2025">2025</time><p class="news__text">Paper on clinically-informed stroke preprocessing for low-resource settings at the MIRASOL workshop, MICCAI 2025.</p></li>
-          <li class="news__item"><time class="news__date" datetime="2025-07">Jul 2025</time><p class="news__text">Presented <cite>Here Comes the Explanation</cite> at XAI 2025 in Istanbul.</p></li>
-          <li class="news__item"><time class="news__date" datetime="2025">Spring 2025</time><p class="news__text">Taught BIS 285, <cite>Seminar in Biology: Dealing with Data</cite> (rating 4.6/5.0).</p></li>
-          <li class="news__item"><time class="news__date" datetime="2024-10">Oct 2024</time><p class="news__text">Won <strong>1st place (gold medal)</strong> in the ISLES’24 stroke lesion segmentation challenge at MICCAI 2024, Marrakesh.</p></li>
-          <li class="news__item"><time class="news__date" datetime="2024-07">Jul 2024</time><p class="news__text">Two papers at MIDL 2024 in Paris, including an oral presentation of Re-DiffiNet.</p></li>
-        </ol>
-      </section>
-
-    </div>
   </main>
 
   <!-- SITE FOOTER: identical on every page -->
   <footer class="site-footer">
     <div class="site-footer__inner">
-      <div class="site-footer__id">
-        <p class="site-footer__name">Tianyi Ren</p>
-        <p class="meta">Postdoctoral Scholar, Department of Mechanical Engineering, University of Washington · <a href="https://www.kurtlab.com/">Kurt Lab</a></p>
-      </div>
-      <div class="site-footer__cols">
-        <div class="site-footer__office">
-          <h2 class="label">Office</h2>
-          <address>
-            Benjamin Hall Interdisciplinary Research Building<br>
-            616 NE Northlake Pl, Suite 440<br>
-            Seattle, WA 98105
-          </address>
-        </div>
-        <div>
-          <h2 class="label">Contact</h2>
-          <ul class="footer-links" role="list">
-            <li><a href="mailto:tr1@uw.edu">tr1@uw.edu</a></li>
-            <li><a href="https://scholar.google.com/citations?user=_E3zJtEAAAAJ&amp;hl=en">Google Scholar</a></li>
-            <li><a href="https://www.linkedin.com/in/tianyi-ren-290b2b133/">LinkedIn</a></li>
-            <li><a href="https://github.com/rentianyi">GitHub</a></li>
-          </ul>
-        </div>
-        <nav aria-labelledby="footer-site-title">
-          <h2 class="label" id="footer-site-title">Site</h2>
-          <ul class="footer-links" role="list">
-            <li><a href="index.html" aria-current="page">Home</a></li>
-            <li><a href="research.html">Research</a></li>
-            <li><a href="publications.html">Publications</a></li>
-            <li><a href="teaching.html">Teaching &amp; Mentoring</a></li>
-            <li><a href="CV_tianyi.pdf">CV<span class="visually-hidden"> (PDF)</span></a></li>
-          </ul>
-        </nav>
-      </div>
-      <div class="site-footer__base meta">
-        <!-- LAST UPDATED: change the month when you edit the site -->
-        <p>© 2026 Tianyi Ren · Last updated October 2026</p>
-      </div>
+      <!-- LAST UPDATED: change the month when you edit the site -->
+      <p>© 2026 Tianyi Ren <span aria-hidden="true">·</span> Last updated October 2026</p>
+      <ul class="links" role="list" aria-label="Contact">
+        <li><a href="mailto:tr1@uw.edu">tr1@uw.edu</a></li>
+        <li><a href="https://scholar.google.com/citations?user=_E3zJtEAAAAJ&amp;hl=en">Google Scholar</a></li>
+      </ul>
     </div>
   </footer>
 </body>

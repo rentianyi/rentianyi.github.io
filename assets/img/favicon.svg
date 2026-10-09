@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="TR">
-  <rect width="64" height="64" rx="12" fill="#a3264f"/>
+  <rect width="64" height="64" rx="12" fill="#1a4a96"/>
   <g fill="#f8f9fb">
     <path d="M9 18h22v5h-8v18h3v5H14v-5h3V23H9z"/>
     <path fill-rule="evenodd" d="M33 18h13c5.5 0 8.3 3.4 8.3 7.6 0 3.3-1.9 5.8-5 6.9L54.6 41H57v5h-6.4l-6.2-12.6H40V41h3v5H33v-5h1.6V23H33zm7 5v5.7h5.4c1.9 0 3-1.2 3-2.85S47.3 23 45.4 23z"/>

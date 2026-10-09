@@ -28,9 +28,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&amp;family=Source+Sans+3:wght@400..700&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
   <link rel="stylesheet" href="assets/css/site.css">
-  <script src="assets/js/site.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -38,17 +37,14 @@
   <!-- SITE HEADER: identical on every page; only aria-current="page" moves -->
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="wordmark" href="index.html">
-        <img class="wordmark__mark" src="assets/img/favicon.svg" width="30" height="30" alt="">
-        <span>Tianyi Ren</span>
-      </a>
+      <a class="site-name" href="index.html">Tianyi Ren</a>
       <nav class="site-nav" aria-label="Primary">
         <ul role="list">
           <li><a href="index.html">Home</a></li>
           <li><a href="research.html" aria-current="page">Research</a></li>
           <li><a href="publications.html">Publications</a></li>
           <li><a href="teaching.html">Teaching</a></li>
-          <li><a href="CV_tianyi.pdf">CV<span class="nav-tag" aria-hidden="true">PDF</span><span class="visually-hidden"> (PDF)</span></a></li>
+          <li><a href="CV_tianyi.pdf">CV<span class="visually-hidden"> (PDF)</span></a></li>
         </ul>
       </nav>
     </div>
@@ -57,464 +53,146 @@
   <main id="main" class="page" tabindex="-1">
 
     <!-- ===== PAGE HEADER ===== -->
-    <header class="page-header band band--dti">
-      <p class="page-header__kicker label label--accent">Clinically deployable, trustworthy neuroimaging AI</p>
+    <header class="page-header band band--dti" id="overview">
       <h1 class="page-header__title">Research</h1>
-      <p class="page-header__dek">Bridging algorithms with <span class="nowrap">real-world</span> clinical needs. I build neuroimaging AI that segments lesions and quantifies brain aging, methods that explain what those models see and when to trust them, and, next, generative models that answer clinicians’ “what if” questions.</p>
-      <ul class="page-header__meta" role="list">
-        <li><a class="chip" href="publications.html">All publications</a></li>
-        <li><a class="chip" href="https://scholar.google.com/citations?user=_E3zJtEAAAAJ&amp;hl=en">Google Scholar</a></li>
-        <li><a class="chip" href="CV_tianyi.pdf">CV<span class="visually-hidden"> (PDF)</span></a></li>
+      <p class="page-header__dek">Neuroimaging AI for subject-specific study of brain disease.</p>
+      <ul class="links" role="list" aria-label="On this page">
+        <li><a href="#a">Neuroimaging AI</a></li>
+        <li><a href="#b">Trust</a></li>
+        <li><a href="#c">Generative AI</a></li>
+        <li><a href="#earlier">Earlier work</a></li>
+        <li><a href="#funding">Funding</a></li>
       </ul>
     </header>
 
-    <div class="with-toc">
+    <!-- ===== THRUST A ===== -->
+    <section class="section" id="a" aria-labelledby="a-title">
+      <h2 class="section__title" id="a-title">Next-generation neuroimaging AI tools</h2>
+      <p>Clinically-aware lesion segmentation, and brain age from structural MRI.</p>
 
-      <!-- TABLE OF CONTENTS: if you add a section, add a matching link here -->
-      <nav class="toc" aria-labelledby="toc-title">
-        <h2 class="toc__title label" id="toc-title">On this page</h2>
-        <ol class="toc__list" role="list">
-          <li><a href="#overview">The translational gap</a></li>
-          <li><a href="#a">A. Next-generation neuroimaging AI tools</a></li>
-          <li class="toc__sub"><a href="#a1">A1 · Segment the lesion</a></li>
-          <li class="toc__sub"><a href="#a2">A2 · Quantify the aging</a></li>
-          <li><a href="#b">B. Trustworthy neuroimaging AI</a></li>
-          <li class="toc__sub"><a href="#b1">B1 · Explaining segmentation</a></li>
-          <li><a href="#c">C. Responsible generative AI for clinical application</a></li>
-          <li class="toc__sub"><a href="#c1">C1 · Forecasting brain-aging trajectories</a></li>
-          <li class="toc__sub"><a href="#c2">C2 · Natural-language explanations</a></li>
-          <li><a href="#earlier">Earlier work</a></li>
-          <li><a href="#funding">Funding</a></li>
-        </ol>
-      </nav>
+      <h3 class="section__sub" id="a1">Lesion segmentation</h3>
+      <ul class="list">
+        <li><b>Re-DiffiNet</b> (MIDL 2024, oral): +0.55% Dice, −16.28% HD95 vs. an optimized <span class="nowrap">U-Net</span> (BraTS 2023, 5-fold CV).</li>
+        <li><b>ISLES’24</b> (MICCAI 2024): 1st place with clinically informed CT preprocessing and <span class="nowrap">nnU-Net</span>; test Dice 28.5% vs. 26.3% for 2nd place.</li>
+        <li><b>Low-resource settings</b>: transfer learning for BraTS-Africa gliomas (Dice 0.72 vs. 0.65); CT-only stroke prediction.</li>
+      </ul>
+      <figure class="figure">
+        <img src="assets/img/research/isles24-top3.webp" width="1400" height="732" loading="lazy" decoding="async"
+             alt="Qualitative infarct predictions for three ISLES’24 test scans, one per row (best, median and worst cases). The columns are non-contrast CT, relative Tmax and relative CBF perfusion maps, the ground-truth final infarct in red on a diffusion MRI slice, and the predictions of the top three teams: Kurtlab (#1), AMC-Axolotls (#2) and Ninjas (#3). In the top row all three teams roughly match the frontal infarct; in the middle row Kurtlab’s prediction covers more of the posterior infarct; in the bottom row the ground truth is two tiny dots and no team predicts a lesion.">
+        <figcaption>ISLES’24 test cases; our team is Kurtlab (#1). Figure&nbsp;8 of the <a href="publications.html#isles2024consortium">ISLES’24 summary paper</a> (under review).</figcaption>
+      </figure>
+      <p class="meta">Papers:
+        <a href="publications.html#ren2024rediffinet">Re-DiffiNet</a>,
+        <a href="publications.html#ren2024isles">ISLES’24</a>,
+        <a href="publications.html#heras2025mirasol">low-resource stroke</a>,
+        <a href="publications.html#rivera2024glioma">low-resolution glioma</a>,
+        <a href="publications.html#ren2023brats">BraTS 2023</a>,
+        <a href="publications.html#heras2024ensemble">BraTS 2024 ensemble</a>,
+        <a href="publications.html#isles2024consortium">ISLES’24 summary</a></p>
 
-      <div class="with-toc__body">
+      <h3 class="section__sub" id="a2">Brain age</h3>
+      <ul class="list">
+        <li><b>ADC loss</b> (ISBI 2026): counters the regression-to-the-mean bias of brain-age models.</li>
+        <li>Preliminary: the brain-age gap in Alzheimer’s disease and MCI associates with cognition (MoCA, ADAS-Cog).</li>
+      </ul>
+      <p class="meta">Papers:
+        <a href="publications.html#ren2026adc">ADC loss</a>,
+        <a href="publications.html#wp2026localbrainage">local brain-age attributions</a>,
+        <a href="publications.html#wp2026beyondmae">Beyond MAE</a></p>
+    </section>
 
-        <!-- ===== OVERVIEW: the translational gap ===== -->
-        <section class="section" id="overview" aria-labelledby="overview-title">
-          <h2 class="label label--accent" id="overview-title">The translational gap</h2>
-          <p class="lede">Two problems stand between today’s models and the clinic. My work addresses them in three connected thrusts.</p>
-          <dl class="facets">
-            <div class="facet">
-              <dt>Benchmark vs. reality</dt>
-              <dd><p>Models excel on benchmarks but struggle with heterogeneous, real-world clinical data.</p></dd>
-            </div>
-            <div class="facet">
-              <dt>Operational limitations</dt>
-              <dd><p>Poor generalizability, limited interpretability, and a lack of clinical reasoning.</p></dd>
-            </div>
-            <div class="facet">
-              <dt>Overarching goal</dt>
-              <dd><blockquote class="goal__quote"><p>Merge advanced neuroimaging and multi-modal AI tools for the in&nbsp;vivo, subject-specific investigation of brain-related disease.</p></blockquote></dd>
-            </div>
-          </dl>
-        </section>
+    <!-- ===== THRUST B ===== -->
+    <section class="section" id="b" aria-labelledby="b-title">
+      <h2 class="section__title" id="b-title">Trustworthy neuroimaging AI</h2>
+      <p>Explanations that show why a segmentation model decides, and when to trust it.</p>
 
-        <!-- ===== THRUST A ===== -->
-        <section class="section" id="a" aria-labelledby="a-title">
-          <h2 class="thrust-head" id="a-title"><span class="thrust-head__letter">A</span> Next-generation neuroimaging AI tools</h2>
-          <p class="lede">Clinically-aware lesion segmentation, and decoding the biological aging clock from structural MRI.</p>
+      <h3 class="section__sub" id="b1">Explaining segmentation</h3>
+      <ul class="list">
+        <li><b>Contrast-level Shapley values</b> (XAI 2025): T1c and T2-FLAIR matter most, matching clinical reasoning.</li>
+        <li><b>Agreement and uncertainty</b> (ISBI 2026): ranking variance across folds goes with lower Dice <span class="nowrap">(r −0.35 to −0.60)</span>.</li>
+        <li><b>Frequentist uncertainty intervals</b> (MIDL 2026): moderate agreement with clinical annotators (Kendall’s τ&nbsp;=&nbsp;0.467, p&nbsp;=&nbsp;0.015).</li>
+      </ul>
+      <figure class="figure">
+        <img src="assets/img/research/xai2025-shapley-violins.webp" width="1400" height="538" loading="lazy" decoding="async"
+             alt="Two violin plots of contrast-level Shapley values computed from the Dice score, one violin per cross-validation fold for each MRI contrast: t1c, t1n, t2f and t2w. Panel (a), U-Net: t1c and t2f have the highest values, mostly 0.2 to 0.4, while t1n and t2w stay near 0.0 to 0.15. Panel (b), Swin-UNETR: values are spread more evenly across the four contrasts, roughly 0.1 to 0.3.">
+        <figcaption>Contrast-level Shapley values per fold: (a) <span class="nowrap">U-Net</span>, (b) <span class="nowrap">Swin-UNETR</span>. Figure&nbsp;3 of <a href="publications.html#ren2025xai">Here Comes the Explanation</a> (XAI 2025).</figcaption>
+      </figure>
+      <p class="meta">Papers:
+        <a href="publications.html#ren2025xai">XAI 2025</a>,
+        <a href="publications.html#ren2026shapley">ISBI 2026</a>,
+        <a href="publications.html#ren2026trust">MIDL 2026</a></p>
+    </section>
 
-          <!-- A1 -->
-          <section class="section" id="a1" aria-labelledby="a1-title">
-            <h3 class="sub-head" id="a1-title"><span class="sub-head__code">A1</span> Segment the lesion <span class="sub-head__dek">Clinically-aware lesion segmentation</span></h3>
-            <dl class="facets">
-              <div class="facet">
-                <dt>Motivation</dt>
-                <dd><p>Clinically meaningful delineation requires task-specific clinical reasoning. In glioblastoma, extent of resection is a major determinant of survival, so millimeter accuracy matters. In acute ischemic stroke, rapid, reliable infarct-core estimation drives triage and treatment eligibility.</p></dd>
-              </div>
-              <div class="facet">
-                <dt>Approach</dt>
-                <dd>
-                  <ul>
-                    <li><b><span class="nowrap">Re-DiffiNet</span></b> (MIDL 2024, oral): diffusion models that explicitly model the discrepancies between <span class="nowrap">U-Net</span> predictions and the ground truth.</li>
-                    <li><b>ISLES’24 pipeline</b>: clinically-informed preprocessing (learning-based skull stripping and contrast-specific intensity windowing) with <span class="nowrap">nnU-Net</span>. It won 1st place (gold medal) in the ISLES’24 stroke challenge at MICCAI 2024; I was team leader and first author.</li>
-                  </ul>
-                </dd>
-              </div>
-              <div class="facet">
-                <dt>Key findings</dt>
-                <dd>
-                  <ul>
-                    <li><span class="nowrap">Re-DiffiNet</span> improved an optimized <span class="nowrap">U-Net</span> baseline by an average of 0.55% in Dice and 16.28% in HD95 (95th-percentile Hausdorff distance), in 5-fold cross-validation on 1,251 BraTS 2023 scans (Fig.&nbsp;1).</li>
-                  </ul>
-                  <figure class="plate plate--narrow">
-                    <div class="plate__card">
-                      <a class="plate__link" href="assets/img/research/rediffinet-results.webp"><img src="assets/img/research/rediffinet-results.webp" width="1400" height="1477" loading="lazy" decoding="async"
-                           alt="Grid comparing brain tumor segmentations on one axial MRI slice. The top row shows the four input contrasts: T1, T2, T1ce and Flair. The next three rows show the baseline U-Net prediction, the Re-DiffiNet prediction and the ground truth, each as yellow masks for whole tumor (WT), tumor core (TC) and enhancing tumor (ET), plus a color overlay of all three. The baseline U-Net includes a small isolated tumor-core spot that is not in the ground truth. Opens the full-size image."></a>
-                    </div>
-                    <figcaption><span class="plate__no">Fig. 1</span> Segmentations from the baseline <span class="nowrap">U-Net</span> and <span class="nowrap">Re-DiffiNet</span>. In this example, <span class="nowrap">Re-DiffiNet</span> corrects a false-positive tumor-core lesion that the baseline <span class="nowrap">U-Net</span> predicted, and it predicts a smoother boundary. WT: whole tumor; TC: tumor core; ET: enhancing tumor. Figure&nbsp;2 of <a href="publications.html#ren2024rediffinet"><span class="nowrap">Re-DiffiNet</span></a> (MIDL 2024).</figcaption>
-                  </figure>
-                  <ul>
-                    <li>ISLES’24: 1st place, with a mean Dice of 28.5% on the hidden test set (second place: 26.3%; Fig.&nbsp;2).</li>
-                    <li>Custom CT windowing raised best-fold validation Dice from 21.8% to 31.0%, and to 31.8% with Z-score normalization added. The gains came from clinically informed preprocessing on a standard <span class="nowrap">nnU-Net</span> rather than from a new architecture.</li>
-                  </ul>
-                  <figure class="plate plate--wide">
-                    <div class="plate__card">
-                      <a class="plate__link" href="assets/img/research/isles24-top3.webp"><img src="assets/img/research/isles24-top3.webp" width="1400" height="732" loading="lazy" decoding="async"
-                           alt="Qualitative infarct predictions for three ISLES’24 test scans, one per row (best, median and worst cases). The columns are non-contrast CT (NCCT), relative Tmax and relative CBF perfusion maps in blue-to-red color, the ground-truth final infarct in red on a diffusion MRI slice, and the predictions of the top three teams: Kurtlab (#1), AMC-Axolotls (#2) and Ninjas (#3). In the top row all three teams roughly match the frontal infarct. In the middle row, Kurtlab’s prediction covers more of the posterior infarct than the other two teams. In the bottom row the ground truth is two tiny dots and no team predicts a lesion. Opens the full-size image."></a>
-                    </div>
-                    <figcaption><span class="plate__no">Fig. 2</span> Qualitative infarct prediction results on the ISLES’24 test set. Each row is a different scan: the best (top), median (middle) and worst (bottom) cases, with average Dice scores of 0.68, 0.28 and 0.00. Columns show NCCT, perfusion maps, the ground truth (GT) and the predictions of the top three teams, starting with our team, Kurtlab (#1). rTmax: relative (healthy-tissue normalized) Tmax. Figure&nbsp;8 of the <a href="publications.html#isles2024consortium">ISLES’24 challenge summary paper</a> (under review, Medical Image Analysis).</figcaption>
-                  </figure>
-                </dd>
-              </div>
-              <div class="facet">
-                <dt>Future directions</dt>
-                <dd>
-                  <p>Agentic, clinically-reasoning models that decompose the problem into faithful, human-interpretable steps:</p>
-                  <ul>
-                    <li>a vessel-segmentation agent for vascular topology and occlusions;</li>
-                    <li>a CT-perfusion agent using Fourier Neural Operators;</li>
-                    <li>an anatomical-context agent using atlases and vascular territories;</li>
-                    <li>all coordinated by a reasoning vision-language agent.</li>
-                  </ul>
-                </dd>
-              </div>
-              <div class="facet">
-                <dt>Equity</dt>
-                <dd>
-                  <p>Low-resource settings: transfer learning for glioma segmentation in low-resolution data from Sub-Saharan Africa, and stroke lesion prediction from CT where MRI is unavailable.</p>
-                  <ul>
-                    <li>Fine-tuning a model trained on adult gliomas on BraTS-Africa data, with its decoder frozen, gave a mean lesion-wise Dice of 0.72 at validation, vs 0.65 for a model trained on BraTS-Africa data alone.</li>
-                    <li>For stroke, clinically informed preprocessing raised mean Dice over 10 folds by 38% (0.162&nbsp;→&nbsp;0.224), and replacing the windowed CTA input with vessel segmentation maps raised mean Dice over 5 folds by a further 21% (0.215&nbsp;→&nbsp;0.260).</li>
-                  </ul>
-                </dd>
-              </div>
-              <div class="facet">
-                <dt>Related papers</dt>
-                <!-- RELATED PAPERS: each chip links to an entry on publications.html -->
-                <dd><p class="chips">
-                  <a class="chip" href="publications.html#ren2024rediffinet"><span class="nowrap">Re-DiffiNet</span> · MIDL 2024</a>
-                  <a class="chip" href="publications.html#ren2024isles">How we won ISLES’24 · MICCAI 2024 workshop</a>
-                  <a class="chip" href="publications.html#heras2025mirasol">Low-resource stroke · MICCAI 2025 workshop</a>
-                  <a class="chip" href="publications.html#rivera2024glioma">Low-resolution glioma · MIDL 2024</a>
-                  <a class="chip" href="publications.html#ren2023brats">BraTS framework · MICCAI 2023 challenge</a>
-                  <a class="chip" href="publications.html#heras2024ensemble">BraTS 2024 ensemble · preprint</a>
-                  <a class="chip" href="publications.html#isles2024consortium">Final infarct prediction · under review</a>
-                </p></dd>
-              </div>
-            </dl>
-            <p class="support"><span class="support__label">Support</span> Population Health Initiative Pilot Grants: glioblastoma segmentation in Sub-Saharan Africa (2023–2024) and an equitable stroke foundation model (2025–2026)</p>
-          </section>
+    <!-- ===== THRUST C (future direction) ===== -->
+    <section class="section" id="c" aria-labelledby="c-title">
+      <h2 class="section__title" id="c-title">Responsible generative AI for clinical application</h2>
+      <p>Future direction: “what if” views of an individual brain, and model explanations in plain language.</p>
 
-          <!-- A2 -->
-          <section class="section" id="a2" aria-labelledby="a2-title">
-            <h3 class="sub-head" id="a2-title"><span class="sub-head__code">A2</span> Quantify the aging <span class="sub-head__dek">Decoding the biological aging clock from structural MRI</span></h3>
-            <p>I estimate <b>global and regional brain age</b> to characterize how an individual’s aging trajectory deviates from population norms.</p>
-            <dl class="facets">
-              <div class="facet">
-                <dt>Approach</dt>
-                <dd><p>An Age-Delta-Correlation (ADC) loss counters the “regression-to-the-mean” bias of brain-age models, finding the Pareto frontier between accuracy and systematic bias (ISBI 2026).</p></dd>
-              </div>
-              <div class="facet">
-                <dt>Preliminary findings</dt>
-                <dd>
-                  <p>The brain-age gap in Alzheimer’s disease and mild cognitive impairment associates with cognitive measures (MoCA, ADAS-Cog).</p>
-                  <figure class="plate plate--tall">
-                    <div class="plate__card">
-                      <a class="plate__link" href="assets/img/research/brain-age.webp"><img src="assets/img/research/brain-age.webp" width="924" height="1409" loading="lazy" decoding="async"
-                           alt="Four-panel overview of the brain-aging research. (a) Multi-level brain age: a scatter plot of bias-corrected predicted age against chronological age, and a regional map colored from delayed to accelerated aging for a subject whose chronological age is 52 but whose brain age is 56. (b) Systematic bias of a regression model: older subjects are predicted younger and younger subjects older. (c) Latent-space ordinality: images of people aged 1 to 70 encoded so that the latent space preserves age order. (d) Clinical validation: cognitive scores compared with a regional brain-age map of Shapley values on a sagittal brain slice. Opens the full-size image."></a>
-                    </div>
-                    <figcaption><span class="plate__no">Fig. 3</span> Brain-aging research: multi-level brain age, regression bias, latent-space ordinality, and clinical validation.</figcaption>
-                  </figure>
-                </dd>
-              </div>
-              <div class="facet">
-                <dt>Future directions</dt>
-                <dd><p>Spatially resolved, subject-specific brain age from T1-weighted MRI, with Shapley attributions at the voxel and parcel level, to relate regionally accelerated aging to cognition and Alzheimer’s disease biomarkers.</p></dd>
-              </div>
-              <div class="facet">
-                <dt>Related papers</dt>
-                <!-- RELATED PAPERS: each chip links to an entry on publications.html -->
-                <dd><p class="chips">
-                  <a class="chip" href="publications.html#ren2026adc">ADC loss · ISBI 2026</a>
-                  <a class="chip" href="publications.html#wp2026localbrainage">Local brain age attributions · working paper</a>
-                  <a class="chip" href="publications.html#wp2026beyondmae">Beyond MAE · working paper</a>
-                </p></dd>
-              </div>
-            </dl>
-            <p class="support"><span class="support__label">Support</span> a2 Pilot Award, co-PI ($310,000, 2025–2026)</p>
-          </section>
-        </section>
+      <h3 class="section__sub" id="c1">Forecasting brain-aging trajectories</h3>
+      <ul class="list">
+        <li>Counterfactual models: an individual brain under accelerated aging or early Alzheimer’s disease.</li>
+        <li><b><span class="nowrap">SFL-Net</span></b> (preprint): tau-PET from MRI; lowest PET error among capacity-matched models <span class="nowrap">(MAE 0.104)</span>.</li>
+      </ul>
+      <figure class="figure figure--narrow">
+        <img src="assets/img/research/sflnet-tau-synthesis.webp" width="621" height="524" loading="lazy" decoding="async"
+             alt="Tau-PET SUVR maps for one subject in sagittal, coronal and axial views, colored from dark blue (0) to dark red (about 2.8 SUVR). The first two columns are synthesized from MRI by two SFL-Net variants; the third is the ground-truth tau-PET, which shows red high-uptake regions in the temporal lobes and deep gray matter that the synthesized maps show only weakly.">
+        <figcaption>Synthesized vs. true tau-PET. Detail of Figure&nbsp;2 of <a href="publications.html#chopra2026sflnet"><span class="nowrap">SFL-Net</span></a> (arXiv 2026).</figcaption>
+      </figure>
 
-        <!-- ===== THRUST B ===== -->
-        <section class="section" id="b" aria-labelledby="b-title">
-          <h2 class="thrust-head" id="b-title"><span class="thrust-head__letter">B</span> Trustworthy neuroimaging AI</h2>
-          <p class="lede">Explanations that align model reasoning with clinical reasoning, and metrics that show when a model’s output can be trusted.</p>
+      <h3 class="section__sub" id="c2">Natural-language explanations</h3>
+      <ul class="list">
+        <li>Goal: radiologist-style explanations, e.g. “hyperintense rim on <span class="nowrap">T2-weighted</span> MRI consistent with edema.”</li>
+        <li><b>BTReport</b> (MIDL 2026): tumor reports from 22 features; 21 are common in clinical reports, 11 predict survival.</li>
+      </ul>
+      <figure class="figure figure--narrow">
+        <img src="assets/img/research/btreport-overview.webp" width="1400" height="990" loading="lazy" decoding="async"
+             alt="BTReport pipeline in four panels on a black background: a glioma segmentation with patient metadata, a midline-shift measurement comparing the ideal and shifted midlines, VASARI features on an atlas parcellation, and an LLM that combines prompting with these clinical features. Below each panel are the extracted values, and a final box shows the generated findings, describing a solitary, markedly enhancing lesion with a 10 mm right-to-left midline shift.">
+        <figcaption>BTReport overview. Figure&nbsp;1 of Heras Rivera, Chen, Ren et al., <a href="publications.html#heras2026btreport">BTReport</a> (MIDL 2026).</figcaption>
+      </figure>
+      <p class="meta">Papers:
+        <a href="publications.html#chopra2026sflnet"><span class="nowrap">SFL-Net</span></a>,
+        <a href="publications.html#heras2026btreport">BTReport</a></p>
+    </section>
 
-          <!-- B1 -->
-          <section class="section" id="b1" aria-labelledby="b1-title">
-            <h3 class="sub-head" id="b1-title"><span class="sub-head__code">B1</span> Explaining segmentation <span class="sub-head__dek">Clinically grounded explanations for multi-contrast segmentation</span></h3>
-            <ul class="cards" role="list" aria-label="Guiding questions">
-              <li class="card">
-                <p class="card__kicker label label--accent">Question 1</p>
-                <p class="card__title"><em>Why and how does the model arrive at a prediction?</em></p>
-              </li>
-              <li class="card">
-                <p class="card__kicker label label--accent">Question 2</p>
-                <p class="card__title"><em>Under what conditions can clinicians trust its output?</em></p>
-              </li>
-            </ul>
-            <dl class="facets">
-              <div class="facet">
-                <dt>Approach</dt>
-                <dd>
-                  <p>I developed <b>contrast-level Shapley values</b>, in the first study to use Shapley analysis to explain multi-contrast medical image segmentation (XAI 2025). With clinical collaborators, I extended them into a clinically interpretable evaluation framework (ISBI 2026) with two metrics:</p>
-                  <ul>
-                    <li><b>Agreement</b>: does the model’s contrast-importance ranking align with clinical imaging protocols?</li>
-                    <li><b>Uncertainty</b>: the variance of Shapley-derived rankings across folds.</li>
-                  </ul>
-                </dd>
-              </div>
-              <div class="facet">
-                <dt>Key findings</dt>
-                <dd>
-                  <ul>
-                    <li>T1c and T2-FLAIR receive the highest contrast-level Shapley values, matching clinical reasoning; <span class="nowrap">U-Net</span> leans on T1c and FLAIR, while <span class="nowrap">Swin-UNETR</span> spreads importance more evenly (Fig.&nbsp;4).</li>
-                  </ul>
-                  <figure class="plate plate--wide">
-                    <div class="plate__card">
-                      <a class="plate__link" href="assets/img/research/xai2025-shapley-violins.webp"><img src="assets/img/research/xai2025-shapley-violins.webp" width="1400" height="538" loading="lazy" decoding="async"
-                           alt="Two violin plots of contrast-level Shapley values computed from the Dice score, one violin per cross-validation fold (folds labeled 0 to 4) for each MRI contrast: t1c, t1n, t2f and t2w. Panel (a), U-Net: t1c and t2f have the highest Shapley values, mostly 0.2 to 0.4, while t1n and t2w stay near 0.0 to 0.15. Panel (b), Swin-UNETR: values are spread more evenly across the four contrasts, roughly 0.1 to 0.3. Opens the full-size image."></a>
-                    </div>
-                    <figcaption><span class="plate__no">Fig. 4</span> Contrast-level Shapley values for all folds, computed from the Dice score for each model: (a) <span class="nowrap">U-Net</span> and (b) <span class="nowrap">Swin-UNETR</span>. Figure&nbsp;3 of <a href="publications.html#ren2025xai">Here Comes the Explanation</a> (XAI 2025).</figcaption>
-                  </figure>
-                  <ul>
-                    <li>Agreement between a model’s contrast prioritization and clinical protocols goes with better segmentation, and higher variance of Shapley rankings across folds goes with lower Dice (bootstrap correlations from −0.35 to −0.60; Fig.&nbsp;5).</li>
-                  </ul>
-                  <figure class="plate plate--narrow">
-                    <div class="plate__card">
-                      <a class="plate__link" href="assets/img/research/shapley-agreement-pipeline.webp"><img src="assets/img/research/shapley-agreement-pipeline.webp" width="744" height="518" loading="lazy" decoding="async"
-                           alt="Pipeline diagram. Four MRI contrasts of a brain tumor (t1c, t1n, t2f, t2w) lead to a bar chart of Shapley values, one bar per contrast. The values are turned into Shapley rankings, in this example t1n = 1, t2f = 2, t1c = 3 and t2w = 4. The rankings feed two metrics: agreement with the clinical protocol ranking, and uncertainty between rankings across model iterations. These lead to a clinician icon labeled ‘Clinician understanding of model decision making and performance’. Opens the full-size image."></a>
-                    </div>
-                    <figcaption><span class="plate__no">Fig. 5</span> Explainability metrics derived from model-generated Shapley values. Contrast-level Shapley values are converted to rankings, which give an agreement score against clinical protocol rankings and an uncertainty score across model iterations. Figure&nbsp;1 of <a href="publications.html#ren2026shapley">Clinical Interpretability of Deep Learning Segmentation Through Shapley-Derived Agreement and Uncertainty Metrics</a> (ISBI 2026).</figcaption>
-                  </figure>
-                  <ul>
-                    <li>Frequentist uncertainty intervals for Shapley values agree moderately with clinical annotator rankings (Kendall’s τ&nbsp;=&nbsp;0.467, p&nbsp;=&nbsp;0.015), whereas naive cross-validation intervals show no such agreement (MIDL 2026).</li>
-                  </ul>
-                </dd>
-              </div>
-              <div class="facet">
-                <dt>Future directions</dt>
-                <dd><p>Interactive, human-in-the-loop systems in which clinicians visualize contrast importance, calibrate uncertainty, and guide refinement.</p></dd>
-              </div>
-              <div class="facet">
-                <dt>Related papers</dt>
-                <!-- RELATED PAPERS: each chip links to an entry on publications.html -->
-                <dd><p class="chips">
-                  <a class="chip" href="publications.html#ren2025xai">Here comes the explanation · XAI 2025</a>
-                  <a class="chip" href="publications.html#ren2026shapley">Agreement &amp; uncertainty · ISBI 2026</a>
-                  <a class="chip" href="publications.html#ren2026trust">Can you trust your model? · MIDL 2026</a>
-                </p></dd>
-              </div>
-            </dl>
-          </section>
-        </section>
+    <!-- ===== EARLIER WORK ===== -->
+    <section class="section" id="earlier" aria-labelledby="earlier-title">
+      <h2 class="section__title" id="earlier-title">Earlier work: fracture-healing biomechanics</h2>
+      <p>M.S. and Ph.D. at Lehigh University with <a href="https://engineering.lehigh.edu/faculty/hannah-dailey">Prof.&nbsp;Hannah Dailey</a>.</p>
+      <ul class="list">
+        <li>Mechanoregulation models: torsional instability delayed healing ~15 days (wedge, complex) vs. ~1 week (simple).</li>
+        <li>Radiodensity profilometry: cortex beside the callus lost 23% density in early healing (26 sheep).</li>
+        <li>Virtual torsion tests correlated strongly with measured rigidity (R²&nbsp;≥&nbsp;0.63).</li>
+      </ul>
+      <p class="meta">Papers:
+        <a href="publications.html#ren2020mechanoregulation">BMMB 2020</a>,
+        <a href="publications.html#ren2021callus"><span class="nowrap">J Biomech 2021</span></a>,
+        <a href="publications.html#ren2022radiodensity">BMMB 2022</a>,
+        <a href="publications.html#ren2024torsion"><span class="nowrap">J Orthop Res 2024</span></a>,
+        <a href="publications.html#ren2022phd">Ph.D. dissertation</a>,
+        <a href="publications.html#ren2018msthesis">M.S. thesis</a></p>
+    </section>
 
-        <!-- ===== THRUST C (future work) ===== -->
-        <section class="section" id="c" aria-labelledby="c-title">
-          <h2 class="thrust-head" id="c-title"><span class="thrust-head__letter">C</span> Responsible generative AI for clinical application <span class="badge badge--future thrust-head__badge">Future direction</span></h2>
-          <p class="lede">Generative models that let clinicians ask “what if” of an individual brain, and that explain model outputs in plain language.</p>
-
-          <!-- C1 -->
-          <section class="section" id="c1" aria-labelledby="c1-title">
-            <h3 class="sub-head" id="c1-title"><span class="sub-head__code">C1</span> Forecasting brain-aging trajectories <span class="sub-head__dek">Counterfactual generative AI</span></h3>
-            <p>Counterfactual generative models will produce “what if” visualizations of a patient’s brain, for example under accelerated aging or early Alzheimer’s disease.</p>
-            <dl class="facets">
-              <div class="facet">
-                <dt>Published groundwork</dt>
-                <dd>
-                  <p>Our <span class="nowrap">SFL-Net</span> (preprint, 2026) synthesizes tau-PET from multi-contrast MRI. It had the lowest raw PET error among capacity-matched models (MAE 0.104), while <span class="nowrap">U-Net</span> variants were better on structural similarity (Fig.&nbsp;6).</p>
-                  <figure class="plate plate--tall">
-                    <div class="plate__card">
-                      <a class="plate__link" href="assets/img/research/sflnet-tau-synthesis.webp"><img src="assets/img/research/sflnet-tau-synthesis.webp" width="621" height="524" loading="lazy" decoding="async"
-                           alt="Tau-PET SUVR maps for one subject in three views (sagittal, coronal and axial), colored from dark blue (0) to dark red (about 2.8 SUVR). The first two columns are synthesized from MRI by two SFL-Net variants and are labeled Braak Stage 1 and Stage 2. The third column is the ground-truth tau-PET, labeled Stage 3, which shows red high-uptake regions in the temporal lobes and deep gray matter that the synthesized maps show only weakly. Opens the full-size image."></a>
-                    </div>
-                    <figcaption><span class="plate__no">Fig. 6</span> Representative SUVR reconstructions comparing the ground truth (GT) with <span class="nowrap">SFL-Net</span>, shown for one subject in three views. <span class="nowrap">SFL-Net⊙†</span> adds the source-factorization loss to <span class="nowrap">SFL-Net†</span>; the Braak stage of each map is shown above it. In this Stage&nbsp;3 subject, both <span class="nowrap">SFL-Net</span> variants underestimate the high-uptake regions. Detail of Figure&nbsp;2 of <a href="publications.html#chopra2026sflnet"><span class="nowrap">SFL-Net</span></a> (arXiv 2026).</figcaption>
-                  </figure>
-                </dd>
-              </div>
-              <div class="facet">
-                <dt>Related paper</dt>
-                <dd><p class="chips">
-                  <a class="chip" href="publications.html#chopra2026sflnet"><span class="nowrap">SFL-Net</span> · preprint</a>
-                </p></dd>
-              </div>
-            </dl>
-          </section>
-
-          <!-- C2 -->
-          <section class="section" id="c2" aria-labelledby="c2-title">
-            <h3 class="sub-head" id="c2-title"><span class="sub-head__code">C2</span> Natural-language explanations <span class="sub-head__dek">Explaining medical image models in words</span></h3>
-            <p>Models that explain their output the way a radiologist would, for example:</p>
-            <figure class="pullquote">
-              <blockquote><p>This segmented area corresponds to a hyperintense rim on <span class="nowrap">T2-weighted</span> MRI consistent with edema.</p></blockquote>
-              <figcaption>Example of a target explanation</figcaption>
-            </figure>
-            <dl class="facets">
-              <div class="facet">
-                <dt>Planned approach</dt>
-                <dd><p>I will build a symbolic autoencoder and an emergent-language sender–receiver framework with a vision-language model, building on BTReport, our framework for generating brain-tumor radiology reports from clinically relevant features (MIDL 2026; Fig.&nbsp;7).</p></dd>
-              </div>
-              <div class="facet">
-                <dt>Published groundwork</dt>
-                <dd><p>21 of BTReport’s 22 features are commonly reported in clinical reports, and 11 predict overall survival.</p>
-                  <figure class="plate plate--wide">
-                    <div class="plate__card">
-                      <a class="plate__link" href="assets/img/research/btreport-overview.webp"><img src="assets/img/research/btreport-overview.webp" width="1400" height="990" loading="lazy" decoding="async"
-                           alt="BTReport pipeline in four panels on a black background: a glioma segmentation with patient metadata, a midline-shift measurement comparing the ideal and shifted midlines, VASARI features on an atlas parcellation, and an LLM that combines prompting with these clinical features. Below each panel are the extracted values, and a final box shows the generated findings, describing a solitary, markedly enhancing lesion with a 10 mm right-to-left midline shift. Opens the full-size image."></a>
-                    </div>
-                    <figcaption><span class="plate__no">Fig. 7</span> BTReport overview: interpretable, clinically meaningful variables (demographics, VASARI features and 3D midline shift) are extracted deterministically for each case and used by context-guided LLMs for clinically grounded radiology report generation. Figure&nbsp;1 of Heras Rivera, Chen, Ren et al., <a href="publications.html#heras2026btreport">BTReport</a> (MIDL 2026).</figcaption>
-                  </figure>
-                </dd>
-              </div>
-              <div class="facet">
-                <dt>Related paper</dt>
-                <dd><p class="chips">
-                  <a class="chip" href="publications.html#heras2026btreport">BTReport · MIDL 2026</a>
-                </p></dd>
-              </div>
-            </dl>
-          </section>
-        </section>
-
-        <!-- ===== EARLIER WORK ===== -->
-        <section class="section" id="earlier" aria-labelledby="earlier-title">
-          <div class="prose">
-            <h2 id="earlier-title">Earlier work: computational biomechanics of fracture healing</h2>
-            <p>During my M.S. and Ph.D. at Lehigh University, advised by <a href="https://engineering.lehigh.edu/faculty/hannah-dailey">Prof.&nbsp;Hannah Dailey</a>, I modeled how bone fractures heal:</p>
-            <ul>
-              <li>mechanoregulation (fuzzy-logic) models of bone fracture healing in realistic fracture geometries;</li>
-              <li>image-based biomarkers of healing (radiodensity profilometry);</li>
-              <li>patient-specific finite-element virtual mechanical testing;</li>
-              <li>ovine fracture-healing studies.</li>
-            </ul>
-          </div>
-          <dl class="facets">
-            <div class="facet">
-              <dt>Theses</dt>
-              <dd>
-                <ul>
-                  <li>Ph.D. dissertation (2022): <a href="publications.html#ren2022phd"><cite>Mechanoregulation Modeling of Bone Fracture Healing in the Tibia from the Perspective of Computational Models and Image Analysis</cite></a></li>
-                  <li>M.S. thesis (2018): <a href="publications.html#ren2018msthesis"><cite>Mechanoregulation Modeling of Bone Healing in Realistic Fracture Geometries</cite></a></li>
-                </ul>
-              </dd>
-            </div>
-            <div class="facet">
-              <dt>Key findings</dt>
-              <dd>
-                <ul>
-                  <li>In idealized tibial fracture models, torsional instability delayed healing by about 15 days for wedge and complex fractures vs about one week for simple fractures (M.S. thesis; Fig.&nbsp;8).</li>
-                </ul>
-                <figure class="plate plate--tall">
-                  <div class="plate__card">
-                    <a class="plate__link" href="assets/img/research/thesis-fracture-geometries.webp"><img src="assets/img/research/thesis-fracture-geometries.webp" width="900" height="1170" loading="lazy" decoding="async"
-                         alt="Three-by-three table of idealized computer-aided design models of tibial fractures. Rows are fracture types: A. Simple, B. Wedge and C. Complex; columns are groups 1, 2 and 3. Each cell shows a gray cylindrical bone segment with the fracture gaps cut through it and a translucent pink callus around the fracture: spiral, oblique and transverse gaps for the simple type, and two-part wedge or spiral patterns for the wedge and complex types. Opens the full-size image."></a>
-                  </div>
-                  <figcaption><span class="plate__no">Fig. 8</span> Idealized CAD models representing the AO/OTA classification of tibial fractures: A1, spiral; A2, oblique; A3, transverse; B1, spiral wedge; B2, spiral wedge; B3, fragmented wedge; C1, complex spiral; C2, segmental; C3, irregular. Figure&nbsp;2 of my <a href="publications.html#ren2018msthesis">M.S. thesis</a> (Lehigh University, 2018).</figcaption>
-                </figure>
-                <ul>
-                  <li>Across 26 sheep, the cortical wall next to the callus lost 23% of its density on average during early healing (BMMB 2022).</li>
-                  <li>Finite-element virtual torsional rigidity correlated strongly with measured torsional rigidity (R²&nbsp;≥&nbsp;0.63), more than the torsion constant (R²&nbsp;=&nbsp;0.55) or callus volume (R²&nbsp;≤&nbsp;0.26) (J Orthop Res 2024).</li>
-                </ul>
-              </dd>
-            </div>
-            <div class="facet">
-              <dt>Related papers</dt>
-              <!-- RELATED PAPERS: each chip links to an entry on publications.html -->
-              <dd><p class="chips">
-                <a class="chip" href="publications.html#ren2020mechanoregulation">Mechanoregulation modeling · BMMB 2020</a>
-                <a class="chip" href="publications.html#ren2021callus">Callus shape · J Biomech 2021</a>
-                <a class="chip" href="publications.html#ren2022radiodensity">Radiodensity profilometry · BMMB 2022</a>
-                <a class="chip" href="publications.html#ren2024torsion">Torsion constants · J Orthop Res 2024</a>
-              </p></dd>
-            </div>
-          </dl>
-        </section>
-
-        <!-- ===== FUNDING ===== -->
-        <section class="section" id="funding" aria-labelledby="funding-title">
-          <div class="section__head">
-            <h2 class="label" id="funding-title">Funding</h2>
-          </div>
-          <!-- FUNDING: newest first. Copy an <li class="grant"> to add one. -->
-          <ol class="funding" role="list">
-            <li class="grant">
-              <p class="grant__years">2025–2026</p>
-              <div>
-                <h3 class="grant__title">Using explainable AI and deep learning for brain age prediction in older adults in clinical settings</h3>
-                <p class="grant__meta"><span class="grant__sponsor">a2 Pilot Award</span> <span class="grant__amount">$310,000</span> <span class="grant__role">Role: co-PI (PI: Kurt)</span></p>
-              </div>
-            </li>
-            <li class="grant">
-              <p class="grant__years">2025–2026</p>
-              <div>
-                <h3 class="grant__title">Equitable AI for Stroke Diagnosis: A Global Foundation Model for Non-Contrast CT and CTA Imaging</h3>
-                <p class="grant__meta"><span class="grant__sponsor">Population Health Initiative Pilot Grant</span> <span class="grant__amount">$65,000</span> <span class="grant__role">Role: grant writing (PI: Kurt)</span></p>
-              </div>
-            </li>
-            <li class="grant">
-              <p class="grant__years">2023–2024</p>
-              <div>
-                <h3 class="grant__title">Developing Novel and Fair Machine Learning Strategies for Glioblastoma Segmentation in Sub-Saharan Africa Patient Population</h3>
-                <p class="grant__meta"><span class="grant__sponsor">Population Health Initiative Pilot Grant</span> <span class="grant__amount">$65,000</span> <span class="grant__role">Role: grant writing (PI: Kurt)</span></p>
-              </div>
-            </li>
-            <li class="grant">
-              <p class="grant__years">2023–2024</p>
-              <div>
-                <h3 class="grant__title">I-Corps: Translation potential of an artificial intelligence (AI) approach for brain lesion segmentation</h3>
-                <p class="grant__meta"><span class="grant__sponsor">NSF I-Corps</span> <span class="grant__amount">$50,000</span> <span class="grant__role">Role: tech lead (PI: Kurt)</span></p>
-              </div>
-            </li>
-          </ol>
-        </section>
-
-        <p class="back-to-top"><a href="#main">Back to top <span aria-hidden="true">↑</span></a></p>
-      </div>
-    </div>
+    <!-- ===== FUNDING: newest first, one line each ===== -->
+    <section class="section" id="funding" aria-labelledby="funding-title">
+      <h2 class="section__title" id="funding-title">Funding</h2>
+      <ul class="list">
+        <li>Explainable brain-age AI for older adults <span aria-hidden="true">·</span> a2 Pilot Award <span aria-hidden="true">·</span> $310,000 <span aria-hidden="true">·</span> <span class="nowrap">2025–2026</span> <span aria-hidden="true">·</span> co-PI</li>
+        <li>Equitable stroke-diagnosis AI <span aria-hidden="true">·</span> Population Health Initiative <span aria-hidden="true">·</span> $65,000 <span aria-hidden="true">·</span> <span class="nowrap">2025–2026</span> <span aria-hidden="true">·</span> grant writing</li>
+        <li>Glioblastoma segmentation, Sub-Saharan Africa <span aria-hidden="true">·</span> Population Health Initiative <span aria-hidden="true">·</span> $65,000 <span aria-hidden="true">·</span> <span class="nowrap">2023–2024</span> <span aria-hidden="true">·</span> grant writing</li>
+        <li>AI for brain lesion segmentation <span aria-hidden="true">·</span> <span class="nowrap">NSF I-Corps</span> <span aria-hidden="true">·</span> $50,000 <span aria-hidden="true">·</span> <span class="nowrap">2023–2024</span> <span aria-hidden="true">·</span> tech lead</li>
+      </ul>
+    </section>
   </main>
 
   <!-- SITE FOOTER: identical on every page -->
   <footer class="site-footer">
     <div class="site-footer__inner">
-      <div class="site-footer__id">
-        <p class="site-footer__name">Tianyi Ren</p>
-        <p class="meta">Postdoctoral Scholar, Department of Mechanical Engineering, University of Washington · <a href="https://www.kurtlab.com/">Kurt Lab</a></p>
-      </div>
-      <div class="site-footer__cols">
-        <div class="site-footer__office">
-          <h2 class="label">Office</h2>
-          <address>
-            Benjamin Hall Interdisciplinary Research Building<br>
-            616 NE Northlake Pl, Suite 440<br>
-            Seattle, WA 98105
-          </address>
-        </div>
-        <div>
-          <h2 class="label">Contact</h2>
-          <ul class="footer-links" role="list">
-            <li><a href="mailto:tr1@uw.edu">tr1@uw.edu</a></li>
-            <li><a href="https://scholar.google.com/citations?user=_E3zJtEAAAAJ&amp;hl=en">Google Scholar</a></li>
-            <li><a href="https://www.linkedin.com/in/tianyi-ren-290b2b133/">LinkedIn</a></li>
-            <li><a href="https://github.com/rentianyi">GitHub</a></li>
-          </ul>
-        </div>
-        <nav aria-labelledby="footer-site-title">
-          <h2 class="label" id="footer-site-title">Site</h2>
-          <ul class="footer-links" role="list">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="research.html" aria-current="page">Research</a></li>
-            <li><a href="publications.html">Publications</a></li>
-            <li><a href="teaching.html">Teaching &amp; Mentoring</a></li>
-            <li><a href="CV_tianyi.pdf">CV<span class="visually-hidden"> (PDF)</span></a></li>
-          </ul>
-        </nav>
-      </div>
-      <div class="site-footer__base meta">
-        <!-- LAST UPDATED: change the month when you edit the site -->
-        <p>© 2026 Tianyi Ren · Last updated October 2026</p>
-      </div>
+      <!-- LAST UPDATED: change the month when you edit the site -->
+      <p>© 2026 Tianyi Ren <span aria-hidden="true">·</span> Last updated October 2026</p>
+      <ul class="links" role="list" aria-label="Contact">
+        <li><a href="mailto:tr1@uw.edu">tr1@uw.edu</a></li>
+        <li><a href="https://scholar.google.com/citations?user=_E3zJtEAAAAJ&amp;hl=en">Google Scholar</a></li>
+      </ul>
     </div>
   </footer>
 </body>

@@ -1,321 +1,190 @@
 /* ==========================================================================
    Tianyi Ren — site.css
-   One editorial stylesheet for every page (index, research, publications,
-   teaching, 404). Plain CSS, no build step. Light + dark via
-   prefers-color-scheme. To reuse a component, copy its HTML from a page that
-   already uses it (the HTML comments there say how); this index lists the
-   class names. No page has its own stylesheet: every rule lives here.
+   One plain stylesheet for every page. No build step.
 
-   Colour idea: "imaging bands". The palette is sampled from Tianyi's two
-   brain-imaging artworks (assets/img/bg/): DTI magenta/crimson is the primary
-   accent and is kept for links and other interactive things only; fiber green
-   is the secondary, for everything that only decorates or labels (figures,
-   kickers and labels, codes, letters, quote marks, rules on cards and
-   callouts), so a magenta word can always be clicked (the one exception is the
-   filled "Oral" badge, a pale magenta box that is never link-shaped). Olive is
-   the award colour. Body text sits
-   on a cool blue-grey paper (light) or a deep blue-black (dark). The site
-   header, the first block of every page (.band) and the footer are pure-black
-   bands that look the same in both schemes; the artworks live only there,
-   where their own black ground melts into the band with no visible edge.
+   Design: a simple academic home page (name left / nav right, a photo beside a
+   short bio, one row of links, plain lists below) in Inter, set on the site's
+   black "imaging bands": the header, the first block of every page and the
+   footer are pure black in both colour schemes and carry the brain artworks.
+   Everything below the bands is plain: white (or dark grey in the dark
+   scheme), near-black text, blue underlined links, bold headings.
 
-   COMPONENT INDEX
+   COMPONENT INDEX (copy the markup from a page that already uses it)
    ---------------------------------------------------------------------------
-   1  Tokens ............ --paper --paper-2 --surface --paper-card
-                          --paper-card-line --ink --ink-2 --ink-3 --rule
-                          --rule-strong --accent --accent-hover --accent-wash
-                          --accent-ink --accent-2 --chip-line --gold-wash
-                          --gold-ink --gold-line --focus --plate-focus
-                          --selection --shadow
-                          --night-* (dark scheme + black bands) --band --band-2
-                          --spectrum --art-tract --art-tract-384 --art-dti
-                          --art-tract-ink-* --art-dti-ratio (artwork geometry)
-                          --font-* --fs-* --lh-* --sp-* --label-w --measure
-                          --page-max --gutter --profile-w --hero-gap --toc-w
-                          --radius(-lg) --hair --tap
-   2  Base .............. element defaults, links, focus ring
-   3  Utilities ......... .visually-hidden .skip-link .label .label--accent
-                          .meta .lede .text-link(.arrow) .icon .nowrap
-   4  Site header ....... .site-header .wordmark .site-nav .nav-tag
-   5  Page shell ........ .page .band (--tract --dti) .section .section__head
-                          .split .gutter-row
-   6  Home .............. .hero .profile .contact .intro .highlights .highlight
-                          .readout .goal .thrusts .thrust (stretched-link rows)
-   7  Figure plates ..... .plate .plate__card .plate__card--marks .plate__link
-                          .plate__no .plate--wide .plate--narrow .plate--tall
-                          .plate--side
-   8  Lists ............. .gutter-list/.gutter-item .news .news--gutter
-                          .pub-list/.pub .pub__venue .pub__title .pub__authors
-                          .me .pub__where .pub__note .pub__links .pub-group
-                          .pub-group__head .pub-group__count .pub-group__note
-   9  Badges & chips .... .badge  --award --oral --review --wp --future
-                          .chip .tags/.tag
-   10 Inner pages ....... .page-header (__kicker __title __dek __meta)
-                          .with-toc .toc (__title __list __sub)
-                          .prose .thrust-head .sub-head .facets/.facet
-                          .callout .support .funding/.grant .pullquote
-                          .pullquotes .courses/.course .mentees/.mentee
-                          .cards(--3 --steps)/.card(.card--link) .timeline
-                          .back-to-top
-   11 Site footer ....... .site-footer .footer-links .site-footer__base
-   12 Motion, forced colours, print
-   Breakpoints: 40rem (640px) small tablet · 46rem (736px) one-line header ·
-   60rem (960px) desktop · 64rem (1024px) 7/5 split · 80rem (1280px) the home
-   artwork moves beside the headline + bio. Sticky TOC needs min-width 60rem AND
-   min-height 32rem (it scrolls inside itself if taller than the window).
-   Dark tokens and the black bands apply on screen only, so print is always
-   light, ink-friendly and image-free. Forced colours and prefers-contrast: more
-   hide the artworks.
+   1  Tokens .......... colours (light, dark, band), --font, --fs-*, --col,
+                        --gutter, art tokens --art-tract --art-tract-384
+                        --art-dti and their geometry
+   2  Base ............ element defaults, links, focus ring
+   3  Utilities ....... .visually-hidden .skip-link .meta .nowrap .me
+                        .links (a " · " row of links) .links--sm
+   4  Site header ..... .site-header .site-header__inner .site-name .site-nav
+   5  Page shell ...... .page .band .band--tract .band--dti
+   6  Home intro ...... .hero .hero__inner .hero__photo .hero__text
+                        .hero__name .hero__email
+   7  Inner header .... .page-header .page-header__title .page-header__dek
+   8  Sections ........ .section .section__head .section__title .section__sub
+                        .list (bullets)
+   9  News ............ .news (li > time + text)
+   10 Thumbnails ...... .thumbs (a row of figure thumbnails with one-line labels)
+   11 Papers, entries . .papers/.paper .paper__title .paper__authors
+                        .paper__venue .entries/.entry .entry__title
+                        .entry__meta .has-thumb .thumb
+   12 Figures ......... .figure .figure--narrow .figures (two up)
+   13 Site footer ..... .site-footer .site-footer__inner
+   14 Motion, forced colours, more contrast, print
+   Breakpoints: 40rem (640px) tablet, one-line header · 46rem (736px) roomier bands ·
+   72rem (1152px) the home artwork moves beside the intro.
    ========================================================================== */
 
 /* ---------- 1. Tokens ---------------------------------------------------- */
 :root {
   color-scheme: light dark;
 
-  /* Families: Newsreader (text) + Source Sans 3 (UI, labels, meta) */
-  --font-serif: "Newsreader", "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
-  --font-sans: "Source Sans 3", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
   /* Type scale */
-  --fs-sm: 0.9rem;       /* meta, chips */
-  --fs-md: 1rem;         /* compact text (news, lists) */
-  --fs-caps: 1.125rem;   /* small-caps labels: all-small-caps renders at ~70% of this */
-  --fs-body: clamp(1.0625rem, 0.99rem + 0.3vw, 1.1875rem);
-  --fs-lg: clamp(1.15rem, 1.06rem + 0.4vw, 1.3rem);
-  --fs-xl: clamp(1.35rem, 1.2rem + 0.7vw, 1.65rem);
-  --fs-2xl: clamp(1.65rem, 1.35rem + 1.3vw, 2.25rem);
-  --fs-display: clamp(2.25rem, 1.7rem + 2.2vw, 3.25rem);
-
-  --lh-tight: 1.15;
-  --lh-snug: 1.35;
-  --lh-body: 1.6;
-  --tracking-caps: 0.07em;
-
-  /* Spacing */
-  --sp-1: 0.25rem;
-  --sp-2: 0.5rem;
-  --sp-3: 0.75rem;
-  --sp-4: 1rem;
-  --sp-5: 1.5rem;
-  --sp-6: 2rem;
-  --sp-7: 3rem;
-  --sp-8: 4.5rem;
+  --fs-xs: 0.8125rem;    /* 13px */
+  --fs-sm: 0.875rem;     /* 14px  meta, captions, footer */
+  --fs-ui: 0.9375rem;    /* 15px  nav, authors, dates */
+  --fs-body: 1.0625rem;  /* 17px  body text */
+  --fs-lead: 1.125rem;   /* 18px  home intro */
+  --fs-h3: 1.125rem;     /* 18px */
+  --fs-h2: 1.375rem;     /* 22px */
+  --fs-name: 1.5rem;     /* 24px  name in the header */
+  --fs-h1: 2rem;         /* 32px */
 
   /* Layout */
-  --page-max: 75rem;                     /* content width (gutters added outside) */
-  --gutter: clamp(1rem, 4vw, 3rem);      /* page side padding: 16px on phones */
-  --measure: 68ch;                       /* long-form line length */
-  --profile-w: 17rem;                    /* home profile column */
-  --hero-gap: clamp(3rem, 5.5vw, 5.5rem); /* profile column → text (home band, footer) */
-  --label-w: 6rem;                       /* shared hanging gutter (letters, dates, venues, facet labels) */
-  --toc-w: 13rem;
-  --radius: 3px;
-  --radius-lg: 6px;
-  --hair: 1px;
-  --tap: 2.75rem;                        /* 44px minimum tap target */
+  --col: 50rem;                        /* 800px text column */
+  --gutter: clamp(1rem, 4vw, 2rem);    /* side padding: 16px on phones */
+  --radius: 6px;
+  --tap: 2.75rem;                      /* 44px tap target */
 
-  /* Colour — light: cool blue-grey paper, navy-black ink, DTI crimson + fiber green.
-     Ratios are WCAG contrast on --paper unless noted (all text >= 4.5:1). */
-  --paper: #eef1f5;
-  --paper-2: #e2e7ee;        /* quiet band / hover */
-  --surface: #f8f9fb;        /* raised card */
-  --ink: #0e1526;            /* 16.1:1 */
-  --ink-2: #343e53;          /* 9.5:1 */
-  --ink-3: #525c70;          /* 5.9:1 (5.4:1 on paper-2) */
-  --rule: #c9d0db;
-  --rule-strong: #0e1526;
-  --accent: #a3264f;         /* DTI crimson (from #a73a56), 6.3:1 (5.7:1 on paper-2): links, interactive things */
-  --accent-hover: #7c1b3c;   /* 8.9:1 */
-  --accent-wash: #f4e2e9;
-  --accent-ink: #8a1f43;     /* 7.2:1 on wash */
-  --accent-2: #1f6a3b;       /* fiber green (from #2f7948), 5.8:1 (5.3:1 on paper-2): non-interactive accents */
-  --chip-line: #b5637f;      /* chip outline: a softer crimson, 3.7:1 */
-  --gold-wash: #ece6c6;      /* ISLES'24 award badge only: olive (from #87783e) */
-  --gold-ink: #4f4210;       /* 7.9:1 on gold wash */
-  --gold-line: #b9a55a;
-  --paper-card: #ffffff;     /* figure plates: figures are drawn on white */
-  --paper-card-line: #d6dce5;
-  --focus: #a3264f;
-  --plate-focus: #a3264f;    /* focus ring drawn ON a light figure plate (both schemes): 7.1:1 on white, 5.8:1 on the dark-scheme plate */
-  --selection: #f0cfdc;
-  --shadow: 0 1px 0 rgba(14, 21, 38, 0.04), 0 8px 24px -16px rgba(14, 21, 38, 0.3);
+  /* Light scheme (contrast on #fff) */
+  --bg: #ffffff;
+  --text: #1c1d1f;          /* 16.9:1 */
+  --text-2: #4b5058;        /* 8.1:1  authors, deks */
+  --text-3: #5c626b;        /* 6.2:1  dates, captions, meta */
+  --rule: #e3e5e8;
+  --link: #1a4a96;          /* 8.5:1 */
+  --link-hover: #0f2f66;
+  --focus: #1a4a96;
+  --card-line: #dfe2e6;     /* outline of a figure */
+  --card-pad: 0;            /* figures sit straight on white */
+  --selection: #d6e4ff;
 
-  /* Night palette: defined once, read by BOTH the dark scheme (below) and the black
-     bands (header, first block of each page, footer), which look the same in both
-     schemes. Ratios: on --night-paper / on the band's pure black. */
-  --night-paper: #0b0f17;
-  --night-paper-2: #141a25;
-  --night-surface: #161c28;
-  --night-ink: #e7ebf2;          /* 16.0:1 / 17.6:1 */
-  --night-ink-2: #b9c1cf;        /* 10.6:1 / 11.6:1 */
-  --night-ink-3: #8f99ac;        /* 6.7:1 / 7.3:1 (6.4:1 on --band-2) */
-  --night-rule: #262e3c;
-  --night-rule-strong: #6d788d;  /* 4.3:1 / 4.7:1 */
-  --night-accent: #f08aac;       /* 8.2:1 / 8.9:1 */
-  --night-accent-hover: #ffb3cc;
-  --night-accent-wash: #33141f;
-  --night-accent-ink: #ffa8c5;   /* 9.3:1 on wash; also the focus ring */
-  --night-accent-2: #74d38a;     /* 10.4:1 / 11.4:1 */
-  --night-chip-line: #9a5370;    /* 3.5:1 / 3.9:1 */
-  --night-gold-wash: #29260f;
-  --night-gold-ink: #e0cf7e;     /* 9.7:1 on gold wash */
-  --night-gold-line: #645a26;
-  --night-selection: #4f1c31;
-
-  /* Black imaging bands: the artworks sit on pure #000, so the band is pure #000 too */
+  /* Black bands (header, first block of each page, footer): same in both schemes.
+     Contrast on #000. */
   --band: #000000;
-  --band-2: #11141b;             /* hover / photo placeholder inside a band */
-  /* Hairline that closes each band: magenta → violet → fiber green, as in the tractography */
+  --band-text: #f5f6f8;     /* 19.4:1 */
+  --band-text-2: #c9ced6;   /* 13.3:1 */
+  --band-text-3: #a3abb7;   /* 9.1:1 */
+  --band-rule: #262a31;
+  --band-link: #8db7ff;     /* 10.4:1 */
+  --band-link-hover: #c2d8ff;
+  /* thin line closing each band: magenta → violet → blue → fiber green, as in the tractography */
   --spectrum: linear-gradient(90deg, #c2386f 0%, #8a4fc4 38%, #3f8fd0 62%, #4eb941 100%);
 
-  /* Background artworks (decorative, black ground). See sections 5-6 for where they are
-     drawn. To swap one, change its url() and keep the file on pure black. The layout also
-     depends on each file's geometry, given in the lines after the url()s: a replacement with
-     the same proportions and the brain framed the same way needs no other change; otherwise
-     re-measure those numbers (README, "Change a background image"). */
+  /* Background artworks (decorative, on pure black). Swap a file here; keep the same framing
+     or re-measure the geometry below (README, "Change a background image"). */
   --art-tract: url("../img/bg/brain-tractography.webp");          /* 768 x 927 native */
-  --art-tract-384: url("../img/bg/brain-tractography-384.webp");  /* 384 x 464, half size: 1x screens under 40rem */
+  --art-tract-384: url("../img/bg/brain-tractography-384.webp");  /* 384 x 464: 1x phones */
   --art-dti: url("../img/bg/brain-dti-structural.webp");          /* 446 x 488 native */
-  /* Tractography: the brain's bounding box (pixels brighter than black), each as a fraction
-     of the file's WIDTH: left edge 56/768, top edge 128/768, width 659/768 */
+  /* Tractography: the brain's bounding box, each as a fraction of the file's WIDTH:
+     left edge 56/768, top edge 128/768, width 659/768 */
   --art-tract-ink-x: 0.073;
   --art-tract-ink-y: 0.1667;
   --art-tract-ink-w: 0.858;
-  --art-dti-ratio: 446 / 488;    /* DTI file: width / height (the specimen is centred in it, inside a thin black margin) */
+  --art-dti-ratio: 446 / 488;
 }
 
+/* Dark scheme for the body below the bands (screen only: print stays light).
+   Contrast on #121417. */
 @media screen and (prefers-color-scheme: dark) {
   :root {
-    /* Colour — dark: the night palette on a deep blue-black base */
-    --paper: var(--night-paper);
-    --paper-2: var(--night-paper-2);
-    --surface: var(--night-surface);
-    --ink: var(--night-ink);
-    --ink-2: var(--night-ink-2);
-    --ink-3: var(--night-ink-3);
-    --rule: var(--night-rule);
-    --rule-strong: var(--night-rule-strong);
-    --accent: var(--night-accent);
-    --accent-hover: var(--night-accent-hover);
-    --accent-wash: var(--night-accent-wash);
-    --accent-ink: var(--night-accent-ink);
-    --accent-2: var(--night-accent-2);
-    --chip-line: var(--night-chip-line);
-    --gold-wash: var(--night-gold-wash);
-    --gold-ink: var(--night-gold-ink);
-    --gold-line: var(--night-gold-line);
-    --paper-card: #e4e8ee;   /* cool off-white plate: no glare, figure stays legible */
-    --paper-card-line: #e4e8ee;
-    --focus: var(--night-accent-ink);
-    --selection: var(--night-selection);
-    --shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 10px 30px -18px rgba(0, 0, 0, 0.8);
+    --bg: #121417;
+    --text: #e6e8eb;        /* 15.0:1 */
+    --text-2: #aeb4bd;      /* 8.8:1 */
+    --text-3: #9aa1ab;      /* 7.1:1 */
+    --rule: #2a2e35;
+    --link: #8db7ff;        /* 9.1:1 */
+    --link-hover: #c2d8ff;
+    --focus: #8db7ff;
+    --card-line: #ffffff;
+    --card-pad: 0.5rem;     /* white-background figures get a white card */
+    --selection: #2b4a7a;
   }
 }
 
-/* Inside a black band every component reads the night palette on pure black
-   (screen only: print stays light) */
+/* Inside a black band everything reads the band palette (screen only) */
 @media screen {
   .band, .site-header, .site-footer {
-    --paper: var(--band);
-    --paper-2: var(--band-2);
-    --surface: var(--band-2);
-    --ink: var(--night-ink);
-    --ink-2: var(--night-ink-2);
-    --ink-3: var(--night-ink-3);
-    --rule: var(--night-rule);
-    --rule-strong: var(--night-rule-strong);
-    --accent: var(--night-accent);
-    --accent-hover: var(--night-accent-hover);
-    --accent-wash: var(--night-accent-wash);
-    --accent-ink: var(--night-accent-ink);
-    --accent-2: var(--night-accent-2);
-    --chip-line: var(--night-chip-line);
-    --gold-wash: var(--night-gold-wash);
-    --gold-ink: var(--night-gold-ink);
-    --gold-line: var(--night-gold-line);
-    --focus: var(--night-accent-ink);
-    --selection: var(--night-selection);
+    --bg: var(--band);
+    --text: var(--band-text);
+    --text-2: var(--band-text-2);
+    --text-3: var(--band-text-3);
+    --rule: var(--band-rule);
+    --link: var(--band-link);
+    --link-hover: var(--band-link-hover);
+    --focus: var(--band-link);
+    --selection: #2b4a7a;
     color-scheme: dark;
-    background-color: var(--paper);
-    color: var(--ink);
+    background-color: var(--band);
+    color: var(--text);
   }
-}
-
-@media (min-width: 40rem) {
-  :root { --label-w: 7rem; }             /* tablets: room for one-word labels like "Dissertation" */
-}
-@media (min-width: 60rem) {
-  :root { --label-w: 8.5rem; }
 }
 
 /* ---------- 2. Base ------------------------------------------------------ */
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
-  background: var(--band);      /* overscroll above the header / below the footer stays black */
+  background: var(--band);           /* overscroll above the header / below the footer stays black */
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  scroll-padding-top: var(--sp-5);
 }
 
 body {
   margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-serif);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
   font-size: var(--fs-body);
-  font-optical-sizing: auto;
-  line-height: var(--lh-body);
-  text-rendering: optimizeLegibility;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
-  font-kerning: normal;
-  font-variant-numeric: oldstyle-nums proportional-nums;
   overflow-wrap: break-word;
 }
 
-::selection { background: var(--selection); color: var(--ink); }
+::selection { background: var(--selection); color: var(--text); }
 
-img, svg { display: block; max-width: 100%; }
-img { height: auto; }
+img, svg { display: block; max-width: 100%; height: auto; }
 figure { margin: 0; }
-
 h1, h2, h3, h4 {
   margin: 0;
-  font-family: var(--font-serif);
-  font-weight: 500;
-  line-height: var(--lh-tight);
-  letter-spacing: -0.01em;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.012em;
+  color: var(--text);
   text-wrap: balance;
 }
-
 p { margin: 0; text-wrap: pretty; }
-p + p { margin-top: var(--sp-4); }
 ul, ol { margin: 0; padding: 0; }
-dl, dd { margin: 0; }
-blockquote { margin: 0; }
 strong, b { font-weight: 600; }
-em, i, cite { font-style: italic; }
-small { font-size: var(--fs-sm); }
-hr { border: 0; border-top: var(--hair) solid var(--rule); margin: var(--sp-6) 0; }
 address { font-style: normal; }
 
 a {
-  color: var(--accent);
+  color: var(--link);
   text-decoration-line: underline;
   text-decoration-thickness: 1px;
-  text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
-  text-underline-offset: 0.18em;
-  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  text-underline-offset: 0.16em;
 }
-a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
+a:hover { color: var(--link-hover); text-decoration-thickness: 2px; }
 
-/* Keyboard focus is always visible; mouse focus never shows a ring. */
+/* Keyboard focus is always visible */
 :focus-visible {
   outline: 2px solid var(--focus);
-  outline-offset: 3px;
+  outline-offset: 2px;
   border-radius: 2px;
 }
-:focus:not(:focus-visible) { outline: none; }
+[tabindex="-1"]:focus:not(:focus-visible) { outline: none; }
 
 /* ---------- 3. Utilities ------------------------------------------------- */
 .visually-hidden {
@@ -327,219 +196,142 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 }
 
 .skip-link {
-  --focus: var(--night-ink);        /* its ring also lands on the black header: near-white, 17.6:1 */
   position: absolute;
-  left: var(--sp-4);
-  top: var(--sp-3);
+  left: 0.5rem;
+  top: 0.5rem;
   z-index: 100;
-  padding: 0.7rem var(--sp-4);
-  background: var(--night-accent);  /* lands on the black header: magenta stands out in both schemes */
-  color: var(--band);
-  font-family: var(--font-sans);
+  padding: 0.6rem 1rem;
+  background: var(--band-link);
+  color: #000;
   font-size: var(--fs-sm);
   font-weight: 600;
   text-decoration: none;
-  border-radius: var(--radius);
+  border-radius: 4px;
+  outline-color: #fff;
   transform: translateY(-200%);
-  transition: transform 0.15s ease;
 }
-.skip-link:focus { transform: none; color: var(--band); }
+.skip-link:focus { transform: none; color: #000; }
 
-/* Small-caps label: real small caps, never text-transform. */
-.label {
-  margin: 0;
-  font-family: var(--font-sans);
-  font-size: var(--fs-caps);
-  font-weight: 600;
-  font-variant-caps: all-small-caps;
-  font-variant-numeric: lining-nums;
-  letter-spacing: var(--tracking-caps);
-  line-height: 1.3;
-  color: var(--ink-3);
-}
-.label--accent { color: var(--accent-2); }   /* a label, not a link: fiber green */
-
-.meta {
-  font-family: var(--font-sans);
-  font-size: var(--fs-sm);
-  color: var(--ink-3);
-  line-height: 1.5;
-}
-
-.lede {
-  max-width: 48rem;             /* keeps intro sentences to a readable line length */
-  font-size: var(--fs-lg);
-  line-height: 1.5;
-  color: var(--ink-2);
-}
-
-/* Quiet sans link with an arrow: <a class="text-link">All publications <span class="arrow" aria-hidden="true">→</span></a> */
-.text-link {
-  display: inline-block;
-  padding-block: 0.75rem;       /* 44px+ tap target */
-  font-family: var(--font-sans);
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  line-height: 1.5;
-  letter-spacing: 0.01em;
-  text-decoration: none;
-}
-.text-link .arrow { display: inline-block; margin-left: 0.35em; transition: transform 0.15s ease; }
-.text-link:hover { text-decoration: underline; text-underline-offset: 0.25em; }
-.text-link:hover .arrow { transform: translateX(3px); }
-
-.icon {
-  width: 1em; height: 1em;
-  flex: none;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-/* Keep a short phrase on one line, e.g. a year range: <span class="nowrap">(2023–2026)</span> */
+.meta { font-size: var(--fs-sm); line-height: 1.5; color: var(--text-3); }
 .nowrap { white-space: nowrap; }
+/* The owner's name in an author list */
+.me { font-weight: 600; color: var(--text); }
 
-/* ---------- 4. Site header / nav ----------------------------------------- */
-.site-header { border-bottom: var(--hair) solid var(--rule); }
+/* A row of links separated by " · " (the dots are CSS, hidden from screen readers):
+   <ul class="links" role="list"><li><a href="…">Google Scholar</a></li><li><a href="…">CV (PDF)</a></li></ul>
+   Each item carries its dot in front, in a --dot-wide slot. The list is pulled left by one slot
+   and that slot is clipped, so the dot of whichever item starts a line (first or wrapped) is cut
+   off: no line ever starts or ends with a dot. */
+.links {
+  --dot: 1.2em;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin-left: calc(-1 * var(--dot));
+  /* clip only the pulled-out slot (minus 5px, so a focus ring at the line start stays whole) */
+  clip-path: inset(-0.75em -0.75em -0.75em calc(var(--dot) - 5px));
+}
+.links > li { white-space: nowrap; }
+.links > li::before {
+  content: "\00B7";
+  content: "\00B7" / "";
+  display: inline-block;
+  width: var(--dot);
+  text-align: center;
+  color: var(--text-3);
+}
+.links--sm { font-size: var(--fs-ui); }
+
+/* ---------- 4. Site header ----------------------------------------------- */
+/* Name left, nav right; the current page is white with a 2px blue underline.
+   Identical on every page; only aria-current="page" moves. */
+.site-header { border-bottom: 1px solid var(--rule); }
 .site-header__inner {
-  max-width: calc(var(--page-max) + 2 * var(--gutter));
+  max-width: calc(var(--col) + 2 * var(--gutter));
   margin: 0 auto;
-  padding: var(--sp-2) var(--gutter);
+  padding: 0.25rem var(--gutter) 0.125rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 0 var(--sp-5);
+  column-gap: 1.5rem;
 }
-.wordmark {
+.site-name {
   display: inline-flex;
   align-items: center;
-  gap: var(--sp-3);
   min-height: var(--tap);
-  color: var(--ink);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--text);
   text-decoration: none;
-  font-family: var(--font-sans);
-  font-size: 1.125rem;
-  font-weight: 600;
-  font-variant-caps: all-small-caps;
-  letter-spacing: 0.12em;
 }
-.wordmark:hover { color: var(--ink); }
-.wordmark__mark { width: 1.9rem; height: 1.9rem; flex: none; }
+.site-name:hover { color: var(--text); text-decoration: none; }
 
 .site-nav { width: 100%; }
-/* Phones: one justified row (the links' own padding keeps them apart). If the row is too
-   wide (320px screens, larger text, text spacing) it wraps instead of pushing "CV" off-screen */
 .site-nav ul {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-inline: -0.2rem;
+  column-gap: 0.75rem;
 }
 .site-nav a {
   position: relative;
   display: inline-flex;
   align-items: center;
   min-height: var(--tap);
-  padding: 0 0.2rem;
-  font-family: var(--font-sans);
-  font-size: 0.97rem;
-  font-weight: 500;
-  color: var(--ink-2);
+  font-size: var(--fs-ui);
+  color: var(--text-2);
   text-decoration: none;
   white-space: nowrap;
 }
-.site-nav a::after {
+.site-nav a::after {                  /* underline: hover (1px) and current page (2px blue) */
   content: "";
   position: absolute;
-  left: 0.2rem; right: 0.2rem;
-  bottom: 0.45rem;
+  left: 0; right: 0;
+  bottom: 0.3rem;
   height: 1px;
   background: currentColor;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.2s ease;
+  opacity: 0;
 }
-.site-nav a:hover { color: var(--ink); }
-.site-nav a:hover::after { transform: scaleX(1); }
-.site-nav a[aria-current="page"] { color: var(--accent); font-weight: 600; }
-.site-nav a[aria-current="page"]::after { transform: scaleX(1); height: 2px; }
+.site-nav a:hover { color: var(--text); text-decoration: none; }
+.site-nav a:hover::after { opacity: 1; }
+.site-nav a[aria-current="page"] { color: var(--text); }
+.site-nav a[aria-current="page"]::after { opacity: 1; height: 2px; background: var(--link); }
 
-/* "PDF" tag on the CV item (decorative; the link also has visually-hidden " (PDF)") */
-.nav-tag {
-  margin-left: 0.3em;
-  padding: 0 0.28em;
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  line-height: 1.45;
-  color: var(--ink-3);
-  border: var(--hair) solid var(--rule);
-  border-radius: 2px;
+@media (max-width: 22.5rem) {          /* 320px screens: the five links still fit on one row */
+  .site-nav ul { column-gap: 0.35rem; }
+  .site-nav a { font-size: var(--fs-xs); }
 }
-.site-nav a:hover .nav-tag { color: var(--ink-2); border-color: var(--ink-3); }
-
-@media (max-width: 23rem) {
-  .site-nav a { font-size: 0.93rem; padding: 0 0.15rem; }
-  .site-nav a::after { left: 0.15rem; right: 0.15rem; }
-  .nav-tag { font-size: 0.6rem; }
-}
-
-@media (min-width: 46rem) {
-  .site-header__inner { padding-block: var(--sp-4); flex-wrap: nowrap; }
+@media (min-width: 40rem) {
+  .site-header__inner { padding-block: 0.75rem; flex-wrap: nowrap; }
+  .site-name { font-size: var(--fs-name); }
   .site-nav { width: auto; }
-  .site-nav ul { justify-content: flex-end; gap: 0 var(--sp-1); margin-inline: 0 calc(-1 * var(--sp-3)); }
-  .site-nav a { padding: 0 var(--sp-3); font-size: var(--fs-md); }
-  .site-nav a::after { left: var(--sp-3); right: var(--sp-3); }
+  .site-nav ul { justify-content: flex-end; column-gap: 1.25rem; }
 }
 
-/* ---------- 5. Page shell ------------------------------------------------ */
-/* <main class="page"> spans the window; each child centres itself in the content column,
+/* ---------- 5. Page shell and black bands ------------------------------- */
+/* <main class="page"> spans the window; each child centres itself in the 800px column,
    except a .band, which runs edge to edge and pads its content back into the column. */
-.page {
-  padding: 0 0 var(--sp-8);
-}
+.page { padding-bottom: 4rem; }
 .page > * {
-  max-width: calc(var(--page-max) + 2 * var(--gutter));
+  max-width: calc(var(--col) + 2 * var(--gutter));
   margin-inline: auto;
   padding-inline: var(--gutter);
 }
 
-/* Black imaging band: the first block of every page (home hero, inner page header).
-   It looks the same in light and dark (it reads the night palette, see section 1). The
-   artwork is a CSS background on a pseudo-element (decorative, never content); its black
-   ground melts into the band, and a mask fades whatever edge the band or window crops.
-   The art files are tokens (--art-tract, --art-dti in section 1): swap them there.
-
-   A NEW INNER PAGE: copy this as the first thing inside <main class="page" …> (kicker optional):
-     <header class="page-header band band--dti">
-       <p class="page-header__kicker label label--accent">Short kicker</p>
-       <h1 class="page-header__title">Page title</h1>
-       <p class="page-header__dek">One or two sentences about the page.</p>
-     </header>
-   The home page uses <section class="hero band band--tract" …> (section 6). */
 .page > .band {
-  --band-pad: max(var(--gutter), (100% - var(--page-max)) / 2);    /* padding: % of the page width */
-  --bleed: max(var(--gutter), (100vw - var(--page-max)) / 2);      /* the same distance, usable inside the band */
+  --bleed: max(var(--gutter), (100vw - var(--col)) / 2);   /* distance from the column to the window edge */
   position: relative;
   isolation: isolate;
-  overflow-x: clip;             /* an artwork may bleed off the window edge; never scrolls sideways */
+  overflow-x: clip;                 /* artwork may run off the window edge; never scrolls sideways */
   max-width: none;
-  padding-inline: var(--band-pad);
-  padding-block: var(--sp-6) var(--sp-7);
+  padding-inline: max(var(--gutter), (100% - var(--col)) / 2);
+  padding-block: 2rem 2.5rem;
 }
-.band::before {
-  content: "";
-  display: block;
-  background: no-repeat center / contain;
-  pointer-events: none;
-}
-.band--tract::before { background-image: var(--art-tract); }
-.band--dti::before { background-image: var(--art-dti); }
-/* Spectral hairline closing the band (decorative) */
+/* thin spectrum line closing the band (decorative) */
 .band::after {
   content: "";
   position: absolute;
@@ -548,1085 +340,344 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   background: var(--spectrum);
   pointer-events: none;
 }
-.band + * { margin-top: var(--sp-7); }
-[tabindex="-1"]:focus:not(:focus-visible) { outline: none; }
+.band + * { margin-top: 2.5rem; }
 
-/* A section on the home page or any inner page.
-   Children get a default 1rem rhythm; components below set their own spacing. */
-.section > * + * { margin-top: var(--sp-4); }
-.section { margin-top: var(--sp-7); }
-.section:first-child { margin-top: 0; }
-
-/* Hairline + small-caps heading + optional link on the right */
-.section__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0 var(--sp-4);
-  padding-top: var(--sp-2);
-  border-top: var(--hair) solid var(--rule-strong);
-  margin-bottom: var(--sp-4);
+@media (min-width: 46rem) {
+  .page > .band { padding-block: 2.5rem 3.5rem; }
+  .band + * { margin-top: 3rem; }
 }
-.section__head .label { color: var(--ink); }
-.section__head .text-link { margin-block: -0.375rem; }
 
-/* 7/5 two-up (publications | news) */
-.split {
+/* ---------- 6. Home intro (on the band) --------------------------------- */
+/* <section class="hero band band--tract" aria-labelledby="name">
+     <div class="hero__inner">
+       <img class="hero__photo" …>
+       <div class="hero__text"> h1.hero__name · two <p> · p.hero__email · ul.links </div>
+     </div>
+   </section> */
+/* Phones: the name and the first paragraph sit beside the photo, top-aligned as in the
+   desktop layout; the rest of the bio runs full width below (.hero__text is display: contents
+   there, so its children join the grid). Under 22.5rem (320px) only the name fits beside the
+   photo, centred on its height. */
+.hero__inner {
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: 7rem minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  column-gap: 1.25rem;
+  align-items: start;
 }
-.split > .section:first-child { margin-top: var(--sp-7); }
-
-/* A row with a hanging label gutter (aligns with thrust letters, dates, venues):
-   <div class="gutter-row"><p class="gutter-row__label label">Goal</p><div class="gutter-row__body">…</div></div>
-   Leave out the label to simply indent the body to the content column. */
-.gutter-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-2); }
-
-@media (min-width: 40rem) {
-  .gutter-row { grid-template-columns: var(--label-w) minmax(0, 1fr); column-gap: var(--sp-5); }
-  .gutter-row__label { padding-top: 0.35em; }
-  .gutter-row__body { grid-column: 2; }
-}
-
-@media (min-width: 60rem) {
-  .page > .band { padding-block: var(--sp-7) var(--sp-8); }
-  .band + * { margin-top: var(--sp-8); }
-  .section { margin-top: var(--sp-8); }
-  .section .section { margin-top: var(--sp-7); }
-}
-
-@media (min-width: 64rem) {
-  .split {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    column-gap: clamp(3rem, 5vw, 5.5rem);
-    align-items: start;
-  }
-  .split > .section, .split > .section:first-child { margin-top: var(--sp-8); }
-}
-
-/* ---------- 6. Home ------------------------------------------------------ */
-/* Hero: profile (left) + research focus (right) from 60rem up */
-.hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-6); }
-
-.profile {
-  display: grid;
-  grid-template-columns: 5.75rem minmax(0, 1fr);
-  column-gap: var(--sp-4);
-  align-items: center;
-}
-.profile__photo {
+.hero__text { display: contents; }
+.hero__text > * { grid-column: 1 / -1; }
+.hero__text > .hero__name { grid-column: 2; grid-row: 1; margin: -0.3rem 0 0.5rem; }
+.hero__text > .hero__name + p { grid-column: 2; grid-row: 2; }
+.hero__text > .hero__name + p + * { margin-top: 1rem; }
+.hero__photo {
+  grid-row: 1 / span 2;
   width: 100%;
-  aspect-ratio: 1;
+  aspect-ratio: 230 / 340;
   object-fit: cover;
   border-radius: var(--radius);
-  background: var(--paper-2);
+  background: #11141b;              /* placeholder while it loads */
 }
-.profile__name {
-  font-size: clamp(2.35rem, 1.75rem + 2.2vw, 3.25rem);
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: -0.025em;   /* one line at normal sizes; may wrap with enlarged text instead of overflowing */
-}
-.profile__role {
-  margin-top: var(--sp-2);
-  font-size: var(--fs-lg);
-  font-style: italic;
-  line-height: var(--lh-snug);
-  color: var(--ink);
-}
-.profile__affil {
-  margin-top: var(--sp-1);
-  font-size: 1rem;
-  line-height: 1.45;
-  color: var(--ink-2);
-}
-.profile__lab {
-  grid-column: 1 / -1;
-  margin-top: var(--sp-4);
-  font-family: var(--font-sans);
-  font-size: var(--fs-sm);
-  line-height: 1.45;
-  color: var(--ink-3);
-}
-.profile__lab a { font-weight: 600; }
-
-.contact {
-  grid-column: 1 / -1;
-  list-style: none;
-  margin-top: var(--sp-4);
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: var(--sp-4);
-  border-top: var(--hair) solid var(--rule);
-}
-.contact li { border-bottom: var(--hair) solid var(--rule); }
-.contact li:first-child { grid-column: 1 / -1; }
-.contact a {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  min-height: var(--tap);
-  font-family: var(--font-sans);
-  font-size: var(--fs-sm);
-  font-weight: 500;
-  color: var(--ink-2);
-  text-decoration: none;
-  overflow-wrap: anywhere;
-}
-.contact a:hover { color: var(--accent); }
-.contact .icon { width: 1.05rem; height: 1.05rem; color: var(--ink-3); transition: color 0.15s ease; }
-.contact a:hover .icon { color: var(--accent); }
-
-/* Intro (right column). A size container, so the highlights can follow its width. */
-.intro { container: intro / inline-size; }
-.intro__kicker { margin-bottom: var(--sp-3); }
-.intro__title {
-  font-size: clamp(1.6rem, 1.25rem + 1.4vw, 2.3rem);
-  font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  max-width: 24ch;
-}
-.intro__title em {
-  display: block;
-  margin-top: 0.25em;
-  font-size: 0.78em;
+.hero__name {
+  font-size: 1.75rem;
   line-height: 1.2;
-  color: var(--ink-3);
-  font-weight: 400;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
 }
-.intro__bio { margin-top: var(--sp-5); max-width: 40rem; }
+.hero__text p {
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: var(--text-2);
+}
+.hero__text p + p { margin-top: 0.75rem; }
+/* Inline links inside the bio are plain-coloured and underlined; utility links stay blue */
+.hero__text p:not(.hero__email) a { color: var(--text); }
+.hero__text p:not(.hero__email) a:hover { color: var(--text); }
+.hero__email { color: var(--text-2); }
+.hero__text .links { margin-top: 1.25rem; line-height: 1.7; }
 
-/* Highlights: two matched figures ("1st place" | "$310K") */
-.highlights {
-  list-style: none;
-  margin-top: var(--sp-6);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  border-top: var(--hair) solid var(--rule-strong);
+@media (max-width: 22.49rem) {
+  .hero__inner { grid-template-rows: auto; }
+  .hero__photo { grid-row: 1; }
+  .hero__text > .hero__name { align-self: center; margin: 0; }
+  .hero__text > .hero__name + p { grid-column: 1 / -1; grid-row: auto; margin-top: 1.25rem; }
+  .hero__text > .hero__name + p + * { margin-top: 0.75rem; }
 }
-.highlight { display: flex; flex-direction: column; padding: var(--sp-4) 0 var(--sp-2); }
-.highlight + .highlight { border-top: var(--hair) solid var(--rule); }
-.highlight__figure {
-  font-size: clamp(2.25rem, 1.85rem + 1.3vw, 2.875rem);
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: -0.025em;
-  color: var(--accent-2);      /* fiber green: a figure, not a link (bright on the band, darker on paper) */
-  font-variant-numeric: lining-nums proportional-nums;
-  white-space: nowrap;
-}
-.highlight__title {
-  margin-top: var(--sp-3);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--sp-1) var(--sp-2);
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1.35;
-  color: var(--ink);
-  font-variant-numeric: lining-nums;
-}
-.highlight__text {
-  margin-top: var(--sp-2);
-  font-size: var(--fs-md);
-  line-height: 1.5;
-  color: var(--ink-2);
-}
-.highlight .text-link { margin-top: auto; align-self: flex-start; }
-/* Two cells only when each is wide enough for "ISLES’24 Challenge · MICCAI 2024" and its badge
-   on one line (about 20rem of text); a narrower intro (small tablets, 60-69rem laptops) stacks
-   them, instead of wrapping the badge and leaving a tall gap in the other cell */
-@container intro (min-width: 44rem) {
-  .highlights { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .highlight { padding-right: var(--sp-5); }
-  .highlight + .highlight { border-top: 0; border-left: var(--hair) solid var(--rule); padding-left: var(--sp-5); padding-right: 0; }
-}
-
-/* Quiet one-line readout under the highlights. It stays inside the black band on phones too:
-   moving it below the band's hairline would need the markup reordered (or fragile paint tricks). */
-.readout {
-  list-style: none;
-  margin-top: var(--sp-3);
-  padding-top: var(--sp-3);
-  border-top: var(--hair) solid var(--rule);
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-1);
-  font-family: var(--font-sans);
-  font-size: 0.875rem;
-  line-height: 1.45;
-  color: var(--ink-3);
-  font-variant-numeric: lining-nums;
-}
-.readout b { color: var(--ink-2); font-weight: 600; }
-
 @media (min-width: 40rem) {
-  .profile { grid-template-columns: 8rem minmax(0, 1fr); column-gap: var(--sp-5); }
-  .contact { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .contact li:first-child { grid-column: auto; }
-  /* Every item starts with a "·" in a 1.2em box; the list is shifted left by that width and
-     the strip holding the line-start dots is clipped, so no line ever starts with a stray dot
-     when the row wraps. The clip stops at 0.75em (the dot is drawn at 0.6em) and reaches
-     0.5rem beyond the other three sides, so a link's focus ring (5px outside it) is never cut,
-     even on a link that starts a wrapped line. The top rule is drawn from 1.2em by ::before
-     (a border, so it also shows in forced colours and print), lining up with the highlights. */
-  .readout {
-    position: relative;
-    flex-direction: row;
-    flex-wrap: wrap;
-    column-gap: 0;
-    margin-left: -1.2em;
-    border-top: 0;
-    clip-path: inset(-0.5rem -0.5rem -0.5rem 0.75em);
+  .hero__inner {
+    grid-template-columns: clamp(11rem, 26vw, 14.375rem) minmax(0, 1fr);   /* photo up to 230px wide */
+    grid-template-rows: none;
+    column-gap: clamp(1.5rem, 4vw, 2.5rem);
   }
-  .readout::before { content: ""; position: absolute; top: 0; left: 1.2em; right: 0; border-top: var(--hair) solid var(--rule); }
-  .readout li { white-space: nowrap; }
-  .readout li::before { content: "·"; display: inline-block; width: 1.2em; text-align: center; color: var(--ink-3); }
+  .hero__photo { grid-row: auto; }
+  .hero__text { display: block; }
+  .hero__text > .hero__name + p + * { margin-top: 0.75rem; }
+  .hero__text > .hero__name { font-size: var(--fs-h1); margin: -0.4rem 0 0.75rem; }
+  .hero__text p { font-size: var(--fs-lead); }
 }
 
-@media (min-width: 60rem) {
-  .hero {
-    grid-template-columns: var(--profile-w) minmax(0, 1fr);
-    column-gap: var(--hero-gap);
-    align-items: start;
-  }
-  .hero::before { grid-column: 1 / -1; }
-  .profile { display: block; }
-  .profile__photo { width: 15rem; }
-  .profile__name { margin-top: var(--sp-5); }
-  .profile__role { margin-top: var(--sp-3); }
-  .contact { display: block; margin-top: var(--sp-5); }
-  .intro { padding-top: var(--sp-1); }
-}
-
-/* Home band artwork (tractography, native 768x927; where the brain sits in the file is given by
-   the --art-tract-ink-* tokens in section 1). Never shown above 0.75x native.
-   Phones and tablets: a full-bleed strip across the top of the band showing the frontal lobes,
-   fading out before the name. It is capped by the window height too (9.5rem on phones and
-   landscape phones), so the name, role and photo stay in the first screen.
-   60-80rem (two-column hero): a shorter strip, centred over the intro column.
-   From 80rem: it sits to the RIGHT of the headline + bio only (.intro::before, in the intro's
-   own grid), a clear gutter away from the text, top-aligned with the kicker and always its
-   full height. Where the window is wide enough the whole brain shows; on narrower laptops it
-   runs off the window edge and fades out over the last 4rem instead of being sliced. */
+/* Home artwork (tractography, native 768x927, never shown above native size).
+   Under 72rem: a full-bleed strip across the top of the band showing the frontal lobes,
+   fading out before the photo (.hero::before, in the flow).
+   From 72rem (1152px): beside the intro, in the space between the 800px column and the window
+   edge (.hero__inner::after), so the intro sits as high as in the reference layout. The brain
+   starts 2rem right of the text, is centred on the intro's height and is sized to fit that space
+   (between 16rem and 26rem file width); on a narrower window it runs off the edge and fades out
+   over the last 1.5rem (at most about a third of the brain is cut, at 1152px). */
 .band--tract::before {
-  --art-w: clamp(23rem, 62vw, 36rem);              /* 368-576 px: 0.48x-0.75x native */
-  height: clamp(9.5rem, min(26vw, 30vh), 15rem);
-  margin: calc(-1 * var(--sp-6)) calc(-1 * var(--bleed)) calc(-1 * var(--sp-3));
+  --art-w: clamp(22rem, 60vw, 30rem);
+  content: "";
+  display: block;
+  height: clamp(8.5rem, min(24vw, 26vh), 12rem);
+  margin: -2rem calc(-1 * var(--bleed)) 0;
+  background: var(--art-tract) no-repeat;
   background-size: var(--art-w) auto;
-  /* frontal lobes 1rem below the header */
-  background-position: center calc(var(--sp-4) - var(--art-w) * var(--art-tract-ink-y));
-  -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 30%, transparent 100%);
+  background-position: center calc(1rem - var(--art-w) * var(--art-tract-ink-y));
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 35%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 35%, transparent 100%);
 }
-/* Under 40rem the strip is at most 24rem (384 px) wide: 1x screens take the half-size file,
-   2x/3x phones keep the full one (384 CSS px = 768 device px), so it is never upscaled */
+/* Under 40rem the strip is at most 24rem wide: 1x screens take the half-size file */
 @media (max-width: 39.99rem) {
-  .band--tract::before { --art-w: clamp(23rem, 62vw, 24rem); }
+  .band--tract::before { --art-w: clamp(22rem, 60vw, 24rem); }
 }
 @supports (background-image: image-set(url("x.webp") 1x)) {
   @media (max-width: 39.99rem) {
     .band--tract::before { background-image: image-set(var(--art-tract-384) 1x, var(--art-tract) 2x); }
   }
 }
-@media (min-width: 60rem) {
-  /* Two-column hero: a shorter strip (the content starts sooner), the brain centred over the
-     intro column instead of the window: 50% centres it in the strip, which spans the band, and
-     half the profile column + gap moves it to the intro column's centre */
-  .band--tract::before {
-    --art-w: 26rem;                                /* 416 px: 0.54x native */
-    height: 11rem;
-    margin-top: calc(-1 * var(--sp-7));
-    background-position: calc(50% + (var(--profile-w) + var(--hero-gap)) / 2) calc(var(--sp-4) - var(--art-w) * var(--art-tract-ink-y));
-    -webkit-mask-image: linear-gradient(to bottom, #000 45%, transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 45%, transparent 100%);
-  }
+@media (min-width: 46rem) {
+  .band--tract::before { margin-top: -2.5rem; height: 11rem; }
 }
-@media (min-width: 80rem) {
-  .band--tract::before { display: none; }          /* the strip gives way to the side artwork */
-  .band--tract .intro {
-    --intro-text: clamp(37rem, 100vw - 43rem, 40rem);   /* headline + bio measure: 40rem from 1328px, 37rem at 1280px */
-    display: grid;
-    grid-template-columns: minmax(0, var(--intro-text)) minmax(0, 1fr);
-    align-content: start;
-  }
-  .band--tract .intro > * { grid-column: 1; }
-  .band--tract .intro > .highlights,
-  .band--tract .intro > .readout { grid-column: 1 / -1; }
-  .band--tract .intro::before {
-    /* The box runs from the end of the bio measure to the window edge (--art-v wide), from the
-       kicker to the end of the bio, and on into the black gap above the highlights. The brain
-       starts --art-gx after the text and sits level with the kicker. --art-w is the size that
-       leaves --art-fade clear at the window edge, held between 24rem (0.5x) and 32rem
-       (0.67x, whose brain, 454px tall, still ends above the bio's last line). */
-    --art-gx: 3.5rem;
-    --art-fade: 4rem;
-    --art-v: calc(100vw - var(--bleed) - var(--profile-w) - var(--hero-gap) - var(--intro-text));
-    --art-w: clamp(24rem, (var(--art-v) - var(--art-gx) - var(--art-fade)) / var(--art-tract-ink-w), 32rem);
+@media (min-width: 72rem) {
+  .band--tract::before { display: none; }
+  .band--tract .hero__inner::after {
+    --art-gap: 2rem;
+    --art-fade: 1.5rem;
+    --art-space: calc((100vw - var(--col)) / 2 - var(--art-gap));
+    --art-w: clamp(16rem, (var(--art-space) - var(--art-fade)) / var(--art-tract-ink-w), 26rem);
     content: "";
-    grid-column: 2;
-    grid-row: 1 / span 3;
-    margin-right: calc(-1 * var(--bleed));
-    margin-bottom: calc(-1 * var(--sp-6));
+    position: absolute;
+    top: -1rem;
+    bottom: -1rem;
+    left: calc(100% + var(--art-gap));
+    width: var(--art-space);
     background: var(--art-tract) no-repeat;
     background-size: var(--art-w) auto;
-    background-position: calc(var(--art-gx) - var(--art-w) * var(--art-tract-ink-x)) calc(var(--sp-1) - var(--art-w) * var(--art-tract-ink-y));
+    /* brain's left edge at the box's left; the brain is centred in its file, so 50% centres it vertically */
+    background-position: calc(-1 * var(--art-w) * var(--art-tract-ink-x)) 50%;
     pointer-events: none;
-    /* fade out at the window edge (only reaches the brain when it does not fit) and, as a
-       safety net, in the gap above the highlights */
-    -webkit-mask-image: linear-gradient(to left, transparent, #000 var(--art-fade)), linear-gradient(to bottom, #000 calc(100% - var(--sp-6)), transparent);
-    -webkit-mask-composite: source-in;
-    mask-image: linear-gradient(to left, transparent, #000 var(--art-fade)), linear-gradient(to bottom, #000 calc(100% - var(--sp-6)), transparent);
-    mask-composite: intersect;
+    -webkit-mask-image: linear-gradient(to left, transparent, #000 var(--art-fade));
+    mask-image: linear-gradient(to left, transparent, #000 var(--art-fade));
   }
 }
 
-/* Research goal (quote in the label gutter row) */
-.goal { margin-bottom: var(--sp-6); }
-.goal__quote {
-  position: relative;
-  font-size: var(--fs-xl);
-  font-style: italic;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  max-width: 34ch;
-  text-wrap: balance;
+/* ---------- 7. Inner-page header (on the band) -------------------------- */
+/* <header class="page-header band band--dti">
+     <h1 class="page-header__title">Research</h1>
+     <p class="page-header__dek">One line about the page.</p>
+     (optional) <ul class="links" role="list">…</ul>
+   </header>
+   The DTI | structural specimen sits at the right of the column, centred in the band; the text
+   gives way to it and is centred vertically against it, so short title blocks leave no empty
+   black space below. Never above native size (446 x 488). */
+.page > .band--dti {
+  --dti-w: 6rem;
+  --dti-gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(var(--dti-w) / (var(--art-dti-ratio)) + 4.5rem);
+  padding-right: calc(max(var(--gutter), (100% - var(--col)) / 2) + var(--dti-w) + var(--dti-gap));
 }
-.goal__quote p::before { content: "\201C"; position: absolute; margin-left: -0.5em; color: var(--accent-2); }
-.goal__quote p::after { content: "\201D"; color: var(--accent-2); }
-.goal__note { margin-top: var(--sp-4); max-width: 40rem; color: var(--ink-2); font-size: var(--fs-md); line-height: 1.55; }
-
-/* Research thrust rows: whole row is one link (stretched link), letter hangs in the gutter */
-.thrusts { list-style: none; margin-top: var(--sp-6); border-top: var(--hair) solid var(--rule-strong); isolation: isolate; }
-.thrust {
-  position: relative;
-  display: grid;
-  grid-template-columns: 2rem minmax(0, 1fr);
-  column-gap: var(--sp-3);
-  padding: var(--sp-5) 0;
-  border-bottom: var(--hair) solid var(--rule);
-}
-/* hover wash bleeds slightly past the column so text never touches its edge */
-.thrust::before {
+.band--dti::before {
   content: "";
   position: absolute;
-  inset: 0 calc(-1 * var(--sp-3));
   z-index: -1;
-  background: var(--paper-2);
-  opacity: 0;
-  transition: opacity 0.18s ease;
-}
-.thrust:hover::before { opacity: 1; }
-.thrust__letter {
-  font-size: 2.1rem;
-  font-style: italic;
-  font-weight: 400;
-  line-height: 1;
-  color: var(--accent-2);
-}
-.thrust__title { font-size: var(--fs-xl); font-weight: 500; line-height: 1.2; }
-.thrust__link { color: var(--ink); text-decoration: none; }
-.thrust__link::after { content: ""; position: absolute; inset: 0 calc(-1 * var(--sp-3)); z-index: 1; }
-.thrust__link:focus-visible { outline: none; }
-.thrust__link:focus-visible::after { outline: 2px solid var(--focus); outline-offset: -2px; border-radius: var(--radius); }
-.thrust:hover .thrust__link { color: var(--accent); }
-.thrust__arrow { display: inline-block; margin-left: 0.25em; color: var(--accent); opacity: 0; transform: translateX(-4px); transition: opacity 0.18s ease, transform 0.18s ease; }
-.thrust:hover .thrust__arrow, .thrust__link:focus-visible .thrust__arrow { opacity: 1; transform: none; }
-.thrust__text { margin-top: var(--sp-2); font-size: var(--fs-md); line-height: 1.55; color: var(--ink-2); max-width: 44rem; }
-.thrust__foot {
-  margin-top: var(--sp-3);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--sp-2) var(--sp-4);
-}
-.thrust__subs {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0 var(--sp-4);
-  font-family: var(--font-sans);
-  font-size: var(--fs-caps);
-  font-weight: 600;
-  font-variant-caps: all-small-caps;
-  font-variant-numeric: lining-nums;
-  letter-spacing: 0.05em;
-  line-height: 1.2;           /* small caps are short: keep a wrapped label's lines together */
-  row-gap: var(--sp-2);       /* …and separate the items instead */
-  color: var(--ink-3);
-}
-.thrust__code { color: var(--accent-2); }
-.thrust__thumb { display: none; }
-
-@media (min-width: 40rem) {
-  .thrust { grid-template-columns: var(--label-w) minmax(0, 1fr) 9rem; column-gap: var(--sp-5); }
-  .thrust__letter { font-size: 3rem; line-height: 0.9; }
-  .thrust__thumb {
-    display: block;
-    align-self: start;
-    overflow: hidden;
-    aspect-ratio: 4 / 3;
-    padding: var(--sp-2);
-    background: var(--paper-card);
-    border: var(--hair) solid var(--paper-card-line);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    isolation: isolate;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  .thrust__thumb img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
-  .thrust:hover .thrust__thumb { transform: translateY(-2px); }
-}
-@media (min-width: 60rem) {
-  .thrust { grid-template-columns: var(--label-w) minmax(0, 1fr) 12.5rem; }
-}
-
-/* ---------- 7. Figure plates --------------------------------------------- */
-/* <figure class="plate"><div class="plate__card"><img …></div><figcaption><span class="plate__no">Fig. 2</span> …</figcaption></figure> */
-.plate { margin: var(--sp-6) 0; }
-.plate__card {
-  position: relative;
-  padding: clamp(0.6rem, 2vw, 1.25rem);
-  background: var(--paper-card);
-  border: var(--hair) solid var(--paper-card-line);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow);
-  isolation: isolate;
-}
-/* multiply blends the figure's white ground into the card colour (off-white in dark mode) */
-.plate__card img { width: 100%; border-radius: 2px; mix-blend-mode: multiply; }
-/* The image links to its own file, so phone readers can open it full size and zoom:
-   <a class="plate__link" href="assets/img/research/x.webp"><img …></a> */
-.plate__link { display: block; cursor: zoom-in; }
-/* The plate stays light in the dark scheme, so its focus ring uses the plate's own dark
-   crimson (>= 5.8:1 on the plate in both schemes) instead of the scheme's light pink */
-.plate__card { --focus: var(--plate-focus); }
-.plate figcaption {
-  margin-top: var(--sp-3);
-  max-width: 40rem;
-  font-family: var(--font-sans);
-  font-size: var(--fs-sm);
-  line-height: 1.5;
-  color: var(--ink-3);
-}
-.plate__no {
-  margin-right: 0.4em;
-  font-weight: 700;
-  font-variant-caps: all-small-caps;
-  font-variant-numeric: lining-nums;
-  letter-spacing: 0.06em;
-  font-size: 1.08em;
-  color: var(--accent-2);
-}
-/* Hairline registration marks in the secondary (fiber green) colour (optional) */
-.plate__card--marks::before, .plate__card--marks::after {
-  content: "";
-  position: absolute;
-  width: 14px; height: 14px;
-  border: 0 solid var(--accent-2);
+  top: 50%;
+  right: max(var(--gutter), (100% - var(--col)) / 2);
+  width: var(--dti-w);
+  aspect-ratio: var(--art-dti-ratio);
+  transform: translateY(-50%);
+  background: var(--art-dti) no-repeat center / contain;
   pointer-events: none;
 }
-.plate__card--marks::before { top: -7px; left: -7px; border-top-width: 1px; border-left-width: 1px; }
-.plate__card--marks::after { bottom: -7px; right: -7px; border-bottom-width: 1px; border-right-width: 1px; }
-
-/* Last thing in a section or facet: the surrounding spacing takes over */
-.plate:last-child { margin-bottom: 0; }
-
-.plate--wide { max-width: none; }
-/* On phones a wide figure's labels are too small to read inline: say that it opens full size.
-   The "/ ''" alt text keeps screen readers from hearing it twice (the image alt already says so). */
-@media (max-width: 40rem) {
-  .plate--wide figcaption::after {
-    content: "Tap the figure to view it full size.";
-    content: "Tap the figure to view it full size." / "";
-    display: block;
-    margin-top: var(--sp-1);
-    font-style: italic;
-  }
-}
-.plate--narrow { max-width: 32rem; }
-.plate--tall { max-width: 22rem; }
-.plate--tall .plate__card { padding: var(--sp-3); }
-
-@media (min-width: 60rem) {
-  /* Caption beside the card */
-  .plate--side { display: grid; grid-template-columns: minmax(0, 46rem) minmax(12rem, 15rem); column-gap: var(--sp-6); align-items: end; }
-  .plate--side figcaption { margin-top: 0; padding-bottom: var(--sp-2); border-top: var(--hair) solid var(--rule); padding-top: var(--sp-3); }
-}
-
-/* ---------- 8. Lists ----------------------------------------------------- */
-/* Generic gutter list: label column (date/term/year) + body.
-   .pub .grant .course .timeline__item share the same grid. */
-.gutter-list, .pub-list, .funding, .courses, .timeline { list-style: none; }
-.gutter-item, .pub, .grant, .course, .timeline__item {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--sp-1);
-  padding: var(--sp-4) 0;
-  border-top: var(--hair) solid var(--rule);
-}
-.gutter-list > :first-child, .pub-list > :first-child, .funding > :first-child,
-.courses > :first-child, .timeline > :first-child { border-top: 0; padding-top: var(--sp-2); }
-.gutter-item__label, .pub__venue, .grant__years, .course__term, .timeline__when {
-  font-family: var(--font-sans);
-  font-size: var(--fs-caps);
-  font-weight: 600;
-  font-variant-caps: all-small-caps;
-  font-variant-numeric: lining-nums tabular-nums;
-  letter-spacing: 0.05em;
-  line-height: 1.15;          /* small caps are short: a label that wraps stays one unit */
-  color: var(--ink-3);
-}
+.page-header__title { font-size: 1.75rem; line-height: 1.2; letter-spacing: -0.02em; }
+.page-header__dek { margin-top: 0.5rem; color: var(--text-2); }
+.page-header .links { margin-top: 0.75rem; font-size: var(--fs-ui); }
 @media (min-width: 40rem) {
-  .gutter-item, .pub, .grant, .course, .timeline__item {
-    grid-template-columns: var(--label-w) minmax(0, 1fr);
-    column-gap: var(--sp-5);
-    padding: var(--sp-5) 0;
+  .page > .band--dti {
+    --dti-w: clamp(8rem, 18vw, 11.5rem);
+    --dti-gap: 2rem;
+    min-height: calc(var(--dti-w) / (var(--art-dti-ratio)) + 5rem);
   }
-  .gutter-item__label, .pub__venue, .grant__years, .course__term, .timeline__when { padding-top: 0.525em; }
+  .page-header__title { font-size: var(--fs-h1); }
+  .page-header__dek { font-size: var(--fs-lead); }
 }
 
-/* News — compact; dates stacked above items (use .news--gutter for a date gutter) */
-.news { list-style: none; }
-.news__item { padding: var(--sp-3) 0; border-top: var(--hair) solid var(--rule); }
-.news__item:first-child { border-top: 0; padding-top: var(--sp-1); }
-.news__date {
-  display: block;
-  font-family: var(--font-sans);
-  font-size: var(--fs-caps);
-  font-weight: 600;
-  font-variant-caps: all-small-caps;
-  letter-spacing: 0.05em;
-  color: var(--ink-3);
-  font-variant-numeric: lining-nums tabular-nums;
-  line-height: 1.3;
-}
-.news__text { margin-top: 0.15rem; font-size: var(--fs-md); line-height: 1.5; color: var(--ink); }
-@media (min-width: 40rem) {
-  .news--gutter .news__item { display: grid; grid-template-columns: var(--label-w) minmax(0, 1fr); column-gap: var(--sp-5); }
-  .news--gutter .news__date { padding-top: 0.3em; }
-  .news--gutter .news__text { margin-top: 0; }
-}
-
-/* Publications */
-.pub__title {
-  font-size: var(--fs-lg);
-  font-weight: 500;
-  line-height: var(--lh-snug);
-  color: var(--ink);
-  text-wrap: pretty;
-}
-.pub__title a { color: inherit; text-decoration: none; }
-.pub__title a:hover { color: var(--accent); text-decoration: underline; }
-.pub__authors { margin-top: var(--sp-2); font-size: var(--fs-md); line-height: 1.5; color: var(--ink-2); }
-.me {
-  color: var(--ink);
-  font-weight: 600;
-  text-decoration: underline;
-  text-decoration-color: var(--accent-2);   /* not a link: a green underline, never a magenta one */
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 0.2em;
-}
-.pub__where { margin-top: var(--sp-1); font-size: var(--fs-md); font-style: italic; line-height: 1.5; color: var(--ink-3); }
-.pub__links, .chips {
-  list-style: none;
-  margin-top: var(--sp-3);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--sp-2);
-}
-.pub__links:empty { display: none; }
-
-/* Publication group: <section class="pub-group"><div class="pub-group__head"><h2 …>Journal articles</h2><p class="pub-group__count">6 articles</p></div><ol class="pub-list" role="list">…</ol></section> */
-.pub-group { margin-top: var(--sp-8); }
-.pub-group:first-child { margin-top: 0; }
-.pub-group__head {
+/* ---------- 8. Sections -------------------------------------------------- */
+/* <section class="section" aria-labelledby="news-title">
+     <h2 class="section__title" id="news-title">News</h2> …
+   With a link on the right:
+     <div class="section__head"><h2 class="section__title" id="…">Selected papers</h2><a href="publications.html">All publications</a></div> */
+.section { margin-top: 2.5rem; }
+.section__title { font-size: var(--fs-h2); margin-bottom: 0.75rem; }
+.section__head {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: var(--sp-1) var(--sp-4);
-  padding-bottom: var(--sp-3);
-  margin-bottom: var(--sp-2);
-  border-bottom: var(--hair) solid var(--rule-strong);
+  column-gap: 1rem;
+  margin-bottom: 0.75rem;
 }
-.pub-group__title { font-size: var(--fs-2xl); font-weight: 400; letter-spacing: -0.02em; }
-.pub-group__count {
-  font-family: var(--font-sans);
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  color: var(--ink-3);
-  font-variant-numeric: lining-nums;
-}
-.pub__note, .pub-group__note { margin-top: var(--sp-2); font-family: var(--font-sans); font-size: var(--fs-sm); color: var(--ink-3); }
+.section__head .section__title { margin-bottom: 0; }
+.section__head > a { font-size: var(--fs-ui); }
+/* Subheading inside a section: <h3 class="section__sub">Brain age</h3> */
+.section__sub { font-size: var(--fs-h3); font-weight: 600; margin: 1.75rem 0 0.5rem; }
+.section > p + p, .section > p + .list, .section > .list + p { margin-top: 0.75rem; }
 
-/* ---------- 9. Badges, chips, tags --------------------------------------- */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0 0.5rem;
-  min-height: 1.65rem;
-  font-family: var(--font-sans);
-  font-size: 1.06rem;
-  font-weight: 700;
-  font-variant-caps: all-small-caps;
-  font-variant-numeric: lining-nums;
-  letter-spacing: 0.05em;
-  line-height: 1.2;
-  white-space: nowrap;
-  color: var(--ink-2);
-  background: transparent;
-  border: var(--hair) solid var(--rule);
-  border-radius: var(--radius);
-}
-.badge--award { color: var(--gold-ink); background: var(--gold-wash); border-color: var(--gold-line); }
-.badge--oral { color: var(--accent-ink); background: var(--accent-wash); border-color: transparent; }
-.badge--review { color: var(--ink-2); border-style: dashed; border-color: var(--ink-3); }
-.badge--wp { color: var(--ink-2); background: var(--paper-2); border-color: transparent; }
-.badge--future { color: var(--ink-2); border-color: var(--rule); font-style: normal; }
+/* Simple bullets: <ul class="list"><li>One line.</li></ul> */
+.list { padding-left: 1.25rem; }
+.list > li + li { margin-top: 0.3rem; }
+.list > li::marker { color: var(--text-3); }
 
-/* Link chip (paper links). Add visually-hidden context:
-   <a class="chip" href="…">arXiv<span class="visually-hidden">: Re-DiffiNet</span></a> */
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35em;
-  min-height: 2rem;
-  padding: 0 0.75rem;
-  font-family: var(--font-sans);
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  color: var(--accent);
-  text-decoration: none;
-  border: var(--hair) solid var(--chip-line);
-  border-radius: 999px;
-  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-}
-.chip:hover { color: var(--paper); background: var(--accent); border-color: var(--accent); }
-.chip .icon { width: 0.95em; height: 0.95em; }
-@media (max-width: 40rem), (pointer: coarse) {
-  .chip { min-height: var(--tap); padding: 0 0.95rem; }
+@media (min-width: 46rem) {
+  .section { margin-top: 3rem; }
 }
 
-.tags { list-style: none; display: flex; flex-wrap: wrap; gap: var(--sp-2); }
-.tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.1rem 0.6rem;
-  font-family: var(--font-sans);
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--ink-2);
-  border: var(--hair) solid var(--rule);
-  border-radius: 999px;
-  line-height: 1.5;
-  white-space: nowrap;
-}
-
-/* ---------- 10. Inner pages ---------------------------------------------- */
-/* Page header: <header class="page-header"> kicker · h1 title · dek · meta links */
-.page-header { margin-bottom: var(--sp-7); }
-@media (min-width: 60rem) { .page-header { margin-bottom: var(--sp-8); } }
-
-/* Inner-page band artwork (DTI | structural slice, native 446x488 px).
-   Phones: a two-column grid; the specimen sits beside the kicker + title only, and the
-   dek and links run full width below it (so the dek never starts with a short line).
-   Any height the specimen has beyond the kicker + title goes below the title, so the
-   kicker always stays one --sp-3 above it.
-   From 40rem: its own zone at the right of the content column (the text column
-   gives way), centred in the band, never larger than 0.8x native. The text is top-aligned
-   and a page without a kicker keeps the kicker's line empty, so the title sits at the same
-   height on every inner page. */
-.band--dti::before { aspect-ratio: var(--art-dti-ratio); }
-@media (max-width: 39.99rem) {
-  .band--dti {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    column-gap: var(--sp-4);
-    align-items: start;
-  }
-  .band--dti > * { grid-column: 1 / -1; }
-  .band--dti > .page-header__kicker,
-  .band--dti > .page-header__title { grid-column: 1; }
-  .band--dti::before {
-    grid-column: 2;
-    grid-row: 1 / span 2;                          /* beside the kicker + title */
-    width: clamp(6.5rem, 28vw, 9rem);              /* 104-144 px: 0.23x-0.32x native */
-    margin: calc(-1 * var(--sp-2)) calc(-1 * var(--sp-2)) 0 0;
-  }
-  .band--dti:has(> .page-header__kicker) { grid-template-rows: auto 1fr; }   /* spare height goes below the (top-aligned) title */
-  /* no kicker (Publications, Teaching): the specimen sits beside the title, centred on it */
-  .band--dti:not(:has(> .page-header__kicker))::before { grid-row: 1; }
-  .band--dti:not(:has(> .page-header__kicker)) > .page-header__title { align-self: center; }
-}
-@media (min-width: 40rem) {
-  .page > .band--dti {
-    --art-w: clamp(9.5rem, 24vw, 22.3rem);    /* 154-357 px: never above native; leaves the 399px Research kicker one line from 640px */
-    padding-right: calc(var(--band-pad) + var(--art-w) + var(--sp-6));
-    min-height: calc(var(--art-w) / (var(--art-dti-ratio)) + var(--sp-6));
-  }
-  /* no kicker (Publications, Teaching): keep its line (label line-height 1.3 + its margin) */
-  .band--dti > .page-header__title:first-child { margin-top: calc(var(--fs-caps) * 1.3 + var(--sp-3)); }
-  .band--dti::before {
-    position: absolute;
-    z-index: -1;
-    top: 50%;
-    right: var(--band-pad);
-    width: var(--art-w);
-    margin: 0;
-    transform: translateY(-50%);
-  }
-}
-.page-header__kicker { margin-bottom: var(--sp-3); }
-/* A ruled section head straight after the page header would draw a second rule: drop it */
-.page-header + .section { margin-top: 0; }
-.page-header + .section > .section__head:first-child { border-top: 0; padding-top: 0; }
-.page-header__title {
-  font-size: var(--fs-display);
-  font-weight: 400;
-  line-height: 1.05;
-  letter-spacing: -0.025em;
-  max-width: 20ch;
-}
-.page-header__dek {
-  margin-top: var(--sp-4);
-  max-width: 42rem;
-  text-wrap: balance;           /* phones: even lines, no one-word last line (beyond 6 lines Chromium falls back to normal wrapping) */
-  font-size: var(--fs-lg);
-  line-height: 1.5;
-  color: var(--ink-2);
-}
-@media (min-width: 40rem) {
-  .page-header__dek { text-wrap: pretty; }   /* wider screens: balance would break hyphenated words such as "brain-age" */
-}
-.page-header__meta {
-  list-style: none;
-  margin-top: var(--sp-5);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--sp-2) var(--sp-3);
-}
-
-/* In-page table of contents layout:
-   <div class="with-toc"><nav class="toc" aria-labelledby="toc-title">…</nav><div class="with-toc__body">…</div></div> */
-.with-toc { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-6); }
-.with-toc__body { min-width: 0; }
-.toc { padding-bottom: var(--sp-4); border-bottom: var(--hair) solid var(--rule); }
-.toc__title { margin-bottom: var(--sp-1); }
-.toc__list {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0 var(--sp-4);
-}
-.toc__list a {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--tap);
-  font-family: var(--font-sans);
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  color: var(--ink-2);
-  text-decoration: none;
-  text-wrap: balance;
-}
-.toc__list a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 0.25em; }
-.toc__list a[aria-current] { color: var(--accent); }
-.toc__sub { display: none; }   /* sub-items show only in the desktop column */
-
-@media (min-width: 60rem) {
-  .with-toc { grid-template-columns: var(--toc-w) minmax(0, 1fr); column-gap: clamp(2.5rem, 5vw, 5rem); align-items: start; }
-  .toc { padding-bottom: 0; border-bottom: 0; }
-  .toc__title { margin-bottom: var(--sp-3); }
-  .toc__list { display: block; border-left: var(--hair) solid var(--rule); }
-  .toc__list a {
-    display: block;
-    min-height: 0;
-    padding: 0.4rem 0 0.4rem var(--sp-4);
-    margin-left: -1px;
-    border-left: 2px solid transparent;
-    line-height: 1.35;
-    font-weight: 500;
-  }
-  .toc__list a:hover { text-decoration: none; border-left-color: var(--rule-strong); }
-  .toc__list a[aria-current] { border-left-color: var(--accent); font-weight: 600; }
-  /* the sticky TOC scrolls, so it clips anything outside it: draw the focus ring inside the link */
-  .toc__list a:focus-visible { outline-offset: -2px; }
-  .toc__sub { display: block; }
-  .toc__sub a { padding-left: var(--sp-5); font-size: 0.85rem; color: var(--ink-3); text-wrap: pretty; }  /* balance would split "brain-aging" at its hyphen */
-}
-@media (min-width: 60rem) and (min-height: 32rem) {
-  .toc { position: sticky; top: var(--sp-6); max-height: calc(100vh - 4rem); overflow-y: auto; }
-}
-
-/* Reading measure in the TOC layout: text stops at a comfortable line length,
-   while rules, figures, cards and lists of papers keep the full column */
-.with-toc__body .section > p:not(.support),
-.with-toc__body .section > .pullquote,
-.with-toc__body .facet > dd { max-width: var(--measure); }
-
-/* Long-form prose */
-.prose { max-width: var(--measure); }
-.prose > * + * { margin-top: 1em; }
-.prose p + p { margin-top: 1em; }
-.prose h2 { font-size: var(--fs-2xl); font-weight: 400; letter-spacing: -0.02em; margin-top: 2.2em; }
-.prose h3 { font-size: var(--fs-xl); margin-top: 1.9em; }
-.prose h4 { font-size: var(--fs-lg); margin-top: 1.6em; }
-.prose > :first-child { margin-top: 0; }
-.prose h2 + *, .prose h3 + *, .prose h4 + * { margin-top: 0.55em; }
-.prose ul, .prose ol { padding-left: 1.3em; }
-.prose li + li { margin-top: 0.4em; }
-.prose li::marker { color: var(--ink-3); }
-.prose blockquote {
-  padding-left: var(--sp-5);
-  border-left: 2px solid var(--accent-2);
-  font-style: italic;
-  color: var(--ink-2);
-}
-
-/* Research thrust heading (inner pages): letter + exact thrust title */
-.thrust-head {
-  font-size: var(--fs-2xl);
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.12;
-}
-.thrust-head__letter { margin-right: 0.12em; font-style: italic; color: var(--accent-2); font-size: 1.35em; line-height: 0.9; }
-.thrust-head__badge { margin-left: var(--sp-2); vertical-align: 0.3em; letter-spacing: 0.05em; }
-
-/* Sub-thrust heading: "A1 · Segment the lesion" + optional italic dek */
-.sub-head { font-size: var(--fs-xl); font-weight: 500; line-height: 1.2; }
-.sub-head__code {
-  margin-right: 0.35em;
-  font-family: var(--font-sans);
-  font-size: 0.72em;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  font-variant-numeric: lining-nums;
-  color: var(--accent-2);
-  vertical-align: 0.08em;
-}
-.sub-head__dek { display: block; margin-top: 0.3em; font-size: 0.78em; font-style: italic; font-weight: 400; color: var(--ink-3); }
-
-/* Labeled sub-sections: <dl class="facets"><div class="facet"><dt>Motivation</dt><dd>…</dd></div></dl>
-   The labels share the --label-w gutter with dates, venues and grant years, so every
-   hanging gutter on the site lines up. */
-.facets { margin-top: var(--sp-5); }
-.facet { padding: var(--sp-4) 0; border-top: var(--hair) solid var(--rule); }
-.facet:first-child { border-top: 0; padding-top: 0; }
-.facet > dt {
-  font-family: var(--font-sans);
-  font-size: var(--fs-caps);
-  font-weight: 700;
-  font-variant-caps: all-small-caps;
-  letter-spacing: 0.06em;
-  line-height: 1.15;          /* same as the other gutter labels */
-  color: var(--accent-2);
-}
-.facet > dd { margin-top: var(--sp-1); }
-.facet > dd > * + * { margin-top: 0.8em; }
-.facet > dd ul { padding-left: 1.2em; }
-.facet > dd li + li { margin-top: 0.4em; }
-.facet > dd li::marker { color: var(--ink-3); }
-@media (min-width: 40rem) {
-  .facet { display: grid; grid-template-columns: var(--label-w) minmax(0, 1fr); column-gap: var(--sp-5); }
-  .facet > dt { padding-top: 0.525em; }
-  .facet > dd { margin-top: 0; }
-}
-
-/* Callout box (spans its column, so it lines up with a card grid above it; the text keeps
-   a readable measure): <div class="callout" role="note" aria-labelledby="x"><p class="callout__label label" id="x">Note</p><p>…</p></div> */
-.callout {
-  padding: var(--sp-4) var(--sp-5);
-  background: var(--paper-2);
-  border-left: 2px solid var(--accent-2);
-  border-radius: 0 var(--radius) var(--radius) 0;
-  font-size: var(--fs-md);
-  line-height: 1.55;
-  color: var(--ink-2);
-}
-.callout > * { max-width: var(--measure); }
-.callout__label { margin-bottom: var(--sp-1); color: var(--accent-2); }
-
-/* Funding line under a research section: <p class="support"><span class="support__label">Support</span> …</p>
-   The label runs in, so short and long lines read the same way. */
-.support {
-  padding: var(--sp-3) 0 0;
-  border-top: var(--hair) solid var(--rule);
-  font-family: var(--font-sans);
-  font-size: var(--fs-sm);
-  line-height: 1.5;
-  color: var(--ink-2);
-  font-variant-numeric: lining-nums;
-}
-.support__label {
-  margin-right: 0.6em;
-  font-weight: 700;
-  font-variant-caps: all-small-caps;
-  letter-spacing: 0.06em;
-  font-size: 1.08em;
-  color: var(--accent-2);
-}
-
-/* Funding list (.grant shares the gutter grid; the gutter holds the years) */
-.grant__title { font-size: var(--fs-lg); font-style: italic; font-weight: 400; line-height: var(--lh-snug); }
-.grant__meta {
-  margin-top: var(--sp-2);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.15rem var(--sp-3);
-  font-family: var(--font-sans);
-  font-size: var(--fs-sm);
-  color: var(--ink-2);
-  font-variant-numeric: lining-nums;
-}
-/* an amount is a figure, not a link: fiber green, like the home highlights */
-.grant__amount { font-family: var(--font-serif); font-size: 1.3rem; color: var(--accent-2); font-variant-numeric: lining-nums; letter-spacing: -0.01em; }
-.grant__sponsor { font-weight: 600; color: var(--ink); }
-.grant__role { color: var(--ink-3); }
-
-/* Pull quote (student comments) */
-.pullquote {
-  position: relative;
-  padding: var(--sp-2) 0 0 var(--sp-6);
-}
-.pullquote::before {
-  content: "\201C";
-  position: absolute;
-  left: 0; top: -0.15em;
-  font-size: 3.4rem;
-  line-height: 1;
-  color: var(--accent-2);
-}
-.pullquote blockquote p { font-size: var(--fs-xl); font-style: italic; line-height: 1.32; letter-spacing: -0.01em; color: var(--ink); }
-.pullquote figcaption { margin-top: var(--sp-3); font-family: var(--font-sans); font-size: var(--fs-sm); color: var(--ink-3); }
-.pullquotes { display: grid; gap: var(--sp-6); margin: var(--sp-6) 0; }
-@media (min-width: 48rem) { .pullquotes { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--sp-7); } }
-/* Inside a course entry the column is narrower: keep the quotes stacked until desktop */
-@media (min-width: 48rem) and (max-width: 59.99rem) { .course .pullquotes { grid-template-columns: minmax(0, 1fr); } }
-
-/* Course list (.course shares the gutter grid; the gutter holds the term) */
-.course__name { font-size: var(--fs-lg); font-weight: 500; line-height: var(--lh-snug); }
-.course__meta {
-  margin-top: var(--sp-1);
-  font-family: var(--font-sans);
-  font-size: var(--fs-sm);
-  color: var(--ink-2);
-  font-variant-numeric: lining-nums;
-}
-.course__code { font-weight: 700; color: var(--ink); letter-spacing: 0.02em; }
-.course__role { margin-top: var(--sp-2); }
-.course__note { margin-top: var(--sp-2); font-size: var(--fs-md); line-height: 1.55; color: var(--ink-2); max-width: 44rem; }
-
-/* Mentees: grouped columns of name + program (no years, no headline totals) */
-.mentees { display: grid; gap: var(--sp-6); grid-template-columns: minmax(0, 1fr); }
-.mentees__title { padding-bottom: var(--sp-2); margin-bottom: var(--sp-1); border-bottom: var(--hair) solid var(--rule-strong); }
-.mentees__list { list-style: none; }
-.mentee { padding: var(--sp-2) 0; border-bottom: var(--hair) solid var(--rule); }
-.mentee__name { display: block; font-size: var(--fs-md); font-weight: 500; line-height: 1.4; color: var(--ink); }
-.mentee__program { display: block; font-family: var(--font-sans); font-size: var(--fs-sm); color: var(--ink-3); line-height: 1.4; }
-@media (min-width: 40rem) { .mentees { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--sp-6); } }
-@media (min-width: 60rem) { .mentees { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-
-/* Card grid (2–3 columns): <ul class="cards" role="list"><li class="card">… */
-.cards { list-style: none; display: grid; gap: var(--sp-4); grid-template-columns: minmax(0, 1fr); }
-.card {
-  display: flex;
-  flex-direction: column;
-  padding: var(--sp-5);
-  background: var(--surface);
-  border: var(--hair) solid var(--rule);
-  border-top: 2px solid var(--accent-2);     /* a plain card is not a link: green rule */
-  border-radius: 0 0 var(--radius) var(--radius);
-}
-.card__kicker { margin-bottom: var(--sp-2); }
-.card__title { font-size: var(--fs-lg); font-weight: 500; line-height: 1.25; }
-.card__text { margin-top: var(--sp-2); font-size: var(--fs-md); line-height: 1.55; color: var(--ink-2); }
-.card__foot { margin-top: auto; padding-top: var(--sp-3); }
-/* .card--link: the whole card is the link target (put the <a> in .card__title) */
-.card--link { position: relative; border-top-color: var(--accent); transition: border-color 0.15s ease, background-color 0.15s ease; }   /* a link card keeps the link colour */
-.card--link .card__title a { color: var(--ink); text-decoration: none; }
-.card--link .card__title a::after { content: ""; position: absolute; inset: 0; }
-.card--link .card__title a:focus-visible { outline: none; }
-.card--link .card__title a:focus-visible::after { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: var(--radius); }
-.card--link:hover { background: var(--paper-2); }
-.card--link:hover .card__title a { color: var(--accent); }
-@media (min-width: 40rem) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 60rem) { .cards--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-/* Tablets: a lone third card in a two-column grid spans the row instead of leaving an empty cell */
-@media (min-width: 40rem) and (max-width: 59.99rem) {
-  .cards--3 > .card:nth-child(3):last-child { grid-column: 1 / -1; }
-}
-
-/* Ordered steps: <ol class="cards cards--3 cards--steps" role="list"> — a green arrow
-   between consecutive cards shows the order (down on phones/tablets, right on desktop).
-   The arrows are decorative ("" alt text), so screen readers only hear the ordered list. */
-.cards--steps { margin-top: var(--sp-5); gap: var(--sp-6); }
-.cards--steps > .card { position: relative; }
-.cards--steps > .card + .card::before {
-  content: "\2193";
-  content: "\2193" / "";
-  position: absolute;
-  top: calc(-1 * var(--sp-6));
-  left: var(--sp-5);
-  width: var(--sp-6);
-  height: var(--sp-6);
+/* ---------- 9. News ------------------------------------------------------ */
+/* <ul class="news" role="list"><li><time datetime="2026-11">Nov 2026</time><span>One line.</span></li></ul> */
+.news { list-style: none; }
+.news > li {
   display: grid;
-  place-items: center;
-  font-family: var(--font-sans);
-  font-size: var(--fs-lg);
-  line-height: 1;
-  color: var(--accent-2);
+  grid-template-columns: 5.25rem minmax(0, 1fr);
+  column-gap: 0.75rem;
+  padding-block: 0.3rem;
+  line-height: 1.55;
 }
-@media (min-width: 40rem) and (max-width: 59.99rem) {
-  .cards--steps { grid-template-columns: minmax(0, 1fr); }
+.news time {
+  font-size: var(--fs-ui);
+  line-height: calc(var(--fs-body) * 1.55);
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
-@media (min-width: 60rem) {
-  .cards--steps > .card + .card::before {
-    content: "\2192";
-    content: "\2192" / "";
-    top: 50%;
-    left: calc(-1 * var(--sp-6));
-    transform: translateY(-50%);
-  }
+@media (max-width: 39.99rem) {
+  .news time { font-size: var(--fs-sm); }
+}
+@media (min-width: 40rem) {
+  .news > li { grid-template-columns: 6rem minmax(0, 1fr); }
 }
 
-/* Education / timeline (gutter holds the years) */
-.timeline__title { font-size: var(--fs-lg); font-weight: 500; line-height: var(--lh-snug); }
-.timeline__where { margin-top: var(--sp-1); font-size: var(--fs-md); color: var(--ink-2); }
-.timeline__note { margin-top: var(--sp-1); font-family: var(--font-sans); font-size: var(--fs-sm); color: var(--ink-3); }
-
-/* Back to top */
-.back-to-top { margin-top: var(--sp-7); text-align: right; }
-.back-to-top a {
-  display: inline-flex;
+/* ---------- 10. Thumbnail row -------------------------------------------- */
+/* <ul class="thumbs" role="list"><li><a href="research.html#a"><img src="…" width="600" height="519" alt="…"><span>Lesion segmentation</span></a></li>…</ul>
+   Phones: thumbnail beside its label. From 40rem: three across, label below. */
+.thumbs { list-style: none; display: grid; gap: 1rem; }
+.thumbs a {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  column-gap: 1rem;
   align-items: center;
-  gap: 0.35em;
-  min-height: var(--tap);
-  font-family: var(--font-sans);
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  color: var(--ink-3);
-  text-decoration: none;
+  font-size: var(--fs-ui);
+  line-height: 1.45;
 }
-.back-to-top a:hover { color: var(--accent); }
+.thumbs img {
+  width: 100%;
+  aspect-ratio: 6 / 5;
+  object-fit: contain;
+  padding: 0.25rem;
+  background: #fff;                 /* the figures are drawn on white */
+  border: 1px solid var(--card-line);
+  border-radius: 4px;
+}
+.thumbs a:hover img { border-color: var(--link); }
+@media (min-width: 40rem) {
+  .thumbs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+  .thumbs a { display: block; }
+  .thumbs span { display: block; margin-top: 0.5rem; }
+}
 
-/* ---------- 11. Site footer ---------------------------------------------- */
-.site-footer {
-  position: relative;
-  background: var(--paper);     /* a black band (section 1) */
+/* ---------- 11. Papers and other entries -------------------------------- */
+/* <ol class="papers" role="list">
+     <li class="paper" id="ren2026trust">
+       <h3 class="paper__title">Paper title</h3>
+       <p class="paper__authors"><span class="me">Ren, T.</span>*, Low, D.*, …, Kurt, M.</p>
+       <p class="paper__venue">MIDL 2026 · <strong>Oral</strong></p>
+       <ul class="links links--sm" role="list"><li><a href="…">arXiv</a></li><li><a href="…">Code</a></li></ul>
+     </li>
+   </ol>
+   Generic entry (course, grant, mentee): <li class="entry"><h3 class="entry__title">…</h3><p class="entry__meta">…</p></li>
+   With a small figure: add class "has-thumb" and put <img class="thumb" …> first, the text in a <div>. */
+.papers, .entries { list-style: none; }
+.paper + .paper, .entry + .entry { margin-top: 1.25rem; }
+.paper__title, .entry__title {
+  font-size: var(--fs-body);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  text-wrap: pretty;
 }
-.site-footer::before {          /* the same spectral hairline that closes the top band */
+.paper__title a, .entry__title a { color: inherit; }
+.paper__authors, .paper__venue, .entry__meta {
+  margin-top: 0.15rem;
+  font-size: var(--fs-ui);
+  line-height: 1.5;
+  color: var(--text-2);
+}
+.paper__venue { font-style: italic; }
+.paper__venue strong { font-style: normal; color: var(--text); }
+.paper .links, .entry .links { margin-top: 0.15rem; font-size: var(--fs-ui); }
+.papers + .meta, .entries + .meta { margin-top: 1rem; }
+
+.has-thumb {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr);
+  column-gap: 1rem;
+  align-items: start;
+}
+.thumb {
+  width: 100%;
+  aspect-ratio: 6 / 5;
+  object-fit: contain;
+  padding: 0.2rem;
+  background: #fff;
+  border: 1px solid var(--card-line);
+  border-radius: 4px;
+}
+@media (min-width: 40rem) {
+  .has-thumb { grid-template-columns: 8rem minmax(0, 1fr); column-gap: 1.25rem; }
+}
+
+/* ---------- 12. Figures -------------------------------------------------- */
+/* <figure class="figure"><img src="…" width="…" height="…" alt="…"><figcaption>Short caption.</figcaption></figure>
+   Research figures are drawn on white: in the dark scheme they sit on a white card. */
+.figure { margin-block: 1.25rem; }
+.figure img {
+  width: 100%;
+  padding: var(--card-pad);
+  background: #fff;
+  border: 1px solid var(--card-line);
+  border-radius: 4px;
+}
+.figure figcaption {
+  margin-top: 0.5rem;
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--text-3);
+}
+.figure--narrow { max-width: 32rem; }
+/* Two figures side by side from 40rem: <div class="figures"><figure class="figure">…</figure>…</div> */
+.figures { display: grid; gap: 0 1.5rem; margin-block: 1.25rem; }
+.figures > .figure { margin-block: 0 1rem; }
+@media (min-width: 40rem) {
+  .figures { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---------- 13. Site footer ---------------------------------------------- */
+/* <footer class="site-footer"><div class="site-footer__inner"><p>© 2026 Tianyi Ren · Last updated …</p><ul class="links" …>…</ul></div></footer> */
+.site-footer { position: relative; }
+.site-footer::before {
   content: "";
   position: absolute;
   inset: 0 0 auto;
@@ -1634,85 +685,47 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   background: var(--spectrum);
 }
 .site-footer__inner {
-  max-width: calc(var(--page-max) + 2 * var(--gutter));
+  max-width: calc(var(--col) + 2 * var(--gutter));
   margin: 0 auto;
-  padding: var(--sp-7) var(--gutter) var(--sp-5);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--sp-6);
-}
-.site-footer__name { font-size: var(--fs-xl); font-weight: 500; line-height: 1.2; }
-.site-footer__id .meta { margin-top: var(--sp-2); max-width: 22rem; }
-.site-footer__cols {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--sp-6) var(--sp-5);
-}
-.site-footer__office { grid-column: 1 / -1; }
-.site-footer .label { margin-bottom: var(--sp-2); }
-.site-footer address { font-size: var(--fs-md); line-height: 1.55; color: var(--ink-2); }
-.footer-links { list-style: none; }
-.footer-links a {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--tap);
-  font-family: var(--font-sans);
+  padding: 1.5rem var(--gutter) 1.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 1.5rem;
   font-size: var(--fs-sm);
-  font-weight: 500;
-  color: var(--ink-2);
-  text-decoration: none;
-}
-.footer-links a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 0.25em; }
-.footer-links a[aria-current="page"] { color: var(--ink); font-weight: 600; }
-.site-footer__base {
-  grid-column: 1 / -1;
-  padding-top: var(--sp-4);
-  border-top: var(--hair) solid var(--rule);
-  font-variant-numeric: lining-nums;
+  line-height: 1.7;
+  color: var(--text-3);
 }
 
-@media (min-width: 40rem) {
-  .site-footer__cols { grid-template-columns: 1.6fr 1fr 1fr; }
-  .site-footer__office { grid-column: auto; }
-}
-@media (min-width: 60rem) {
-  .site-footer__inner { grid-template-columns: var(--profile-w) minmax(0, 1fr); column-gap: var(--hero-gap); }
-  .footer-links a { min-height: 2.1rem; }
-}
-
-/* ---------- 12. Motion, forced colours, print ---------------------------- */
+/* ---------- 14. Motion, forced colours, more contrast, print ------------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }
 
-/* Windows High Contrast drops backgrounds: draw the nav underline as a border so the
-   current page stays marked */
+/* Windows High Contrast drops backgrounds: hide the artworks, draw the nav underline as a border */
 @media (forced-colors: active) {
-  .band::before, .band--tract .intro::before { display: none; }
+  .band--tract::before, .band--tract .hero__inner::after, .band--dti::before { display: none; }
   .site-nav a::after { height: 0; background: none; border-bottom: 1px solid currentColor; }
   .site-nav a[aria-current="page"]::after { border-bottom-width: 2px; }
 }
 
 /* More contrast requested: drop the artworks, keep the plain black bands */
 @media (prefers-contrast: more) {
-  .band::before, .band--tract .intro::before { display: none; }
+  .band--tract::before, .band--tract .hero__inner::after, .band--dti::before { display: none; }
 }
 
-/* Print is always light: the dark tokens apply to screens only (see section 1) */
+/* Print is always light (the band and dark tokens apply to screens only) and image-free */
 @media print {
   :root { color-scheme: light; }
-  html { background: #fff; }
-  .site-header, .skip-link, .toc, .back-to-top, .thrust__thumb { display: none !important; }
-  body { background: #fff; color: #000; font-size: 11pt; }
-  .site-footer { background: none; border-top: 1px solid #000; }
-  .band::before, .band::after, .band--tract .intro::before, .site-footer::before { display: none !important; }
-  .page > .band { padding: 0 var(--gutter) var(--sp-5); min-height: 0; border-bottom: 1px solid #000; }
+  html, body { background: #fff; color: #000; }
+  body { font-size: 11pt; }
+  .site-header, .skip-link { display: none !important; }
+  .band::before, .band::after, .band--tract .hero__inner::after, .site-footer::before { display: none !important; }
+  .page > .band { padding: 0 var(--gutter) 1rem; min-height: 0; border-bottom: 1px solid #000; }
+  .page > .band--dti { padding-right: var(--gutter); }
+  .hero__photo { width: 8rem; }
   a { color: inherit; }
-  .plate__card, .thrust__thumb { box-shadow: none; }
-  /* keep entries, figures and the footer whole; keep headings with what follows */
-  .pub, .news__item, .grant, .course, .timeline__item, .card, .highlight, .mentee,
-  .plate, .pullquote, .callout, .sub-head, .site-footer__inner { break-inside: avoid; }
-  .section__head, .pub-group__head, .thrust-head, .sub-head, .facet > dt { break-after: avoid; }
-  /* a printout cannot be clicked: print the address after each external paper link */
-  .chip[href^="http"]::after { content: " " attr(href); font-weight: 400; overflow-wrap: anywhere; }
+  .paper, .entry, .news > li, .figure { break-inside: avoid; }
+  .section__title, .section__sub { break-after: avoid; }
 }
