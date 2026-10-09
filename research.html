@@ -127,8 +127,8 @@
                 <dt>Approach</dt>
                 <dd>
                   <ul>
-                    <li><b>Re-DiffiNet</b> (MIDL 2024, oral): diffusion models that explicitly model the discrepancies between U-Net predictions and the ground truth.</li>
-                    <li><b>ISLES’24 pipeline</b>: clinically-informed preprocessing (learning-based skull stripping and contrast-specific intensity windowing) with nnU-Net. It won 1st place (gold medal) in the ISLES’24 stroke challenge at MICCAI 2024; I was team leader and first author.</li>
+                    <li><b><span class="nowrap">Re-DiffiNet</span></b> (MIDL 2024, oral): diffusion models that explicitly model the discrepancies between <span class="nowrap">U-Net</span> predictions and the ground truth.</li>
+                    <li><b>ISLES’24 pipeline</b>: clinically-informed preprocessing (learning-based skull stripping and contrast-specific intensity windowing) with <span class="nowrap">nnU-Net</span>. It won 1st place (gold medal) in the ISLES’24 stroke challenge at MICCAI 2024; I was team leader and first author.</li>
                   </ul>
                 </dd>
               </div>
@@ -136,44 +136,60 @@
                 <dt>Key findings</dt>
                 <dd>
                   <ul>
-                    <li>Re-DiffiNet improved Dice by 0.55% and reduced Hausdorff distance by over 16%.</li>
-                    <li>The ISLES’24 pipeline reached a mean Dice of 28.5 on the challenging ISLES’24 dataset.</li>
-                    <li>Clinically-informed mechanisms outperform complex architecture changes.</li>
+                    <li><span class="nowrap">Re-DiffiNet</span> improved an optimized <span class="nowrap">U-Net</span> baseline by an average of 0.55% in Dice and 16.28% in HD95 (95th-percentile Hausdorff distance), in 5-fold cross-validation on 1,251 BraTS 2023 scans (Fig.&nbsp;1).</li>
                   </ul>
+                  <figure class="plate plate--narrow">
+                    <div class="plate__card">
+                      <a class="plate__link" href="assets/img/research/rediffinet-results.webp"><img src="assets/img/research/rediffinet-results.webp" width="1400" height="1477" loading="lazy" decoding="async"
+                           alt="Grid comparing brain tumor segmentations on one axial MRI slice. The top row shows the four input contrasts: T1, T2, T1ce and Flair. The next three rows show the baseline U-Net prediction, the Re-DiffiNet prediction and the ground truth, each as yellow masks for whole tumor (WT), tumor core (TC) and enhancing tumor (ET), plus a color overlay of all three. The baseline U-Net includes a small isolated tumor-core spot that is not in the ground truth. Opens the full-size image."></a>
+                    </div>
+                    <figcaption><span class="plate__no">Fig. 1</span> Segmentations from the baseline <span class="nowrap">U-Net</span> and <span class="nowrap">Re-DiffiNet</span>. In this example, <span class="nowrap">Re-DiffiNet</span> corrects a false-positive tumor-core lesion that the baseline <span class="nowrap">U-Net</span> predicted, and it predicts a smoother boundary. WT: whole tumor; TC: tumor core; ET: enhancing tumor. Figure&nbsp;2 of <a href="publications.html#ren2024rediffinet"><span class="nowrap">Re-DiffiNet</span></a> (MIDL 2024).</figcaption>
+                  </figure>
+                  <ul>
+                    <li>ISLES’24: 1st place, with a mean Dice of 28.5% on the hidden test set (second place: 26.3%; Fig.&nbsp;2).</li>
+                    <li>Custom CT windowing raised best-fold validation Dice from 21.8% to 31.0%, and to 31.8% with Z-score normalization added. The gains came from clinically informed preprocessing on a standard <span class="nowrap">nnU-Net</span> rather than from a new architecture.</li>
+                  </ul>
+                  <figure class="plate plate--wide">
+                    <div class="plate__card">
+                      <a class="plate__link" href="assets/img/research/isles24-top3.webp"><img src="assets/img/research/isles24-top3.webp" width="1400" height="732" loading="lazy" decoding="async"
+                           alt="Qualitative infarct predictions for three ISLES’24 test scans, one per row (best, median and worst cases). The columns are non-contrast CT (NCCT), relative Tmax and relative CBF perfusion maps in blue-to-red color, the ground-truth final infarct in red on a diffusion MRI slice, and the predictions of the top three teams: Kurtlab (#1), AMC-Axolotls (#2) and Ninjas (#3). In the top row all three teams roughly match the frontal infarct. In the middle row, Kurtlab’s prediction covers more of the posterior infarct than the other two teams. In the bottom row the ground truth is two tiny dots and no team predicts a lesion. Opens the full-size image."></a>
+                    </div>
+                    <figcaption><span class="plate__no">Fig. 2</span> Qualitative infarct prediction results on the ISLES’24 test set. Each row is a different scan: the best (top), median (middle) and worst (bottom) cases, with average Dice scores of 0.68, 0.28 and 0.00. Columns show NCCT, perfusion maps, the ground truth (GT) and the predictions of the top three teams, starting with our team, Kurtlab (#1). rTmax: relative (healthy-tissue normalized) Tmax. Figure&nbsp;8 of the <a href="publications.html#isles2024consortium">ISLES’24 challenge summary paper</a> (under review, Medical Image Analysis).</figcaption>
+                  </figure>
                 </dd>
               </div>
               <div class="facet">
                 <dt>Future directions</dt>
                 <dd>
-                  <p>Agentic, clinically-reasoning models that decompose the problem into faithful, human-interpretable steps (Fig.&nbsp;1):</p>
+                  <p>Agentic, clinically-reasoning models that decompose the problem into faithful, human-interpretable steps:</p>
                   <ul>
                     <li>a vessel-segmentation agent for vascular topology and occlusions;</li>
                     <li>a CT-perfusion agent using Fourier Neural Operators;</li>
                     <li>an anatomical-context agent using atlases and vascular territories;</li>
                     <li>all coordinated by a reasoning vision-language agent.</li>
                   </ul>
-                  <figure class="plate plate--narrow">
-                    <div class="plate__card">
-                      <a class="plate__link" href="assets/img/research/stroke-agents.webp"><img src="assets/img/research/stroke-agents.webp" width="1325" height="1027" loading="lazy" decoding="async"
-                           alt="Proposed multi-agent framework, drawn as robot icons beside brain scans. A perfusion agent reads CBF, CBV, MTT and Tmax perfusion maps and asks whether to quantify core and penumbra. An anatomical agent reads a non-contrast CT for early signs of ischemic change. A vessel agent reads an angiogram for large-vessel occlusions. All three point to a central vision-language-model agent, which outlines a possible ischemic location in red on a brain image. Opens the full-size image."></a>
-                    </div>
-                    <figcaption><span class="plate__no">Fig. 1</span> Proposed multi-agent framework for ischemic stroke lesion segmentation (future direction). Perfusion, anatomical and vessel agents each answer one clinical question and report to a central vision-language agent.</figcaption>
-                  </figure>
                 </dd>
               </div>
               <div class="facet">
                 <dt>Equity</dt>
-                <dd><p>Low-resource settings: transfer learning for glioma segmentation in low-resolution data from Sub-Saharan Africa, and stroke lesion prediction from CT where MRI is unavailable.</p></dd>
+                <dd>
+                  <p>Low-resource settings: transfer learning for glioma segmentation in low-resolution data from Sub-Saharan Africa, and stroke lesion prediction from CT where MRI is unavailable.</p>
+                  <ul>
+                    <li>Fine-tuning a model trained on adult gliomas on BraTS-Africa data, with its decoder frozen, gave a mean lesion-wise Dice of 0.72 at validation, vs 0.65 for a model trained on BraTS-Africa data alone.</li>
+                    <li>For stroke, clinically informed preprocessing raised mean Dice over 10 folds by 38% (0.162&nbsp;→&nbsp;0.224), and replacing the windowed CTA input with vessel segmentation maps raised mean Dice over 5 folds by a further 21% (0.215&nbsp;→&nbsp;0.260).</li>
+                  </ul>
+                </dd>
               </div>
               <div class="facet">
                 <dt>Related papers</dt>
                 <!-- RELATED PAPERS: each chip links to an entry on publications.html -->
                 <dd><p class="chips">
-                  <a class="chip" href="publications.html#ren2024rediffinet">Re-DiffiNet · MIDL 2024</a>
+                  <a class="chip" href="publications.html#ren2024rediffinet"><span class="nowrap">Re-DiffiNet</span> · MIDL 2024</a>
                   <a class="chip" href="publications.html#ren2024isles">How we won ISLES’24 · MICCAI 2024 workshop</a>
                   <a class="chip" href="publications.html#heras2025mirasol">Low-resource stroke · MICCAI 2025 workshop</a>
                   <a class="chip" href="publications.html#rivera2024glioma">Low-resolution glioma · MIDL 2024</a>
                   <a class="chip" href="publications.html#ren2023brats">BraTS framework · MICCAI 2023 challenge</a>
+                  <a class="chip" href="publications.html#heras2024ensemble">BraTS 2024 ensemble · preprint</a>
                   <a class="chip" href="publications.html#isles2024consortium">Final infarct prediction · under review</a>
                 </p></dd>
               </div>
@@ -199,7 +215,7 @@
                       <a class="plate__link" href="assets/img/research/brain-age.webp"><img src="assets/img/research/brain-age.webp" width="924" height="1409" loading="lazy" decoding="async"
                            alt="Four-panel overview of the brain-aging research. (a) Multi-level brain age: a scatter plot of bias-corrected predicted age against chronological age, and a regional map colored from delayed to accelerated aging for a subject whose chronological age is 52 but whose brain age is 56. (b) Systematic bias of a regression model: older subjects are predicted younger and younger subjects older. (c) Latent-space ordinality: images of people aged 1 to 70 encoded so that the latent space preserves age order. (d) Clinical validation: cognitive scores compared with a regional brain-age map of Shapley values on a sagittal brain slice. Opens the full-size image."></a>
                     </div>
-                    <figcaption><span class="plate__no">Fig. 2</span> Brain-aging research: multi-level brain age, regression bias, latent-space ordinality, and clinical validation.</figcaption>
+                    <figcaption><span class="plate__no">Fig. 3</span> Brain-aging research: multi-level brain age, regression bias, latent-space ordinality, and clinical validation.</figcaption>
                   </figure>
                 </dd>
               </div>
@@ -243,7 +259,7 @@
               <div class="facet">
                 <dt>Approach</dt>
                 <dd>
-                  <p>I developed the first clinically grounded, <b>contrast-level Shapley</b> method for explaining multi-contrast medical image segmentation (XAI 2025). With radiologists, I extended it into a clinically interpretable evaluation framework (ISBI 2026) with two metrics:</p>
+                  <p>I developed <b>contrast-level Shapley values</b>, in the first study to use Shapley analysis to explain multi-contrast medical image segmentation (XAI 2025). With clinical collaborators, I extended them into a clinically interpretable evaluation framework (ISBI 2026) with two metrics:</p>
                   <ul>
                     <li><b>Agreement</b>: does the model’s contrast-importance ranking align with clinical imaging protocols?</li>
                     <li><b>Uncertainty</b>: the variance of Shapley-derived rankings across folds.</li>
@@ -254,22 +270,33 @@
                 <dt>Key findings</dt>
                 <dd>
                   <ul>
-                    <li>Transformer-based models give more consistent explanations than convolutional ones.</li>
-                    <li>Correlation between model reasoning and clinical heuristics is a strong indicator of segmentation reliability.</li>
-                    <li>Higher Shapley variance tracks performance degradation.</li>
+                    <li>T1c and T2-FLAIR receive the highest contrast-level Shapley values, matching clinical reasoning; <span class="nowrap">U-Net</span> leans on T1c and FLAIR, while <span class="nowrap">Swin-UNETR</span> spreads importance more evenly (Fig.&nbsp;4).</li>
+                  </ul>
+                  <figure class="plate plate--wide">
+                    <div class="plate__card">
+                      <a class="plate__link" href="assets/img/research/xai2025-shapley-violins.webp"><img src="assets/img/research/xai2025-shapley-violins.webp" width="1400" height="538" loading="lazy" decoding="async"
+                           alt="Two violin plots of contrast-level Shapley values computed from the Dice score, one violin per cross-validation fold (folds labeled 0 to 4) for each MRI contrast: t1c, t1n, t2f and t2w. Panel (a), U-Net: t1c and t2f have the highest Shapley values, mostly 0.2 to 0.4, while t1n and t2w stay near 0.0 to 0.15. Panel (b), Swin-UNETR: values are spread more evenly across the four contrasts, roughly 0.1 to 0.3. Opens the full-size image."></a>
+                    </div>
+                    <figcaption><span class="plate__no">Fig. 4</span> Contrast-level Shapley values for all folds, computed from the Dice score for each model: (a) <span class="nowrap">U-Net</span> and (b) <span class="nowrap">Swin-UNETR</span>. Figure&nbsp;3 of <a href="publications.html#ren2025xai">Here Comes the Explanation</a> (XAI 2025).</figcaption>
+                  </figure>
+                  <ul>
+                    <li>Agreement between a model’s contrast prioritization and clinical protocols goes with better segmentation, and higher variance of Shapley rankings across folds goes with lower Dice (bootstrap correlations from −0.35 to −0.60; Fig.&nbsp;5).</li>
                   </ul>
                   <figure class="plate plate--narrow">
                     <div class="plate__card">
-                      <a class="plate__link" href="assets/img/research/xai-shapley.webp"><img src="assets/img/research/xai-shapley.webp" width="871" height="1053" loading="lazy" decoding="async"
-                           alt="Four-panel explainable-AI figure. (a) Multi-contrast brain tumor segmentation overlaid on four MRI contrasts. (b) Violin plots of the contrast-level Shapley value of each MRI contrast, t1c, t1w, t2f and t2w, with t1c and t2f highest. (c) Gradient-based Grad-CAM heat maps on four brain slices. (d) Box plots of the normalized Spearman footrule between model and expert contrast rankings, for annotator consensus and clinical standard, across Dice score categories from below 0.5 to 0.9–1. Opens the full-size image."></a>
+                      <a class="plate__link" href="assets/img/research/shapley-agreement-pipeline.webp"><img src="assets/img/research/shapley-agreement-pipeline.webp" width="744" height="518" loading="lazy" decoding="async"
+                           alt="Pipeline diagram. Four MRI contrasts of a brain tumor (t1c, t1n, t2f, t2w) lead to a bar chart of Shapley values, one bar per contrast. The values are turned into Shapley rankings, in this example t1n = 1, t2f = 2, t1c = 3 and t2w = 4. The rankings feed two metrics: agreement with the clinical protocol ranking, and uncertainty between rankings across model iterations. These lead to a clinician icon labeled ‘Clinician understanding of model decision making and performance’. Opens the full-size image."></a>
                     </div>
-                    <figcaption><span class="plate__no">Fig. 3</span> Contrast-level Shapley explanations for multi-contrast tumor segmentation, compared with gradient-based Grad-CAM, and the alignment between model and expert explanations across Dice score categories.</figcaption>
+                    <figcaption><span class="plate__no">Fig. 5</span> Explainability metrics derived from model-generated Shapley values. Contrast-level Shapley values are converted to rankings, which give an agreement score against clinical protocol rankings and an uncertainty score across model iterations. Figure&nbsp;1 of <a href="publications.html#ren2026shapley">Clinical Interpretability of Deep Learning Segmentation Through Shapley-Derived Agreement and Uncertainty Metrics</a> (ISBI 2026).</figcaption>
                   </figure>
+                  <ul>
+                    <li>Frequentist uncertainty intervals for Shapley values agree moderately with clinical annotator rankings (Kendall’s τ&nbsp;=&nbsp;0.467, p&nbsp;=&nbsp;0.015), whereas naive cross-validation intervals show no such agreement (MIDL 2026).</li>
+                  </ul>
                 </dd>
               </div>
               <div class="facet">
                 <dt>Future directions</dt>
-                <dd><p>Interactive, human-in-the-loop systems in which radiologists visualize contrast importance, calibrate uncertainty, and guide refinement.</p></dd>
+                <dd><p>Interactive, human-in-the-loop systems in which clinicians visualize contrast importance, calibrate uncertainty, and guide refinement.</p></dd>
               </div>
               <div class="facet">
                 <dt>Related papers</dt>
@@ -293,6 +320,27 @@
           <section class="section" id="c1" aria-labelledby="c1-title">
             <h3 class="sub-head" id="c1-title"><span class="sub-head__code">C1</span> Forecasting brain-aging trajectories <span class="sub-head__dek">Counterfactual generative AI</span></h3>
             <p>Counterfactual generative models will produce “what if” visualizations of a patient’s brain, for example under accelerated aging or early Alzheimer’s disease.</p>
+            <dl class="facets">
+              <div class="facet">
+                <dt>Published groundwork</dt>
+                <dd>
+                  <p>Our <span class="nowrap">SFL-Net</span> (preprint, 2026) synthesizes tau-PET from multi-contrast MRI. It had the lowest raw PET error among capacity-matched models (MAE 0.104), while <span class="nowrap">U-Net</span> variants were better on structural similarity (Fig.&nbsp;6).</p>
+                  <figure class="plate plate--tall">
+                    <div class="plate__card">
+                      <a class="plate__link" href="assets/img/research/sflnet-tau-synthesis.webp"><img src="assets/img/research/sflnet-tau-synthesis.webp" width="621" height="524" loading="lazy" decoding="async"
+                           alt="Tau-PET SUVR maps for one subject in three views (sagittal, coronal and axial), colored from dark blue (0) to dark red (about 2.8 SUVR). The first two columns are synthesized from MRI by two SFL-Net variants and are labeled Braak Stage 1 and Stage 2. The third column is the ground-truth tau-PET, labeled Stage 3, which shows red high-uptake regions in the temporal lobes and deep gray matter that the synthesized maps show only weakly. Opens the full-size image."></a>
+                    </div>
+                    <figcaption><span class="plate__no">Fig. 6</span> Representative SUVR reconstructions comparing the ground truth (GT) with <span class="nowrap">SFL-Net</span>, shown for one subject in three views. <span class="nowrap">SFL-Net⊙†</span> adds the source-factorization loss to <span class="nowrap">SFL-Net†</span>; the Braak stage of each map is shown above it. In this Stage&nbsp;3 subject, both <span class="nowrap">SFL-Net</span> variants underestimate the high-uptake regions. Detail of Figure&nbsp;2 of <a href="publications.html#chopra2026sflnet"><span class="nowrap">SFL-Net</span></a> (arXiv 2026).</figcaption>
+                  </figure>
+                </dd>
+              </div>
+              <div class="facet">
+                <dt>Related paper</dt>
+                <dd><p class="chips">
+                  <a class="chip" href="publications.html#chopra2026sflnet"><span class="nowrap">SFL-Net</span> · preprint</a>
+                </p></dd>
+              </div>
+            </dl>
           </section>
 
           <!-- C2 -->
@@ -306,7 +354,19 @@
             <dl class="facets">
               <div class="facet">
                 <dt>Planned approach</dt>
-                <dd><p>I will build a symbolic autoencoder and an emergent-language sender–receiver framework with a vision-language model, drawing on multimodal neuroimaging datasets (BTReport).</p></dd>
+                <dd><p>I will build a symbolic autoencoder and an emergent-language sender–receiver framework with a vision-language model, building on BTReport, our framework for generating brain-tumor radiology reports from clinically relevant features (MIDL 2026; Fig.&nbsp;7).</p></dd>
+              </div>
+              <div class="facet">
+                <dt>Published groundwork</dt>
+                <dd><p>21 of BTReport’s 22 features are commonly reported in clinical reports, and 11 predict overall survival.</p>
+                  <figure class="plate plate--wide">
+                    <div class="plate__card">
+                      <a class="plate__link" href="assets/img/research/btreport-overview.webp"><img src="assets/img/research/btreport-overview.webp" width="1400" height="990" loading="lazy" decoding="async"
+                           alt="BTReport pipeline in four panels on a black background: a glioma segmentation with patient metadata, a midline-shift measurement comparing the ideal and shifted midlines, VASARI features on an atlas parcellation, and an LLM that combines prompting with these clinical features. Below each panel are the extracted values, and a final box shows the generated findings, describing a solitary, markedly enhancing lesion with a 10 mm right-to-left midline shift. Opens the full-size image."></a>
+                    </div>
+                    <figcaption><span class="plate__no">Fig. 7</span> BTReport overview: interpretable, clinically meaningful variables (demographics, VASARI features and 3D midline shift) are extracted deterministically for each case and used by context-guided LLMs for clinically grounded radiology report generation. Figure&nbsp;1 of Heras Rivera, Chen, Ren et al., <a href="publications.html#heras2026btreport">BTReport</a> (MIDL 2026).</figcaption>
+                  </figure>
+                </dd>
               </div>
               <div class="facet">
                 <dt>Related paper</dt>
@@ -315,13 +375,6 @@
                 </p></dd>
               </div>
             </dl>
-            <figure class="plate plate--wide">
-              <div class="plate__card">
-                <a class="plate__link" href="assets/img/research/btreport-overview.webp"><img src="assets/img/research/btreport-overview.webp" width="1400" height="990" loading="lazy" decoding="async"
-                     alt="BTReport pipeline in four panels on a black background: a glioma segmentation with patient metadata, a midline-shift measurement comparing the ideal and shifted midlines, VASARI features on an atlas parcellation, and an LLM that combines prompting with these clinical features. Below each panel are the extracted values, and a final box shows the generated findings, describing a solitary, markedly enhancing lesion with a 10 mm right-to-left midline shift. Opens the full-size image."></a>
-              </div>
-              <figcaption><span class="plate__no">Fig. 4</span> BTReport overview: interpretable, clinically meaningful variables (demographics, VASARI features and 3D midline shift) are extracted deterministically for each case and used by context-guided LLMs for clinically grounded radiology report generation. Figure 1 of Heras Rivera, Chen, Ren et al., <a href="publications.html#heras2026btreport">BTReport</a> (MIDL 2026).</figcaption>
-            </figure>
           </section>
         </section>
 
@@ -329,7 +382,7 @@
         <section class="section" id="earlier" aria-labelledby="earlier-title">
           <div class="prose">
             <h2 id="earlier-title">Earlier work: computational biomechanics of fracture healing</h2>
-            <p>During my Ph.D. at Lehigh University, advised by <a href="https://engineering.lehigh.edu/faculty/hannah-dailey">Prof.&nbsp;Hannah Dailey</a>, I modeled how bone fractures heal:</p>
+            <p>During my M.S. and Ph.D. at Lehigh University, advised by <a href="https://engineering.lehigh.edu/faculty/hannah-dailey">Prof.&nbsp;Hannah Dailey</a>, I modeled how bone fractures heal:</p>
             <ul>
               <li>mechanoregulation (fuzzy-logic) models of bone fracture healing in realistic fracture geometries;</li>
               <li>image-based biomarkers of healing (radiodensity profilometry);</li>
@@ -339,8 +392,32 @@
           </div>
           <dl class="facets">
             <div class="facet">
-              <dt>Dissertation</dt>
-              <dd><p><cite>Mechanoregulation Modeling of Bone Fracture Healing in the Tibia from the Perspective of Computational Models and Image Analysis</cite></p></dd>
+              <dt>Theses</dt>
+              <dd>
+                <ul>
+                  <li>Ph.D. dissertation (2022): <a href="publications.html#ren2022phd"><cite>Mechanoregulation Modeling of Bone Fracture Healing in the Tibia from the Perspective of Computational Models and Image Analysis</cite></a></li>
+                  <li>M.S. thesis (2018): <a href="publications.html#ren2018msthesis"><cite>Mechanoregulation Modeling of Bone Healing in Realistic Fracture Geometries</cite></a></li>
+                </ul>
+              </dd>
+            </div>
+            <div class="facet">
+              <dt>Key findings</dt>
+              <dd>
+                <ul>
+                  <li>In idealized tibial fracture models, torsional instability delayed healing by about 15 days for wedge and complex fractures vs about one week for simple fractures (M.S. thesis; Fig.&nbsp;8).</li>
+                </ul>
+                <figure class="plate plate--tall">
+                  <div class="plate__card">
+                    <a class="plate__link" href="assets/img/research/thesis-fracture-geometries.webp"><img src="assets/img/research/thesis-fracture-geometries.webp" width="900" height="1170" loading="lazy" decoding="async"
+                         alt="Three-by-three table of idealized computer-aided design models of tibial fractures. Rows are fracture types: A. Simple, B. Wedge and C. Complex; columns are groups 1, 2 and 3. Each cell shows a gray cylindrical bone segment with the fracture gaps cut through it and a translucent pink callus around the fracture: spiral, oblique and transverse gaps for the simple type, and two-part wedge or spiral patterns for the wedge and complex types. Opens the full-size image."></a>
+                  </div>
+                  <figcaption><span class="plate__no">Fig. 8</span> Idealized CAD models representing the AO/OTA classification of tibial fractures: A1, spiral; A2, oblique; A3, transverse; B1, spiral wedge; B2, spiral wedge; B3, fragmented wedge; C1, complex spiral; C2, segmental; C3, irregular. Figure&nbsp;2 of my <a href="publications.html#ren2018msthesis">M.S. thesis</a> (Lehigh University, 2018).</figcaption>
+                </figure>
+                <ul>
+                  <li>Across 26 sheep, the cortical wall next to the callus lost 23% of its density on average during early healing (BMMB 2022).</li>
+                  <li>Finite-element virtual torsional rigidity correlated strongly with measured torsional rigidity (R²&nbsp;≥&nbsp;0.63), more than the torsion constant (R²&nbsp;=&nbsp;0.55) or callus volume (R²&nbsp;≤&nbsp;0.26) (J Orthop Res 2024).</li>
+                </ul>
+              </dd>
             </div>
             <div class="facet">
               <dt>Related papers</dt>

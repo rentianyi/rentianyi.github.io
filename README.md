@@ -89,5 +89,5 @@ values (the left edge, top edge and width of the brain in the tractography file,
 - Keep the header and footer identical on every page. The only difference is which menu item has `aria-current="page"`.
 - Figures live in `assets/img/research/`. Every image needs an `alt="…"` description. Each figure on a page is wrapped in
   `<a class="plate__link" href="…">` pointing at its own file, so phone readers can open it full size; keep that when you swap a figure.
-  The small home-page thumbnails (`thumb-*.webp`) are crops of the research figures.
+  The small home-page thumbnails (`thumb-*.webp`) are crops of figures from the papers; each alt text names its source.
 - `site.css` begins with a list of every style ("component") and its class names.

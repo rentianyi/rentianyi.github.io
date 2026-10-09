@@ -46,8 +46,8 @@
                           .plate--side
    8  Lists ............. .gutter-list/.gutter-item .news .news--gutter
                           .pub-list/.pub .pub__venue .pub__title .pub__authors
-                          .me .pub__where .pub__links .pub-group .pub-group__head
-                          .pub-group__count
+                          .me .pub__where .pub__note .pub__links .pub-group
+                          .pub-group__head .pub-group__count .pub-group__note
    9  Badges & chips .... .badge  --award --oral --review --wp --future
                           .chip .tags/.tag
    10 Inner pages ....... .page-header (__kicker __title __dek __meta)
@@ -1039,6 +1039,17 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 .plate:last-child { margin-bottom: 0; }
 
 .plate--wide { max-width: none; }
+/* On phones a wide figure's labels are too small to read inline: say that it opens full size.
+   The "/ ''" alt text keeps screen readers from hearing it twice (the image alt already says so). */
+@media (max-width: 40rem) {
+  .plate--wide figcaption::after {
+    content: "Tap the figure to view it full size.";
+    content: "Tap the figure to view it full size." / "";
+    display: block;
+    margin-top: var(--sp-1);
+    font-style: italic;
+  }
+}
 .plate--narrow { max-width: 32rem; }
 .plate--tall { max-width: 22rem; }
 .plate--tall .plate__card { padding: var(--sp-3); }
@@ -1154,7 +1165,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   color: var(--ink-3);
   font-variant-numeric: lining-nums;
 }
-.pub-group__note { margin-top: var(--sp-2); font-family: var(--font-sans); font-size: var(--fs-sm); color: var(--ink-3); }
+.pub__note, .pub-group__note { margin-top: var(--sp-2); font-family: var(--font-sans); font-size: var(--fs-sm); color: var(--ink-3); }
 
 /* ---------- 9. Badges, chips, tags --------------------------------------- */
 .badge {
